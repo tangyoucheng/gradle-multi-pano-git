@@ -17,15 +17,19 @@ pano-entity/.classpath
 pano-entity/.project
 pano-entity/.checkstyle
 
+# 忽略pano-entity工程的编译后文件
+pano-entity/bin/
+pano-entity/build/
+
 # 忽略pano-entity-generator-mybatis工程的eclipse配置信息
 pano-entity-generator-mybatis/.settings/
 pano-entity-generator-mybatis/.classpath
 pano-entity-generator-mybatis/.project
 pano-entity-generator-mybatis/.checkstyle
 
-# 忽略pano-entity工程的编译后文件
-pano-entity/bin/
-pano-entity/build/
+# 忽略pano-entity-generator-mybatis工程的编译后文件
+pano-entity-generator-mybatis/bin/
+pano-entity-generator-mybatis/build/
 
 # 忽略pano-framework工程的eclipse配置信息
 pano-framework/.settings/
