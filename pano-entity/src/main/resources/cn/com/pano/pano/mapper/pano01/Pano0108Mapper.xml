@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.pano.pano.mapper.pano01.Pano0108Mapper">
+    <resultMap id="BaseResultMap" type="cn.com.pano.pano.model.common01.PanoPanoramaHotspot01Model"
+        extends="cn.com.pano.pano.mapper.common.PanoPanoramaHotspotMapper.BaseResultMap">
+        <result column="material_path" jdbcType="VARCHAR" property="materialPath" />
+    </resultMap>
+
+    <!--删除flag为1的点的多边形热点位置信息 -->
+    <select id="deletePolygonPoint" parameterType="map" resultType="java.lang.Long">
+        DELETE polygon_hotspot 
+        FROM
+        pano_polygon_hotspot polygon_hotspot
+        INNER JOIN pano_panorama_hotspot panorama_hotspot ON ( polygon_hotspot.polygon_id = panorama_hotspot.hotspot_id
+                                                               <if test="panoramaId != null">
+                                                                    AND panorama_hotspot.panorama_id = #{panoramaId}
+                                                               </if>
+                                                               <if test="hotspotType != null">
+                                                                    AND panorama_hotspot.hotspot_type = #{hotspotType} 
+                                                               </if>
+                                                               )
+    </select>
+</mapper>

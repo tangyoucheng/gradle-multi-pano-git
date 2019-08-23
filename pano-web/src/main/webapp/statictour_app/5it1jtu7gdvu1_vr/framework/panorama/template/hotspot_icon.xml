@@ -1,0 +1,25 @@
+<krpano>
+    <!-- hotspot style predefines - black hotspot -->
+    <style name="hotspot_ani_black"
+           url="../positionicon/hotspot_ani_black_64x64x20.png"
+           crop="0|0|64|64"
+           framewidth="64" frameheight="64" frame="18" startframe="18" lastframe="19"
+           onloaded="hotspot_animate();"
+           />
+
+    <!-- hotspot style predefines - white hotspot -->
+    <style name="hotspot_ani_white"
+           url="../positionicon/hotspot_ani_black_64x64x20.png"
+           crop="0|0|64|64"
+           framewidth="64" frameheight="64" frame="0" lastframe="8"
+           onloaded="hotspot_animate();"
+           />
+
+    <!-- hotspot animation action -->
+    <action name="hotspot_animate">
+        inc(frame,1,get(lastframe),get(startframe));
+        mul(ypos,frame,frameheight);
+        txtadd(crop,'0|',get(ypos),'|',get(framewidth),'|',get(frameheight));
+        delayedcall(0.25, if(loaded, hotspot_animate() ) );
+    </action>
+</krpano>

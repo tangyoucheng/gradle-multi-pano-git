@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<krpano time="2016-09-9 12:00">
+
+    <style name="mplayer1" url="skin_video.png" align="lefttop" />
+
+    <style name="mplayer2" url="skin_video.png" />                           
+
+    <layer name="ctVideo" type="container" keep="true" visible="false" alpha="0.0" zorder="20" width="100%" height="100%" bgcolor="0x000000" bgalpha="0.50" bgcapture="true" handcursor="false" align="center" preload="true">
+
+        <layer name="ctVideoInner" type="container" visible="true" zorder="21" width="960" height="600" bgcolor="0x000000" bgalpha="1.0" bgcapture="true" handcursor="false" align="center" preload="true">
+
+            <layer name="bgVideoTitleBar" memo="标题栏" style="mplayer1" width="960" height="25" crop="1|25|958|33" zorder="1" />
+
+            <layer name="bgVideoClose" memo="关闭按钮" style="mplayer2" crop="193|59|12|12" align="righttop" x="10" width="23" height="23" zorder="3" onclick="closevideo" />
+
+            <layer name="txt_video" memo="标题文字" url="%SWFPATH%/plugins/textfield.swf" zorder="2"
+
+                background="false" border="false" handcursor="true" children="false" align="lefttop" x="8" y="3" width="960" autoheight="true" html="视频播放器"
+
+                css="font-family:yahei; font-size:12px; color:#b8c8e4; font-weight:bold; text-align:left; letter-spacing:0; leading:0;"
+
+                />
+
+            <layer name="mplayer" memo="真正的播放器" url.flash="%SWFPATH%/plugins/videoplayer.swf"
+                    url.html5="%SWFPATH%/plugins/videoplayer.js"
+
+
+                    capture="true" enabled="true" handcursor="false" zorder="2" align="top" x="0" y="25" width="960" height="540"
+
+                    pausedonstart="true" loop="false" volume="1.0" buffertime="0.3" ignoremetadata="true" updateeveryframe="true"
+
+                    onvideoready="play(); sync();"
+
+                    onvideocomplete="mplayer_stop"
+
+                    sync="syncTime()"
+
+
+                    />
+<!--                     preload="true" -->
+
+            <layer name="mplayerMask" type="container" bgcapture="true" bgalpha="0" bgcolor="0xffffff" width="800" height="450" zorder="3" align="top" x="0" y="70"
+
+                onover="screen_mouse(over)" onout="screen_mouse(out)"
+
+                ondown="screen_mouse(over)" onup="screen_mouse(out)"
+
+                onclick="mplayer_play"
+
+                >
+
+                <layer name="btnPlayScreen" memo="屏幕播放按钮" enabled="false" style="mplayer2" align="center" visible="false" alpha="0" crop="0|90|117|117" width="117" height="117" />
+
+            </layer>
+
+            <layer name="ctCTRLbar" type="container" keep="true" visible="true" zorder="10" width="960" height="35" bgcapture="true" handcursor="false" align="leftbottom">
+
+                <layer name="bgCTRLbar" style="mplayer1" width="960" height="35" crop="0|24|960|35" zorder="1" handcursor="false" />
+
+                <layer name="btn_video_play" memo="播放按钮" style="mplayer1" width="13" height="14" x="13" y="11" crop="130|59|13|14" zorder="2" onclick="mplayer_play" />
+
+                <layer name="btn_video_separator1" style="mplayer1" width="2" height="31" x="39" y="2" crop="0|59|2|31" zorder="2" handcursor="false" />
+
+                <layer name="btn_video_separator2" style="mplayer1" width="2" height="31" x="840" y="2" crop="0|59|2|31" zorder="2" handcursor="false" />
+
+                <layer name="bgProgressbar" memo="进度条背景" style="mplayer1" width="642" height="12" x="51" y="11" crop="0|0|642|12" zorder="2" handcursor="false" />
+
+                <layer name="ctProgressMask" memo="可拖动的进度条" type="container" align="lefttop" zorder="3" x="51" y="5" width="28" height="24" bgcapture="false" handcursor="false" maskchildren="true">
+
+                    <layer name="bgPassProgressbar" memo="已播放的背景色" style="mplayer1" x="0" y="6" width="642" height="12" crop="0|12|642|12" zorder="1" handcursor="false" />
+
+                    <layer name="btnProgressBall" memo="进度按钮" style="mplayer2" align="right" x="0" y="0" width="28" height="24" crop="94|59|28|24" zorder="2"
+
+                        ondown="btnProgressBall_pressed" onup="mplayer_seek"
+
+                        />
+
+                </layer>
+
+                <layer name="txt_video_time" memo="视频播放时间" url="%SWFPATH%/plugins/textfield.swf" zorder="3"
+
+                    background="false" border="false" handcursor="false" children="false"
+
+                    align="lefttop" x="707" y="9" width="140" autoheight="true" html="0:59:59 / 0:59:59"
+
+                    css="font-family:Simsun; font-size:12px; color:#ffffff; font-weight:bold; text-align:left; letter-spacing:0; leading:0;"
+
+                    />
+
+                <layer name="btnVolume" memo="声音图标" style="mplayer1" width="17" height="14" x="852" y="10" crop="150|59|17|14" zorder="2" />
+
+                <layer name="bgVolumebar" memo="音量条背景" style="mplayer1" width="71" height="12" x="879" y="11" crop="4|59|71|12" zorder="2" handcursor="false" />
+
+                <layer name="btnVolumeBall" memo="音量调节按钮" style="mplayer1" width="10" height="10" x="939" y="12" crop="79|59|10|10" zorder="3" ondown="btnVolumeBall_pressed" />
+
+            </layer>
+
+        </layer>
+
+    </layer>
+
+    <action name="openMplayer">
+
+        soundoff(1, 1);
+
+        freezeview(true);
+
+        copy(layer[txt_video].html, memo);
+
+        fadein(ctVideo, 1.0, 1.0);
+
+        layer[mplayer].playvideo(get(vurl));
+
+    </action>
+
+    <action name="syncTime">
+
+        if(layer[mplayer].ispaused,
+
+            set(layer[btnPlayScreen].crop, '0|90|117|117');
+
+            set(layer[btn_video_play].crop, '130|59|13|14');
+
+            mplayer_paused();
+
+        ,
+
+            set(layer[btnPlayScreen].crop, '117|90|117|117');
+
+            set(layer[btn_video_play].crop, '173|59|13|14');
+
+            delete(pauseSource);
+
+        );
+
+        copy(timeTotal, layer[mplayer].totaltime);
+
+        copy(timeCurrent, layer[mplayer].time);
+
+        div(posBall, timeCurrent, timeTotal);
+
+        mul(posBall, layer[bgProgressbar].width);
+
+        copy(posBall_min, layer[btnProgressBall].width);
+
+        if(posBall LT posBall_min, copy(posBall, posBall_min));
+
+        copy(layer[ctProgressMask].width, posBall);
+
+        delayedcall(syncProgress, 0.05, syncTime());
+
+        roundval(timeTotal);
+
+        div(timeTotalHour, timeTotal, 3600);
+
+        roundval(timeTotalHour);
+
+        mod(timeTotalMinute1, timeTotal, 3600);
+
+        div(timeTotalMinute2, timeTotalMinute1, 60);
+
+        Math.floor(timeTotalMinute2);
+
+        if(timeTotalMinute2 LT 10, txtadd(timeTotalMinute2, '0', get(timeTotalMinute2)));
+
+        mod(timeTotalSecond, timeTotalMinute1, 60);
+
+        if(timeTotalSecond LT 10, txtadd(timeTotalSecond, '0', get(timeTotalSecond)));
+
+        txtadd(timeTotalString, get(timeTotalHour), ':', get(timeTotalMinute2), ':', get(timeTotalSecond));
+
+        roundval(timeCurrent);
+
+        div(timeCurrentHour, timeCurrent, 3600);
+
+        roundval(timeCurrentHour);
+
+        mod(timeCurrentMinute1, timeCurrent, 3600);
+
+        div(timeCurrentMinute2, timeCurrentMinute1, 60);
+
+        Math.floor(timeCurrentMinute2);
+
+        if(timeCurrentMinute2 LT 10, txtadd(timeCurrentMinute2, '0', get(timeCurrentMinute2)));
+
+        mod(timeCurrentSecond, timeCurrentMinute1, 60);
+
+        if(timeCurrentSecond LT 10, txtadd(timeCurrentSecond, '0', get(timeCurrentSecond)));
+
+        txtadd(timeCurrentString, get(timeCurrentHour), ':', get(timeCurrentMinute2), ':', get(timeCurrentSecond));
+
+        txtadd(txt_video, get(timeCurrentString), ' / ', get(timeTotalString));
+
+        copy(layer[txt_video_time].html, txt_video);
+
+    </action>
+
+    <action name="btnProgressBall_pressed">
+
+        stopdelayedcall(syncProgress);
+
+        sub(player_x, stagewidth, 960);
+
+        div(player_x, 2);
+
+        add(progress_x, player_x, layer[ctProgressMask].x);
+
+        sub(proress_width, mouse.x, progress_x);
+
+        copy(progress_width_min, layer[btnProgressBall].width);
+
+        copy(progress_width_max, layer[bgProgressbar].width);
+
+        if(pressed,
+
+            if(proress_width LT progress_width_min, copy(proress_width, progress_width_min));
+
+            if(proress_width GT progress_width_max, copy(proress_width, progress_width_max));
+
+            copy(layer[ctProgressMask].width, proress_width);
+
+            delayedcall(0.05, btnProgressBall_pressed());
+
+        );
+
+    </action>
+
+    <action name="mplayer_seek">
+
+        div(timeDrag, layer[ctProgressMask].width, layer[bgProgressbar].width);
+
+        mul(timeDrag, timeTotal);
+
+        roundval(timeDrag);
+
+        layer[mplayer].seek(get(timeDrag));
+
+                                   
+
+        delayedcall(0.1, layer[mplayer].sync());
+
+    </action>
+
+    <action name="btnVolumeBall_pressed">
+
+        set(volume_x_max, 934);
+
+        set(volume_x_min, 874);
+
+        sub(player_x, stagewidth, 960);
+
+        div(player_x, 2);
+
+        sub(volume_x, mouse.x, player_x);
+
+        if(pressed,
+
+            if(volume_x GT volume_x_max, copy(volume_x, volume_x_max));
+
+            if(volume_x LT volume_x_min, copy(volume_x, volume_x_min));
+
+            copy(layer[btnVolumeBall].x, volume_x);
+
+            sub(volume_x_variation, layer[btnVolumeBall].x, 879);
+
+            div(volume_v, volume_x_variation, 60);
+
+            roundval(volume_v,2);
+
+            copy(layer[mplayer].volume, volume_v);          
+
+            delayedcall(0.05, btnVolumeBall_pressed());
+
+        );
+
+    </action>
+
+    <action name="mplayer_play">
+
+        tween(layer[btnPlayScreen].alpha, 0.0, 0.05);
+
+        if(layer[mplayer].ispaused,
+
+            layer[mplayer].togglepause();
+
+            ,
+
+            layer[mplayer].pause();
+
+            copy(pauseSource, name);
+
+        );      
+
+                                                                                                                                                        
+
+    </action>
+
+    <action name="mplayer_paused">
+
+        set(layer[btnPlayScreen].visible, true);
+
+        tween(layer[btnPlayScreen].alpha, 1.0, 0.2);
+
+    </action>
+
+    <action name="mplayer_stop">
+
+        layer[mplayer].stop();
+
+        tween(layer[btnPlayScreen].alpha, 1.0, 0.1);
+
+        delete(timeDrag);
+
+    </action>
+
+    <action name="closevideo">
+
+        copy(mplayerTime, layer[mplayer].time);
+
+        layer[mplayer].stop();
+
+        freezeview(false);
+
+        tween(layer[ctVideo].alpha, 0.0, 0.5, linear,
+
+            ifnot(cmx.uSkinClose, skin_showskin());
+
+            set(layer[ctVideo].visible, false);
+
+            if(rusumeVideo,
+
+                if(mplayerTime GT 0, hotspot[get(rusumeVideo)].seek(get(mplayerTime)));
+
+                ifnot(pauseSource,
+
+                    hotspot[get(rusumeVideo)].resume();
+
+                    delete(rusumeVideo, pauseSource);
+
+                );
+
+            );
+
+        );
+
+    </action>
+
+    <action name="screen_mouse">
+
+        if(%1 == 'over',
+
+            set(layer[btnPlayScreen].visible, true);
+
+            tween(layer[btnPlayScreen].alpha, 1.0, 0.1);
+
+            screen_hide(2);
+
+        );
+
+        if(%1 == 'out', screen_hide(0.5); );
+
+    </action>
+
+    <action name="screen_hide">
+
+        delayedcall(btnScreenHide, %1,
+
+            ifnot(layer[mplayer].ispaused,
+
+                tween(layer[btnPlayScreen].alpha, 0.0, 0.2, linear, set(layer[btnPlayScreen].visible, false));
+
+            );
+
+        );
+
+    </action>
+    
+    <!-- 播放视频 -->
+    <action name="openvideo" >
+                
+                tween(layer[ctVideo].alpha, 1.0, 0.0, linear, set(layer[mplayer].visible, 'true' );
+                
+                set(layer[ctVideo].visible, 'true' );
+                
+                layer[mplayer].playvideo('%1', null, get(layer[mplayer].ispaused), get(layer[mplayer].time)););           
+                
+                set(layer[videointerface_control_bar].visible, 'true' );
+                
+    </action>
+    
+    <action name="closevideo">
+
+        copy(mplayerTime, layer[mplayer].time);
+
+        layer[mplayer].stop();
+
+        freezeview(false);
+
+        tween(layer[ctVideo].alpha, 0.0, 0.5, linear,
+
+            ifnot(cmx.uSkinClose, skin_showskin());
+
+            set(layer[ctVideo].visible, false);
+
+            if(rusumeVideo,
+
+                if(mplayerTime GT 0, hotspot[get(rusumeVideo)].seek(get(mplayerTime)));
+
+                ifnot(pauseSource,
+
+                    hotspot[get(rusumeVideo)].resume();
+
+                    delete(rusumeVideo, pauseSource);
+
+                );
+
+            );
+
+        );
+
+    </action>
+
+
+
+
+    <!-- 在动态编辑模式中，素材预览时改变播放器大小适应素材登记画面 -->
+    <action name="suitableScreen">
+    
+                set(layer[ctVideoInner].width, '310' );
+                
+                set(layer[ctVideoInner].height, '250' );
+                
+                set(layer[bgVideoTitleBar].width, '310' );
+                
+                set(layer[bgVideoTitleBar].height, '25' );
+                
+                set(layer[bgVideoClose].x, '3.5' );
+
+                set(layer[bgVideoClose].y, '3' );
+
+                set(layer[bgVideoClose].width, '18' );
+                
+                set(layer[bgVideoClose].height, '18' );
+                
+                set(layer[mplayer].width, '310' );
+                
+                set(layer[mplayer].height, '210' );
+                
+                set(layer[mplayerMask].width, '310' );
+                
+                set(layer[mplayerMask].height, '125' );
+                
+                set(layer[btn_video_play].y, '18' );
+                
+                set(layer[btn_video_separator1].x, '35' );
+                
+                set(layer[btn_video_separator1].y, '12' );
+                
+                set(layer[btn_video_separator2].x, '207' );
+                
+                set(layer[btn_video_separator2].y, '12' );
+                
+                set(layer[bgProgressbar].width, '153' );
+                
+                set(layer[bgProgressbar].x, '48' );
+                
+                set(layer[bgProgressbar].y, '18' );
+                
+                set(layer[ctProgressMask].x, '48' );
+                
+                set(layer[ctProgressMask].y, '12' );
+                
+                set(layer[bgPassProgressbar].width, '153' );
+                
+                set(layer[btnVolume].align, 'left' );
+                
+                set(layer[btnVolume].x, '215' );
+                
+                set(layer[btnVolume].y, '7' );
+                
+                set(layer[bgVolumebar].align, 'left' );
+                
+                set(layer[bgVolumebar].x, '240' );
+                
+                set(layer[bgVolumebar].y, '7' );
+                
+                set(layer[bgVolumebar].width, '60' );
+                
+                set(layer[btnVolumeBall].align, 'left' );
+                
+                set(layer[btnVolumeBall].x, '290' );
+                
+                set(layer[btnVolumeBall].y, '7' );
+                
+                set(layer[btnVolumeBall].ondown, 'btnVolumeBall_pressed_materialPage' );
+                
+                set(layer[btnProgressBall].width, '20' );
+                
+                set(layer[btnProgressBall].ondown, 'btnProgressBall_pressed_materialPage' );
+                
+                set(layer[btnProgressBall].onup, 'mplayer_seek_materialPage' );
+                
+                set(layer[bgCTRLbar].width, '310' );
+                
+                set(layer[bgCTRLbar].height, '33' );
+                
+                set(layer[bgCTRLbar].y, '10' );
+              
+    </action>
+    
+    <!-- 素材页面的音量调节 -->
+    <action name="btnVolumeBall_pressed_materialPage">
+
+        set(volume_x_max, 290);
+
+        set(volume_x_min, 240);
+
+
+        sub(player_x, stagewidth, 245);
+
+        div(player_x, 2);
+
+
+        sub(volume_x, mouse.x, player_x);
+
+        if(pressed,
+
+            if(volume_x GT volume_x_max, copy(volume_x, volume_x_max));
+
+            if(volume_x LT volume_x_min, copy(volume_x, volume_x_min));
+
+            copy(layer[btnVolumeBall].x, volume_x);
+
+            sub(volume_x_variation, layer[btnVolumeBall].x, 240);
+
+            div(volume_v, volume_x_variation, 60);
+
+            roundval(volume_v,2);
+
+            copy(layer[mplayer].volume, volume_v);            
+
+            delayedcall(0.05, btnVolumeBall_pressed_materialPage());
+
+        );
+
+    </action>
+    
+     <action name="btnProgressBall_pressed_materialPage">
+
+        stopdelayedcall(syncProgress);
+
+        sub(player_x, stagewidth, 315);
+
+        div(player_x, 2);
+
+        add(progress_x, player_x, layer[ctProgressMask].x);
+
+        sub(proress_width, mouse.x, progress_x);
+
+        copy(progress_width_min, layer[btnProgressBall].width);
+
+        copy(progress_width_max, layer[bgProgressbar].width);
+
+        if(pressed,
+
+            if(proress_width LT progress_width_min, copy(proress_width, progress_width_min));
+
+            if(proress_width GT progress_width_max, copy(proress_width, progress_width_max));
+
+            copy(layer[ctProgressMask].width, proress_width);
+
+            delayedcall(0.05, btnProgressBall_pressed_materialPage());
+
+        );
+
+    </action>
+
+    
+    <action name="mplayer_seek_materialPage">
+    
+        div(timeDrag, layer[ctProgressMask].width, layer[bgProgressbar].width);
+
+        mul(timeDrag, timeTotal);
+
+        roundval(timeDrag);
+
+        layer[mplayer].seek(get(timeDrag));
+
+        delayedcall(0.1, layer[mplayer].sync());
+
+    </action>
+</krpano>

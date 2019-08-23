@@ -1,0 +1,47 @@
+buildscript {
+	
+    apply from: "${projectDir}/conf.gradle"
+    repositories {
+		// 仓库
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+	   
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+	
+    dependencies {
+        // gradleプラグインの依存関係およびライブラリの読み込み。
+        //classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        //classpath "${dbSetting.driverArtifactId}:${dbSetting.driverVersion}"
+    }
+
+}
+
+// 全subprojectsに共通の設定
+subprojects {
+    // Eclipse用のプロジェクト作成のためのplugin
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+
+    // コンパイル対象バージョンの指定
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+    }
+	
+    apply from: "${project.rootDir}/gradle-plugin/common-make-dirs.gradle"
+	// 全subprojectsに共通の設定
+    apply from: "${project.rootDir}/gradle-plugin/common-project-setting-generator.gradle"
+}
+
+project(':pano-entity') {
+    apply from: "${project.rootDir}/gradle-plugin/common-mybatis-generator.gradle"
+}
+
+project(':pano-web') {
+    apply from: "${project.rootDir}/gradle-plugin/common-project-setting-pano-web.gradle"
+}

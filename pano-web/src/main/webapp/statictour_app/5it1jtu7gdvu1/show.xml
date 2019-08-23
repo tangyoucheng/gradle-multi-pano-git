@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<krpano debugmode="true" exprotitle="创建展览测试1" logkey="true" onstart="onstart_action();" showerrors="true">
+ 
+  <!--引入外部ＸＭＬ文件-->
+ 
+  <include url="framework/panorama/template/video/videoplayer.xml"/>
+ 
+  <include url="framework/panorama/template/video/videointerface.xml"/>
+ 
+  <include url="framework/panorama/template/video/videoplayercontrol.xml"/>
+ 
+  <include url="framework/panorama/template/progress_loadinganimation.xml"/>
+ 
+  <include url="framework/panorama/template/progress_loadingpercent.xml"/>
+ 
+  <include url="framework/panorama/template/buttons-png-include.xml"/>
+ 
+  <include url="framework/panorama/template/tooltip.xml"/>
+ 
+  <include url="framework/panorama/template/radar.xml"/>
+ 
+  <include url="framework/panorama/template/sound.xml"/>
+ 
+  <include url="framework/panorama/template/anihotspots.xml"/>
+ 
+  <include url="framework/panorama/template/recommend_path.xml"/>
+ 
+  <include url="framework/panorama/template/skin/vtourskin.xml"/>
+ 
+  <!--展览初期化Action-->
+ 
+  <action name="onstart_action">
+        skin_getBoder('v_5it1l7fuhzmnh');
+        loadscene(v_5it1l7fuhzmnh,view[v_5it1l7fuhzmnh_view].hlookat=-134&amp;view[v_5it1l7fuhzmnh_view].vlookat=22,MERGE,BLEND(1));
+        activatespot(V_5it1q9bnqxlfd,0);
+        set(layer[V_5it1q9bnqxlfd].zorder,2);
+        set(layer[V_5it1q9bnqt4fc].zorder,3);
+        set(layer[V_5it1qa7ef2pp9].zorder,3);
+        set(layer[radar].heading,-180);
+        if(device.mobile == false,
+        skin_bar_v();
+        set(layer[btn_in].x,0);
+        set(layer[btn_in].visible,true);
+        set(layer[defaultskin_buttons].width,360);
+        set(layer[btn_out].x,40);
+        set(layer[btn_out].visible,true);
+        set(layer[defaultskin_buttons].width,360);
+        set(layer[btn_left].x,80);
+        set(layer[btn_left].visible,true);
+        set(layer[defaultskin_buttons].width,360);
+        set(layer[btn_right].x,120);
+        set(layer[btn_right].visible,true);
+        set(layer[defaultskin_buttons].width,360);
+        set(layer[btn_up].x,160);
+        set(layer[btn_up].visible,true);
+        set(layer[defaultskin_buttons].width,360);
+        set(layer[btn_down].x,200);
+        set(layer[btn_down].visible,true);
+        set(layer[defaultskin_buttons].width,360);
+        set(layer[btn_autorot].x,240);
+        set(layer[btn_autorot].visible,true);
+        set(layer[defaultskin_buttons].width,360);
+        set(layer[btn_share].x,280);
+        set(layer[btn_share].visible,true);
+        set(layer[defaultskin_buttons].width,360);
+        set(layer[btn_fs].x,320);
+        set(layer[btn_fs].visible,true);
+        set(layer[defaultskin_buttons].width,360);
+        );
+        showrecommend(3,recommedInfoHotspot);
+        set(hotspot[recommedInfoHotspot].ath, get(hotspot[v_5it1ny680v1v7].ath));
+        set(hotspot[recommedInfoHotspot].atv, get(hotspot[v_5it1ny680v1v7].atv));
+        set(hotspot[recommedInfoHotspot].visible,true);
+        set(hotspot[v_5it1ny680v1v7].distorted,false);
+    set(layer[webvr_enterbutton].visible,false);
+        </action>
+ 
+  <action name="gyro_available_info">
+        set(layer[skin_btn_gyro_v].visible,true);
+        set(layer[skin_btn_gyro].visible,true);
+        if(device.mobile == false,
+        set(layer[snd_v].y,130);
+        set(layer[skin_btn_thumbs_v].y,170);
+        set(layer[skin_btn_rt_v].y,210);
+        ,
+        set(layer[snd_v].x,10);
+        set(layer[snd_v].y,382.5);
+        set(layer[skin_btn_thumbs_v].y,472.5);
+        set(layer[skin_btn_rt_v].y,562.5);
+        );
+        </action>
+ 
+  <!--缩略图边框设定-->
+ 
+  <layer align="lefttop" enabled="false" keep="true" name="skin_thumbborder" ox="-2" oy="-2" scale="0.5" url="framework/panorama/images/positionicon/thumbborder.png" visible="false"/>
+ 
+  <!--右键菜单设定-->
+ 
+  <contextmenu enterfs="全屏" exitfs="退出全屏">
+ 
+    <item caption="FULLSCREEN" name="fs"/>
+ 
+    <item caption="" name="title"/>
+
+  </contextmenu>
+ 
+  <!--展览入口动画-->
+ 
+  <!--展览导航图-->
+ 
+  <layer align="rightbottom" bgalpha="0.5" bgcolor="0xCCCCCC" handcursor="false" keep="true" maskchildren="true" name="layer_nimi_map_container" scale="0" scalechildren="true" url="images/5it1q8z2o1ri6/5it1q8z2o1ri6.jpg" x="10" y="64" zorder="2"/>
+ 
+  <layer align="rightbottom" bgalpha="1.0" handcursor="true" keep="true" name="v_5it1q9bnqt4fc" onclick="stopsound(hotspotsnd);set(layer[V_5it1q9bnqt4fc].zorder,2);set(layer[V_5it1q9bnqxlfd].zorder,3);set(layer[V_5it1qa7ef2pp9].zorder,3);set(hotspot[recommedInfoHotspot].visible,false);activatespot(V_5it1q9bnqt4fc,0);set(layer[radar].heading,-70);playBefore(v_5it1lns36n3w6,null,null);skin_getBoder('v_5it1lns36n3w6');" parent="layer_nimi_map_container" url="framework/panorama/template/mappoint_blue.png" x="162" y="187"/>
+ 
+  <layer align="rightbottom" bgalpha="1.0" handcursor="true" keep="true" name="v_5it1q9bnqxlfd" onclick="stopsound(hotspotsnd);set(layer[V_5it1q9bnqxlfd].zorder,2);set(layer[V_5it1q9bnqt4fc].zorder,3);set(layer[V_5it1qa7ef2pp9].zorder,3);set(hotspot[recommedInfoHotspot].visible,false);activatespot(V_5it1q9bnqxlfd,0);set(layer[radar].heading,-180);playBefore(v_5it1l7fuhzmnh, null,view.hlookat=-134&amp;view.vlookat=22 );skin_getBoder('v_5it1l7fuhzmnh');" parent="layer_nimi_map_container" url="framework/panorama/template/mappoint_blue.png" x="259" y="180"/>
+ 
+  <layer align="rightbottom" bgalpha="1.0" handcursor="true" keep="true" name="v_5it1qa7ef2pp9" onclick="stopsound(hotspotsnd);set(layer[V_5it1qa7ef2pp9].zorder,2);set(layer[V_5it1q9bnqt4fc].zorder,3);set(layer[V_5it1q9bnqxlfd].zorder,3);set(hotspot[recommedInfoHotspot].visible,false);activatespot(V_5it1qa7ef2pp9,0);playBefore(v_5it1lnn9a74nm, null,view.hlookat=-332&amp;view.vlookat=6 );skin_getBoder('v_5it1lnn9a74nm');" parent="layer_nimi_map_container" url="framework/panorama/template/mappoint_blue.png" x="151" y="80"/>
+ 
+  <!--场景的缩略图-->
+ 
+  <style align="top" edge="center" name="thumbStyle" ondown="tween(scale,1.1,0.1);" onout="onup();" onover="ondown();" onup="tween(scale, 1.0, 0.25, easeOutBounce);" scalechildren="true"/>
+ 
+  <layer align="leftbottom" bgalpha="0.3" bgcapture="true" bgcolor="0x000000" handcursor="false" height="100%" keep="true" name="skin_control_bar_v" type="container" visible="true" width="40" x="20" x_closed="-42" x_opened="20" y="0" zorder="1">
+ 
+    <plugin align="leftbottom" alpha="0.5" crop="0|0|50|50" name="snd_v" onclick="switch(soundinterface.mute); switch(crop, 0|0|50|50, 0|50|50|50);" onout="tween(alpha,0.25);" onover="tween(alpha,1);" scale="0.6" url="framework/panorama/template/skin/soundonoff.png" x="6.5" y="90"/>
+ 
+    <layer align="left" crop="576|0|12|60" edge="right" enabled="false" height="100%" name="skin_btmborder_v" url="framework/panorama/template/skin/vtourskin_v.png" width="12" x="0" y="-1"/>
+ 
+    <layer align="rightbottom" crop="0|128|64|64" name="skin_btn_thumbs_v" ondown2="skin_thumbs_v();" scale="0.5" style="skin_base|skin_glow" x="4" y="130"/>
+ 
+    <layer align="rightbottom" crop="64|128|64|64" name="skin_btn_map_v" onclick="if(layer[layer_nimi_map_container].scale &gt;0, closemap_v();,openmap_v();)" scale="0.5" style="skin_base|skin_glow" visible="true" x="4" y="50"/>
+ 
+    <layer align="rightbottom" crop="64|192|64|64" hadMap="yes" name="skin_btn_rt_v" ondown2="skin_switchBoder();if(layer[skin_thumbs].state == 'closed'   ,set(layer[layer_nimi_map_container].y, 64);   ,set(layer[layer_nimi_map_container].y, 163););set(layer[skin_control_bar_v].visible,false);skin_swapVH();set(layer[skin_btn_up].onclick, skin_switchBoder('2');if(device.mobile   ,set(layer[layer_nimi_map_container].y, 98);,   ,set(layer[layer_nimi_map_container].y, 64););set(layer[skin_control_bar_v].visible, true);skin_swapVH();setMapClickEvent(););" scale="0.5" style="skin_base|skin_glow" x="4" y="170"/>
+ 
+    <layer align="rightbottom" crop="0|384|64|64" devices="html5" name="skin_btn_gyro_v" onclick="switch(plugin[skin_gyro_v].enabled);" scale="0.5" style="skin_base|skin_glow" visible="false" x="4" y="90"/>
+ 
+    <plugin camroll="true" devices="html5" enabled="false" friction="0" name="skin_gyro_v" onavailable="gyro_available_info();" url="framework/panorama/viewer/plugins/gyro.js" velastic="0"/>
+ 
+    <layer align="rightbottom" crop="128|0|64|64" name="skin_btn_hide_v" onclick="skin_bar_v();" scale="0.5" style="skin_glow" url="framework/panorama/template/skin/vtourskin_v.png" x="5" y="10"/>
+ 
+    <layer align="right" bgalpha="0" bgcolor="0x00ff00" height="100%" keep="true" maskchildren="true" name="thumbContainer_v" type="container" width="118" x="-118" y="-1">
+ 
+      <layer align="leftbottom" bgalpha="0.3" bgcolor="0x000000" height="100%" keep="true" name="thumbContainer" state="closed" type="container" width="105" x="-105" x_closed="-105" x_opened="-3" y="0">
+ 
+        <layer align="topleft" height="100%" keep="true" name="thumbBarLayer" type="container" width="105">
+ 
+          <layer align="center" alturl="%SWFPATH%/plugins/scrollarea.js" direction="v" height="280" name="scrollarea" onhover_autoscrolling="false" onloaded="setcenter(0,0);" url="%SWFPATH%/plugins/scrollarea.swf" width="95" x="-2">
+ 
+            <layer name="v_5it1l7fuhzmnh_v" onclick="stopsound(hotspotsnd);set(hotspot[recommedInfoHotspot].visible,false);activatespot(V_5it1q9bnqxlfd,0);set(layer[V_5it1q9bnqxlfd].zorder,2);set(layer[V_5it1q9bnqt4fc].zorder,3);set(layer[V_5it1qa7ef2pp9].zorder,3);set(layer[radar].heading,-180);playBefore(v_5it1l7fuhzmnh, null,view.hlookat=-134&amp;view.vlookat=22 );skin_getBoder('v_5it1l7fuhzmnh');" style="thumbStyle" url="panoramas/5it1jtu7gdvu1/panoramas/5it1l7fuhzmnh//thumb.jpg" y="50"/>
+ 
+            <layer name="v_5it1lns36n3w6_v" onclick="stopsound(hotspotsnd);set(hotspot[recommedInfoHotspot].visible,false);activatespot(V_5it1q9bnqt4fc,0);set(layer[V_5it1q9bnqt4fc].zorder,2);set(layer[V_5it1q9bnqxlfd].zorder,3);set(layer[V_5it1qa7ef2pp9].zorder,3);set(layer[radar].heading,-70);playBefore(v_5it1lns36n3w6,null,null);skin_getBoder('v_5it1lns36n3w6');" style="thumbStyle" url="panoramas/5it1jtu7gdvu1/panoramas/5it1lns36n3w6//thumb.jpg" y="140"/>
+ 
+            <layer name="v_5it1lnn9a74nm_v" onclick="stopsound(hotspotsnd);set(hotspot[recommedInfoHotspot].visible,false);activatespot(V_5it1qa7ef2pp9,0);set(layer[V_5it1qa7ef2pp9].zorder,2);set(layer[V_5it1q9bnqt4fc].zorder,3);set(layer[V_5it1q9bnqxlfd].zorder,3);playBefore(v_5it1lnn9a74nm, null,view.hlookat=-332&amp;view.vlookat=6 );skin_getBoder('v_5it1lnn9a74nm');" style="thumbStyle" url="panoramas/5it1jtu7gdvu1/panoramas/5it1lnn9a74nm//thumb.jpg" y="230"/>
+
+          </layer>
+
+        </layer>
+ 
+        <layer align="right" crop="627|0|12|60" edge="left" enabled="false" height="100%" name="skin_topborder_v" url="framework/panorama/template/skin/vtourskin_v.png" width="12" x="1" y="-1"/>
+
+      </layer>
+
+    </layer>
+ 
+    <layer align="leftbottom" bgalpha="0" bgcolor="0x000000" height="100%" keep="true" name="showBtnContainer" state="opened" type="container" visible="false" width="20" x="48" y="0" zorder="1">
+ 
+      <layer align="center" crop="128|64|64|64" name="skin_btn_show_v" onclick="skin_bar_v()" scale="0.5" style="skin_glow" url="framework/panorama/template/skin/vtourskin_v.png"/>
+
+    </layer>
+
+  </layer>
+ 
+  <!--展览浮动信息层-->
+ 
+  <include url="framework/panorama/template/gallery/swipe_gallery.xml"/>
+ 
+  <!--展览的场景-->
+ 
+  <scene name="v_5it1l7fuhzmnh" onstart="" sceneSoundFlag="false" thumburl="panoramas/5it1l7fuhzmnh/thumb.jpg" title="玄关">
+ 
+    <preview url="panoramas/5it1l7fuhzmnh/preview.jpg"/>
+ 
+    <view fov="100" fovmax="140" fovmin="60" fovtype="MFOV"/>
+ 
+    <image>
+ 
+      <cube url="panoramas/5it1l7fuhzmnh/panos_l/sphere_%s.jpg"/>
+ 
+      <mobile>
+ 
+        <cube url="panoramas/5it1l7fuhzmnh/panos_l/mobile_%s.jpg"/>
+
+      </mobile>
+
+    </image>
+ 
+    <!--场景热点-->
+ 
+    <hotspot ath="-93" atv="38" distorted="true" name="v_5it1ny69ud1v8" onclick="stopsound(hotspotsnd);set(layer[V_5it1qa7ef2pp9].zorder,2);set(layer[V_5it1q9bnqt4fc].zorder,3);set(layer[V_5it1q9bnqxlfd].zorder,3);activatespot(V_5it1qa7ef2pp9,0);set(layer[tooltip].visible,false);playBefore(v_5it1lnn9a74nm, null,view.hlookat=-52&amp;view.vlookat=2 );skin_getBoder('v_5it1lnn9a74nm');set(hotspot[recommedInfoHotspot].visible,false);" scale="0.3" style="tooltip" tooltip="点击前往" url="com_mats/images/5it1n1lke0dhc/5it1n1lke0dhc.jpg" zoom="true" zorder="1"/>
+ 
+    <hotspot ath="-164" atv="4" distorted="true" name="v_5it1nz5aght9o" onclick="stopsound(hotspotsnd);set(layer[V_5it1q9bnqt4fc].zorder,2);set(layer[V_5it1q9bnqxlfd].zorder,3);set(layer[V_5it1qa7ef2pp9].zorder,3);activatespot(V_5it1q9bnqt4fc,0);set(layer[radar].heading,-70);set(layer[tooltip].visible,false);playBefore(v_5it1lns36n3w6,null,null);skin_getBoder('v_5it1lns36n3w6');set(hotspot[recommedInfoHotspot].visible,false);" scale="0.4" style="tooltip" tooltip="点击前往" url="com_mats/images/5it1n1lke0dhc/5it1n1lke0dhc.jpg" zoom="true" zorder="1"/>
+ 
+    <hotspot ath="" atv="" distorted="true" handcursor="false" name="v_5it1nzcbovka0" scale="0.3" style="tooltip" tooltip="" url="com_mats/images/5it1nzbcqn69u/5it1nzbcqn69u.jpg" zoom="true" zorder="1"/>
+ 
+    <hotspot ath="130" atv="-6" distorted="true" name="v_5it1ovjvf01cj" scale="0.4" style="tooltip" tooltip="" url="com_mats/images/5it1ny6nbauva/5it1ny6nbauva.png" zoom="true" zorder="1"/>
+
+  </scene>
+ 
+  <scene name="v_5it1lns36n3w6" onstart="" sceneSoundFlag="false" thumburl="panoramas/5it1lns36n3w6/thumb.jpg" title="场景二">
+ 
+    <preview url="panoramas/5it1lns36n3w6/preview.jpg"/>
+ 
+    <view fov="100" fovmax="140" fovmin="60" fovtype="MFOV"/>
+ 
+    <image>
+ 
+      <cube url="panoramas/5it1lns36n3w6/panos_l/sphere_%s.jpg"/>
+ 
+      <mobile>
+ 
+        <cube url="panoramas/5it1lns36n3w6/panos_l/mobile_%s.jpg"/>
+
+      </mobile>
+
+    </image>
+ 
+    <!--场景热点-->
+ 
+    <hotspot ath="-32" atv="" distorted="true" name="v_5it1ny6ox2zvc" scale="1" style="tooltip" tooltip="" url="com_mats/images/5it1ny6nbauva/5it1ny6nbauva.png" zoom="true" zorder="1"/>
+
+  </scene>
+ 
+  <scene name="v_5it1lnn9a74nm" onstart="" sceneSoundFlag="false" thumburl="panoramas/5it1lnn9a74nm/thumb.jpg" title="客厅">
+ 
+    <preview url="panoramas/5it1lnn9a74nm/preview.jpg"/>
+ 
+    <view fov="100" fovmax="140" fovmin="60" fovtype="MFOV"/>
+ 
+    <image>
+ 
+      <cube url="panoramas/5it1lnn9a74nm/panos_l/sphere_%s.jpg"/>
+ 
+      <mobile>
+ 
+        <cube url="panoramas/5it1lnn9a74nm/panos_l/mobile_%s.jpg"/>
+
+      </mobile>
+
+    </image>
+ 
+    <!--场景热点-->
+
+  </scene>
+
+</krpano>

@@ -1,0 +1,12 @@
+<krpano >
+  <!--引入外部ＸＭＬ文件-->
+    <include url="../sound.xml"/>
+    <include url="../video/videoplayer.xml"/>
+    <include url="../video/videointerface.xml"/>
+    <include url="../video/videoplayercontrol.xml"/>
+    
+    <preview type="grid(cube,64,64,512,0xCCCCCC,0xFFFFFF,0x999999);" />
+    
+    <hotspot name="start" url="../play.png" ath="30" atv="0" edge="center" rx="0" yx="0" rz="0" keep="true"/>
+    <hotspot name="stop" url="../pause.png" ath="-30" atv="0" edge="center" rx="0" yx="0" rz="0" keep="true" onclick="stopallsounds();"/>
+</krpano>

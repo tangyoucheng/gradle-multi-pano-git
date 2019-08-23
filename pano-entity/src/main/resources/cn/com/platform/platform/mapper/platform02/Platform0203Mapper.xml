@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.platform.platform.mapper.platform02.Platform0203Mapper">
+    <resultMap id="BaseResultMap" type="cn.com.platform.platform.model.common01.PlatformAdminMenu01Model"
+        extends="cn.com.platform.platform.mapper.common.PlatformAdminMenuMapper.BaseResultMap">
+        <id column="ROLE_MENU_ID" jdbcType="VARCHAR" property="roleMenuId" />
+    </resultMap>
+    <!--检索角色对应的菜单 -->
+    <select id="selectRoleMenus" parameterType="map" resultMap="BaseResultMap">
+        select
+        ROLE_MENU.MENU_ID ROlE_MENU_ID,
+        MENU.*
+        from PLATFORM_ADMIN_MENU MENU
+        LEFT JOIN PLATFORM_ADMIN_ROlE_MENU ROLE_MENU ON (ROLE_MENU.MENU_ID = MENU.MENU_ID
+        <if test="roleId != null and roleId != ''">
+            AND ROLE_MENU.ROLE_ID = #{roleId}
+        </if>
+        )
+        <where>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                MENU.DELETE_FLAG = #{deleteFlag}
+            </if>
+            <choose>
+                <when test="parentMenuId != null and parentMenuId !=''">
+                    AND MENU.PARENT_MENU_ID = #{parentMenuId}
+                </when>
+                <otherwise>
+                    AND MENU.PARENT_MENU_ID is null
+                </otherwise>
+            </choose>
+        </where>
+        <if test="orderByClause != null and orderByClause != ''">
+            order by ${orderByClause}
+        </if>
+
+    </select>
+</mapper>

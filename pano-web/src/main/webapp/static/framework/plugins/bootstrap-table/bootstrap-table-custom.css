@@ -1,0 +1,14 @@
+/* 选中行颜色  */
+.bootstrap-table .fixed-table-container .table tbody tr.selected td {
+    background-color: #EEE8AA
+}
+
+/* 奇偶行颜色 */
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #f9f9f9
+}
+
+/* 滑过的颜色 */
+.table-hover>tbody>tr:hover {
+    background-color: #FAFAD2
+}

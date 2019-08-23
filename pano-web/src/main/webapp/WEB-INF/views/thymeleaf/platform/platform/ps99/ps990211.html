@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<title>首页-仿win8</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js" th:src="@{/static/platform/common/js/createHead.js}"></script>
+</head>
+<style type="text/css">
+.menu-style-1 {
+    display: flex;
+    flex-wrap: wrap;
+    background: #d53b3b;
+    height: 120px;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.349019607843137);
+    cursor: pointer;
+}
+.menu-style-2 {
+    display: flex;
+    flex-wrap: wrap;
+    background: #d53b3b;
+    height: 120px;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.349019607843137);
+    cursor: pointer;
+    flex-direction: column-reverse;
+}
+.menu-title {
+    font-size: 48px;
+    color: #FFFFFF;
+    text-align: center;
+}
+.menu-icon {
+    font-size: 50px;
+    color: #FFFFFF;
+    text-align: center;
+}
+.menu-word-1 {
+    font-size: 32px;
+    color: #FFFFFF;
+    text-align: center;
+    padding-right: 20px
+}
+.menu-word-2 {
+    font-size: 18px;
+    color: #FFFFFF;
+    text-align: center;
+    padding-top: 5px;
+    margin-bottom: -4px;
+}
+.col-sm-49 {
+    -ms-flex: 0 0 49%;
+    flex: 0 0 49%;
+    max-width: 49%;
+}
+.col-sm-31-3 {
+    -ms-flex: 0 0 31.33%;
+    flex: 0 0 31.33%;
+    max-width: 31.33%;
+}
+.col-sm-23-5 {
+    -ms-flex: 0 0 23.5%;
+    flex: 0 0 23.5%;
+    max-width: 23.5%;
+}
+.offset-02 {
+    margin-left: 2%;
+}
+</style>
+<body class="bg-white">
+    <div id="menuInfo" class="pt-2"
+        style="background: url(../../../../../../static/platform/platform/images/ps99/bg-menu.png); background-size: 100%; overflow: hidden;">
+        <div class="row align-items-center justify-content-center" style="height: 100vh; flex-direction: column;">
+            <label class="menu-title" style="padding-bottom: 80px">社区综合服务管理平台</label>
+            <div class="form-group form-row" style="width: 1330px; min-width: 1330px; height: 395px;">
+                <div class="form-row col-sm-6 align-content-between" style="">
+                    <div class="col-sm-49 menu-style-1" style="background: rgba(215, 0, 0, 1);">
+                        <label class="menu-word-1">基层党建</label>
+                        <span class="icon-platform-party menu-icon" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-sm-49 offset-02 menu-style-1" style="background: rgba(94, 59, 184, 1);">
+                        <label class="menu-word-1">基础功能</label>
+                        <span class="icon-platform-base menu-icon" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-sm-49 menu-style-1" style="background: rgba(1, 163, 0, 1);">
+                        <label class="menu-word-1">居民服务</label>
+                        <span class="icon-platform-resident menu-icon" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-sm-49 offset-02 menu-style-1" style="background: rgba(149, 0, 154, 1);">
+                        <label class="menu-word-1">社区应急</label>
+                        <span class="icon-platform-emergency menu-icon" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-sm-23-5 menu-style-2" style="background: rgba(40, 140, 246, 1);">
+                        <label class="menu-word-2">任务管理</label>
+                        <span class="icon-platform-resident menu-icon" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-sm-23-5 offset-02 menu-style-2" style="background: rgba(0, 155, 173, 1);">
+                        <label class="menu-word-2">流动人口</label>
+                    </div>
+                    <div class="col-sm-23-5 offset-02 menu-style-2" style="background: rgba(219, 86, 45, 1);">
+                        <label class="menu-word-2">计划生育</label>
+                    </div>
+                    <div class="col-sm-23-5 offset-02 menu-style-2" style="background: rgba(10, 79, 183, 1);">
+                        <label class="menu-word-2">更多</label>
+                    </div>
+                </div>
+                <div class="col-sm-2"></div>
+                <div class="form-row col-sm-4 align-content-between">
+                    <div class="form-row col-sm-12 justify-content-between">
+                        <div class="col-sm-12 menu-style-1" style="background: rgba(215, 0, 0, 1);">
+                            <label class="menu-word-1" style="padding-right: 50px">基层党建</label>
+                            <span class="icon-platform-party menu-word-1" style="font-size: 50px" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-row col-sm-12 justify-content-between">
+                        <div class="col-sm-31-3 menu-style-2" style="background: rgba(45, 137, 240, 1);">
+                            <label class="menu-word-2">党组织管理</label>
+                        </div>
+                        <div class="col-sm-31-3 menu-style-2" style="background: rgba(0, 164, 0, 1);">
+                            <label class="menu-word-2">党员管理</label>
+                        </div>
+                        <div class="col-sm-31-3 menu-style-2" style="background: rgba(219, 86, 45, 1);">
+                            <label class="menu-word-2">纪委</label>
+                        </div>
+                    </div>
+                    <div class="form-row col-sm-12 justify-content-between">
+                        <div class="col-sm-31-3 menu-style-2" style="background: rgba(188, 32, 71, 1);">
+                            <label class="menu-word-2">组织生活管理</label>
+                        </div>
+                        <div class="col-sm-31-3 menu-style-2" style="background: rgba(171, 0, 173, 1);">
+                            <label class="menu-word-2">党建日常工作</label>
+                        </div>
+                        <div class="col-sm-31-3 menu-style-2" style="background: rgba(1, 158, 175, 1);">
+                            <label class="menu-word-2">宣传</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- 信息显示组件 -->
+<link href="../../../../../../static/framework/plugins/overhang/1.0.5/overhang.css" rel="stylesheet"
+    th:href="@{/static/framework/plugins/overhang/1.0.5/overhang.css}" />
+<script src="../../../../../../static/framework/plugins/overhang/1.0.5/overhang.js"
+    th:src="@{/static/framework/plugins/overhang/1.0.5/overhang.js}"></script>
+<script src="../../../../../../static/framework/plugins/overhang/messageUtil.js"
+    th:src="@{/static/framework/plugins/overhang/messageUtil.js}"></script>
+<script src="../../../../../../static/platform/common/js/common.js" th:src="@{/static/platform/common/js/common.js}"></script>
+<!-- font-platformweb组件的引用 -->
+<link href="../../../../../../static/framework/plugins/font-platformweb/font-platformweb.css"
+    th:href="@{/static/framework/plugins/font-platformweb/font-platformweb.css}" rel="stylesheet">
+</html>

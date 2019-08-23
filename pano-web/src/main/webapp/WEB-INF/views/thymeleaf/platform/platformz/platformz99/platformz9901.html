@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js" th:src="@{/static/platform/common/js/createHead.js}"></script>
+<title>在线用户</title>
+</head>
+<body>
+    <div class="card-body">
+        <div class="card card-default">
+            <div class="card-header">
+                <label>检索条件</label>
+            </div>
+            <div class="card-body">
+                <form id="platformz9901FormSearch" class="form-horizontal">
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="txt_loginId">登录用户ID</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_loginId" name="loginId">
+                        </div>
+                        <label class="col-form-label col-sm-1" for="txt_ipAddress">登录IP地址</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_ipAddress" name="ipAddress">
+                        </div>
+                    </div>
+                </form>
+                <div class="form-row">
+                        <label class="col-form-label col-sm-1">&nbsp;</label>
+                        <div class="col-sm-auto">
+                            <button type="button" id="platformz9901Btn_query" class="btn cis-btn-blue">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span>检索</span>
+                            </button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <div id="toolbar" class="btn-group">
+            <button id="platformz9901Btn_forceLogout" type="button" class="btn pano-btn-danger">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span>强退</span>
+            </button>
+        </div>
+        <table id="table-onlineUser" data-toolbar="#toolbar">
+            <thead>
+                <tr>
+                    <th data-field="checkbox" data-checkbox="true" data-halign="center" data-align="center"></th>
+                    <th data-field="sessionId" data-halign="center" data-align="left">会话编码</th>
+                    <th data-field="loginId" data-halign="center" data-align="left">登录用户ID</th>
+                    <th data-field="lastAccessDate" data-halign="center" data-align="left">最近一次访问时间</th>
+                    <th data-field="ipAddress" data-halign="center" data-align="left">登录IP地址</th>
+                    <th data-field="browser" data-halign="center" data-align="left">浏览器</th>
+                    <th data-field="operatingSystem" data-halign="center" data-align="left">操作系统</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+    <!-- Ajax提交用的Form -->
+    <form id="platformz9901FormAjaxSubmit"></form>
+    <script src="../../../../../../static/platform/platformz/js/platformz99/platformz9901.js" th:src="@{/static/platform/platformz/js/platformz99/platformz9901.js}"></script>
+</body>
+</html>

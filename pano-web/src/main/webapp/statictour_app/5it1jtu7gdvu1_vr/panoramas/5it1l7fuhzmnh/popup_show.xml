@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<krpano>
+    <preview url="preview.jpg"/>
+    <image>
+        <cube url="panos/sphere_%s.jpg"/>
+    </image>
+    <view fov="100" fovmax="150" fovmin="50" fovtype="MFOV" hlookat="0" vlookat="0"/>
+</krpano>

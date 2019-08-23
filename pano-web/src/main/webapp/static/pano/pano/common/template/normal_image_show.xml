@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<krpano >
+    <image hfov="1.0">
+        <sphere url="panos/normal_image.jpg" />
+    </image>
+    <view hlookat="0" vlookat="0" maxpixelzoom="10" limitview="fullrange" fov="100" fovmin="60" fovmax="150" />
+</krpano>

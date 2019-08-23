@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+	<description>platform taglib</description>
+	<tlib-version>1.0</tlib-version>
+	<short-name>platformTagLib</short-name>
+	<uri>/platformTagLib</uri>
+
+	<tag>
+		<!-- 标签名 -->
+		<name>page</name>
+		<!-- 对应的标签处理类全限定名 -->
+		<tag-class>cn.com.platform.web.view.PagerTag</tag-class>
+		<!-- 标签主体的类型 -->
+		<body-content>empty</body-content>
+		
+		<attribute>
+            <!-- 属性名 -->  
+			<name>formId</name>
+            <!-- 该属性是否为必要的 -->  
+			<required>true</required>
+            <!-- 属性值是否可以在JSP运行时期动态产生 -->  
+			<rtexprvalue>true</rtexprvalue>
+            <!-- 属性的数据类型 -->  
+			<type>String</type>
+		</attribute>
+		<attribute>
+			<name>formAction</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>String</type>
+		</attribute>
+		<attribute>
+			<name>pageStartRowNo</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>recordCount</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>pageSize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>ajaxPageMethod</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>uniqueFlag</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+</taglib>

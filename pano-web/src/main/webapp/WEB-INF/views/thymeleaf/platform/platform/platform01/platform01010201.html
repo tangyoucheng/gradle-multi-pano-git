@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<title>注册页面</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js"></script>
+</head>
+<body class="bg-white">
+    <div id="userRegisterDialog" class="container bg-white pt-2" style="width: 638px; min-width: 638px;">
+        <div class="row pb-2">
+            <div class="col-12">
+                <button id="closeUserRegisterDialog" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-7 border-right">
+                <ul class="nav login-tab">
+                    <li class="nav-item col-6 text-center underL1">注册账号</li>
+                </ul>
+                <!--注册账号-->
+                <div>
+                    <form id="platform01010201Form" th:action="@{/}" th:object="${platform01010201Form}">
+                        <input type="hidden" id="targetUrl" name="targetUrl" th:value="*{targetUrl}">
+                        <div class="col-12 input-group mt-3 pl-0 pr-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-0">
+                                    <span class="fa fa-user-circle" aria-hidden="true"></span>
+                                </span>
+                            </div>
+                            <input id="txt_memberName" name="memberName" placeholder="用户名" maxlength="20"
+                                autocomplete="off" class="form-control border-left-0 border-top-0 border-right-0"
+                                type="text">
+                        </div>
+                        <div class="col-12 input-group mt-3 pl-0 pr-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-0">
+                                    <span class="fa fa-user" aria-hidden="true"></span>
+                                </span>
+                            </div>
+                            <input id="txt_memberLoginId" name="memberLoginId" placeholder="用户代码" maxlength="20"
+                                autocomplete="off" class="form-control border-left-0 border-top-0 border-right-0"
+                                type="text">
+                        </div>
+                        <div class="col-12 input-group mt-4 mb-4 pl-0 pr-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-0">
+                                    <span class="fa fa-key" aria-hidden="true"></span>
+                                </span>
+                            </div>
+                            <input id="txt_memberPassword" name="memberPassword" placeholder="密码" maxlength="30"
+                                autocomplete="off" class="form-control border-left-0 border-top-0 border-right-0"
+                                type="password">
+                        </div>
+                        <div class="col-12 input-group mt-4 mb-4 pl-0 pr-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-0">
+                                    <span class="fa fa-key" aria-hidden="true"></span>
+                                </span>
+                            </div>
+                            <input id="txt_memberPasswordConfirm" name="memberPasswordConfirm" placeholder="确认密码"
+                                maxlength="30" autocomplete="off"
+                                class="form-control border-left-0 border-top-0 border-right-0" type="password">
+                        </div>
+                        <div class="col-12 input-group mt-4 mb-4 pl-0 pr-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-0">
+                                    <span class="fa fa-shield-alt" aria-hidden="true"></span>
+                                </span>
+                            </div>
+                            <input id="txt_captchaText" name="captchaText" placeholder="验证码" maxlength="30"
+                                autocomplete="off" class="form-control border-left-0 border-top-0 border-right-0"
+                                type="text">
+                            <img id="captchaImg" style="height: 35px; width: 115px;" th:src="@{/images/captcha}"
+                                src="../../../../../../static/platform/platform/images/platform01/captcha.png" onclick="refreshCaptcha()">
+                        </div>
+                    </form>
+                    <button id="RegisterBtnTwo" type="button" class="btn pano-btn-danger col-12 pt-3 pb-3"
+                        onclick="nameRegister()">
+                        <span>注册</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-5 login-main-r">
+                <h5>合作网站账户登录</h5>
+                <p>
+                    <label>已有账号？</label>
+                    <a id="toLogin" href="javascript:void(0);" style="color: #f05b72;">立即登录</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../../../../../static/platform/platform/js/platform01/platform01010201.js" th:src="@{/static/platform/platform/js/platform01/platform01010201.js}"></script>
+<link href="../../../../../../static/platform/css/platform01/platform01010201.css" rel="stylesheet" type="text/css"
+    th:href="@{/static/platform/css/platform01/platform01010201.css}"></link>
+</html>

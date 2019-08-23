@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<krpano onstart="lookat(0,0);">
+    <preview url="preview.jpg"/>
+    <image>
+        <cube url="panos_l/sphere_%s.jpg"/>
+    </image>
+    <view fov="100" fovmax="150" fovmin="50" fovtype="MFOV" hlookat="0" vlookat="0"/>
+<include url="../../../../../../../static/pano/pano/common/template/recommend_path.xml"/>
+<include url="../../../../../../../static/pano/pano/common/template/anihotspots.xml"/>
+<events onloadcomplete="js(doPano0209KrpanoOnloadcomplete(););"/>
+</krpano>

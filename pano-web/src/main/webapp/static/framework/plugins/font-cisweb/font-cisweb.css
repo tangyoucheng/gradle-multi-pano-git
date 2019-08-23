@@ -1,0 +1,93 @@
+@font-face {
+  font-family: 'font-cisweb';
+  src:  url('fonts/font-cisweb.eot?gzon8f');
+  src:  url('fonts/font-cisweb.eot?gzon8f#iefix') format('embedded-opentype'),
+    url('fonts/font-cisweb.ttf?gzon8f') format('truetype'),
+    url('fonts/font-cisweb.woff?gzon8f') format('woff'),
+    url('fonts/font-cisweb.svg?gzon8f#font-cisweb') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-cis-"], [class*=" icon-cis-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'font-cisweb' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-cis-base:before {
+  content: "\e900";
+}
+.icon-cis-emergency:before {
+  content: "\e901";
+}
+.icon-cis-lodger:before {
+  content: "\e902";
+}
+.icon-cis-more:before {
+  content: "\e903";
+}
+.icon-cis-party:before {
+  content: "\e904";
+}
+.icon-cis-party-red:before {
+  content: "\e905";
+  color: #f00;
+}
+.icon-cis-plan:before {
+  content: "\e906";
+}
+.icon-cis-plan-conduct:before {
+  content: "\e907";
+}
+.icon-cis-plan-new:before {
+  content: "\e908";
+}
+.icon-cis-plan-schedule:before {
+  content: "\e909";
+}
+.icon-cis-plan-success:before {
+  content: "\e90a";
+}
+.icon-cis-plan-wait:before {
+  content: "\e90b";
+}
+.icon-cis-position:before {
+  content: "\e90c";
+}
+.icon-cis-preview:before {
+  content: "\e90d";
+}
+.icon-cis-resident:before {
+  content: "\e90e";
+}
+.icon-cis-serve:before {
+  content: "\e90f";
+}
+.icon-cis-task:before {
+  content: "\e910";
+}
+.icon-cis-warn:before {
+  content: "\e911";
+}
+.icon-cis-warn-conduct:before {
+  content: "\e912";
+}
+.icon-cis-warn-success:before {
+  content: "\e913";
+}
+.icon-cis-warn-wait1:before {
+  content: "\e914";
+}
+.icon-cis-warn-wait:before {
+  content: "\e915";
+}

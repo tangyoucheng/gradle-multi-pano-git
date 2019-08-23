@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>图片查看器</title>
+    <link rel="stylesheet" href="photoGallery.css"/>
+    <!-- Jquery组件引用 -->
+    <script src="../../../../webjars/jquery/3.4.1/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script src="jquery.geturlparam.min.js"></script>
+    <script src="jquery.photo.gallery.js"></script>
+</head>
+<body>
+<div class="box">
+	<header drag>
+		<div class="winControl" noDrag>
+	        <!--<span class="closeWin" title="关闭"><i class="icon_close-big"></i></span>-->
+	    </div>
+	</header>
+	<div class="gallery"></div>
+</div>
+<script>
+	$.initGallery();
+</script>
+</body>
+</html>

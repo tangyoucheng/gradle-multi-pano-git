@@ -1,0 +1,93 @@
+/***********************************
+   ps99theme-dropdown  主题切换     START
+************************************/
+.ps99theme-dropdown {
+    z-index: 10000;
+    position: fixed;
+    right: 4px;
+    top: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ps99theme-dropdown-toggle {
+    width: 60px;
+    height: 60px;
+    background: #dc3a3a;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    background: #f2f2f2;
+    text-align: center;
+    font-size: 20px;
+    border-top-left-radius: 5px;
+}
+
+.ps99theme-dropdown-toggle:hover .fa {
+    font-size: 24px;
+}
+
+.ps99theme-dropdown-menu {
+    display: none;
+}
+
+.ps99theme-dropdown-menu-item {
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    background: #dc3a3a;
+    margin-left: 10px;
+    float: left;
+}
+
+.ps99theme-open {
+    display: block;
+    line-height: 60px;
+}
+
+.ps99theme-closed {
+    display: none;
+    line-height: 60px;
+}
+
+.is-open .closed {
+    display: block;
+}
+
+.is-open .open {
+    display: none;
+}
+
+.is-closed .closed {
+    display: none;
+}
+
+.is-closed .open {
+    display: block;
+}
+
+.ps99theme-dropdown-toggle {
+    background: #000000;
+}
+.ps99theme-black {
+    background: #000000;
+    /*background: #ffe8e8;*/
+}
+
+.ps99theme-red {
+    background: #dc3a3a;
+    /*background: #ffe8e8;*/
+}
+
+.ps99theme-blue {
+    background: #1890FF;
+    /*background: #d4eaff;*/
+}
+
+.ps99theme-green {
+    background: #4ACA6D;
+}
+
+/***********************************
+   ps99theme-dropdown  主题切换     END
+************************************/

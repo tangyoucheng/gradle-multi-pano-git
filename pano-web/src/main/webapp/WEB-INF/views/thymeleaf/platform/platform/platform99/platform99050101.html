@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js"></script>
+<title>触发器设定 定时任务</title>
+</head>
+<style type="text/css">
+.labelWeek {
+    display: inline-block;
+    margin-right: 17px;
+    cursor: pointer;
+}
+.labelWeek input {
+    width: 13px;
+    height: 13px;
+}
+</style>
+<body>
+    <div class="card-body">
+        <div class="card card-default">
+            <div class="card-body">
+                <form id="platform99050101Form" th:action="@{/}" th:object="${platform99050101Form}">
+                    <input type="hidden" id="txt_jobId" name="jobId" th:value="*{jobId}">
+                    <input type="hidden" id="returnTargetIframe" name="returnTargetIframe"
+                        th:value="*{returnTargetIframe }">
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="isYear">年</label>
+                        <div class="col-sm-2">
+                            <input th:if="true" type="checkbox" name="isYear" th:checked="*{years}"
+                                data-on-color="default" data-on-text="指定年" data-off-text="每年" data-off-color="default"
+                                data-handle-width="50px">
+                        </div>
+                        <div id="for_years" class="col-sm-6" th:style="*{years}?'':'display: none'">
+                            <input type="text" class="form-control" id="txt_years" name="years" th:value="*{years}"
+                                placeholder="请用逗号分隔进行多个的指定">
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="isMonth">月</label>
+                        <div class="col-sm-2">
+                            <input type="checkbox" name="isMonth" th:checked="*{months}" data-on-color="default"
+                                data-on-text="指定月" data-off-text="每月" data-off-color="default" data-handle-width="50px">
+                        </div>
+                        <div id="for_months" class="col-sm-6" th:style="*{months}?'':'display: none'">
+                            <input type="text" class="form-control" id="txt_months" name="months" th:value="*{months}"
+                                placeholder="请用逗号分隔进行多个的指定">
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="isDay">日</label>
+                        <div class="col-sm-2">
+                            <input type="checkbox" name="isDay"
+                                th:checked="*{daysOfMonth != null || daysOfWeek != null}" data-on-color="default"
+                                data-on-text="指定日" data-off-text="每天" data-off-color="default" data-handle-width="50px">
+                        </div>
+                        <div id="for_dayOrWeek" class="form-group form-row col-sm-8"
+                            th:style="*{daysOfMonth != null || daysOfWeek != null}?'':'display: none'">
+                            <div class="col-sm-3">
+                                <input type="checkbox" name="dayOrWeek" th:checked="*{daysOfMonth}"
+                                    data-on-color="default" data-on-text="日期" data-off-text="星期"
+                                    data-off-color="default" data-handle-width="50px">
+                            </div>
+                            <div id="for_daysOfMonth" class="col-sm-9" th:style="*{daysOfMonth}?'':'display: none'">
+                                <input type="text" class="form-control" id="txt_daysOfMonth" name="daysOfMonth"
+                                    th:value="*{daysOfMonth}" placeholder="请用逗号分隔进行多个的指定">
+                            </div>
+                            <div id="for_daysOfWeek" class="col-sm-9" th:style="*{daysOfMonth}?'':'display: false'">
+                                <label class="labelWeek" th:each="week:*{weekList}">
+                                    <input type="checkbox" name="week" th:value="${week.recordCode }"/>
+                                    <span th:text="${week.recordValue }"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="isHour">时</label>
+                        <div class="col-sm-2">
+                            <input type="checkbox" name="isHour" th:checked="*{hours}" data-on-color="default"
+                                data-on-text="指定时" data-off-text="每时" data-off-color="default" data-handle-width="50px">
+                        </div>
+                        <div id="for_hours" class="col-sm-6" th:style="*{hours}?'':'display: none'">
+                            <input type="text" class="form-control" id="txt_hours" name="hours" th:value="*{hours}"
+                                placeholder="请用逗号分隔进行多个的指定">
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="isMinute">分</label>
+                        <div class="col-sm-2">
+                            <input type="checkbox" name="isMinute" th:checked="*{minutes}" data-on-color="default"
+                                data-on-text="指定分" data-off-text="每分" data-off-color="default" data-handle-width="50px">
+                        </div>
+                        <div id="for_minutes" class="col-sm-6" th:style="*{minutes}?'':'display: none'">
+                            <input type="text" class="form-control" id="txt_minutes" name="minutes"
+                                th:value="*{minutes}" placeholder="请用逗号分隔进行多个的指定">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label class="col-form-label text-right col-sm-1">&nbsp;</label>
+                        <div class="col-sm-2">
+                            <!-- 保存 -->
+                            <button type="button" id="btn_entry" class="btn pano-btn-danger">
+                                <span class="glyphicon glyphicon-save" aria-hidden="true"> </span>
+                                <span>保存</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../../../static/platform/platform/js/platform99/platform99050101.js" th:src="@{/static/platform/platform/js/platform99/platform99050101.js}"></script>
+</body>
+</html>

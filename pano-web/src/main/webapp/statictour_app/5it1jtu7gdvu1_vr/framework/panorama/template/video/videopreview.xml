@@ -1,0 +1,4 @@
+<krpano> 
+<!--引入外部ＸＭＬ文件-->
+ <include url="videoplayer.xml"/>
+</krpano> 

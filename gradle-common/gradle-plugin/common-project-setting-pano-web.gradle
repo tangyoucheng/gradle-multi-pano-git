@@ -1,0 +1,4 @@
+	eclipse.project {
+		buildCommand 'org.thymeleaf.extras.eclipse.core.ThymeleafBuilder'
+		natures 'org.thymeleaf.extras.eclipse.core.ThymeleafNature'
+	}

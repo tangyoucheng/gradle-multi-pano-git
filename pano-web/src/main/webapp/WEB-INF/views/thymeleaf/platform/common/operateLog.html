@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js" th:src="@{/static/platform/common/js/createHead.js}"></script>
+<title>操作历史共通</title>
+</head>
+<body>
+    <div class="card-body" th:fragment="operateLog(moduleId, recordId)">
+        <script src="../../../../../../static/platform/common/js/operateLog.js" th:src="@{/static/platform/common/js/operateLog.js}"></script>
+        <!-- 高级检索  start -->
+        <form id="operateLogFormSearch" class="form-horizontal" th:object="${operateLogForm}">
+            <!-- 模块主键 -->
+            <input type="hidden" class="form-control" id="txt_parameterModuleId" name="parameterModuleId"
+                th:value="${moduleId}">
+            <!--  数据记录主键 -->
+            <input type="hidden" class="form-control" id="txt_parameterRecordId" name="parameterRecordId"
+                th:value="${recordId}">
+        </form>
+        <!-- 高级检索内容  end -->
+        <table id="table-operateLog" data-toolbar="#toolbar">
+            <thead>
+                <tr>
+                    <th data-field="moduleId" data-visible="false">模块主键</th>
+                    <th data-field="recordId" data-visible="false">数据记录主键</th>
+                    <th data-field="operateId" data-visible="false">日志主键</th>
+                    <th data-field=operateTime data-halign="center" data-align="left">操作时间</th>
+                    <th data-field="operateName" data-halign="center" data-align="left">操作人员</th>
+                    <th data-field="businessType" data-visible="false">业务类型</th>
+                    <th data-field="businessTypeName" data-halign="center" data-align="left">业务类型</th>
+                    <th data-field="rowOperate" data-halign="center" data-align="center">操作</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <!-- Ajax提交用的Form -->
+    <form id="operateLogFormAjaxSubmit"></form>
+    <script src="../../../../../../static/platform/common/js/common.js" th:src="@{/static/platform/common/js/common.js}"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.pano.pano.mapper.pano02.Pano0205Mapper">
+    <resultMap id="BaseResultMap" type="cn.com.pano.pano.model.common01.PanoMaterial01Model"
+        extends="cn.com.pano.pano.mapper.common.PanoMaterialMapper.BaseResultMap">
+        <result column="hotspot_id" jdbcType="VARCHAR" property="hotspotId" />
+        <result column="sort_key" jdbcType="DECIMAL" property="sortKey" />
+    </resultMap>
+
+    <!--检索素材库中的平面图（图文） -->
+    <select id="selectTextImgMaterialInfo" parameterType="map" resultMap="BaseResultMap">
+        SELECT A.*,B.hotspot_id,B.sort_key 
+        FROM 
+        pano_material A 
+        LEFT JOIN pano_hotspot_url B ON A.material_id = B.hotspot_url_object_id 
+              AND B.hotspot_id = #{hotspotId}
+        <where>
+            1 = 1
+            <if test="expositionId != null">
+                AND (A.exposition_id = #{expositionId} OR A.exposition_id = 'common_material')
+            </if>
+            <if test="materialTypeId != null">
+                AND A.material_type_id = #{materialTypeId}
+            </if>
+        </where>
+        ORDER BY B.sort_key
+    </select>
+
+    <!--检索展览总件数 -->
+    <select id="selectMaterialInfoCount" parameterType="map" resultType="java.lang.Long">
+        select count(*) from pano_material
+        <where>
+            1 = 1
+            <if test="deleteFlag != null">
+                AND DELETE_FLAG = #{deleteFlag}
+            </if>
+            <if test="expositionId != null">
+                AND exposition_id like #{expositionId}
+            </if>
+            <if test="materialTypeId != null">
+                AND material_type_id like #{materialTypeId}
+            </if>
+        </where>
+    </select>
+    <!--检索展览一览 -->
+    <select id="selectMaterialInfo" parameterType="map" resultMap="BaseResultMap">
+        select * from pano_material
+        <where>
+            1 = 1
+            <if test="deleteFlag != null">
+                AND DELETE_FLAG = #{deleteFlag}
+            </if>
+            <if test="expositionId != null">
+                AND exposition_id like #{expositionId}
+            </if>
+            <if test="materialTypeId != null">
+                AND material_type_id like #{materialTypeId}
+            </if>
+        </where>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="offSet != null and pageSize !=null">
+            limit #{offSet},#{pageSize}
+        </if>
+    </select>
+</mapper>

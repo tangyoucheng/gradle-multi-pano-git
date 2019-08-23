@@ -1,0 +1,8 @@
+//rootProject.name = 'gradle-multi-pano'
+//includeFlat 'test1'
+
+includeFlat 'pano-entity-generator-mybatis'
+
+includeFlat 'pano-entity'
+includeFlat 'pano-framework'
+includeFlat 'pano-web'

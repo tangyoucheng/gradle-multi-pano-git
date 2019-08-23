@@ -1,0 +1,196 @@
+.h_wrap {
+    background: #fff;
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    font: normal 14px/22px "Microsoft YaHei";
+    color: #2c3e50;
+}
+
+.h_tit {
+    border-bottom: 1px solid #eee;
+    height: 53px;
+    line-height: 53px;
+    /*     margin: 0 10px; */
+    color: #30c3a6;
+    /*     padding-left: 10px; */
+    font-weight: bold;
+}
+
+.h_tit_span {
+    color: #9E9E9C;
+}
+
+.process_bar {
+    position: relative;
+    height: 2px;
+    background: #f05b72;
+    width: 740px;
+    margin-top: 70px;
+}
+
+.mb70 {
+    margin-bottom: 70px;
+}
+
+.green_line {
+    width: 190px;
+    height: 2px;
+    background: #30c3a6;
+}
+
+.txt_1, .txt_2, .txt_3, .txt_4, .txt_5, .txt_6 {
+    position: absolute;
+    left: 0px;
+}
+
+.process_tip1, .process_tip2 {
+    position: absolute;
+    top: -66px;
+    background: url(../images/common/fb_sprice.png) no-repeat -30px -130px;
+    width: 142px;
+    height: 58px;
+    padding: 5px 10px 0;
+    color: #fff;
+    line-height: 20px;
+}
+
+.process_tip2 {
+    background-position: -30px -190px;
+}
+
+.txt_2 {
+    left: 236px;
+}
+
+.txt_3 {
+    left: 472px;
+}
+
+.txt_4 {
+    left: 128px;
+}
+
+.txt_5 {
+    left: 344px;
+}
+
+.process_tip {
+    position: absolute;
+    width: 130px;
+    text-align: center;
+    top: -8px;
+    height: 45px;
+}
+
+.process_tip span {
+    display: inline-block;
+}
+
+.h_point1, .h_point2, .h_point3 {
+    background: url(../images/common/fb_sprice.png) no-repeat -30px -253px;
+    width: 17px;
+    height: 17px;
+}
+
+.h_point2 {
+    background-position: -51px -253px;
+}
+
+.h_pic_list {
+    padding: 6px 0 6px 0px;
+}
+
+.h_pic_list li {
+    position: relative;
+    float: left;
+    width: 180px;
+    height: 180px;
+    margin: 0 30px 30px 0;
+    padding: 5px;
+    border: 1px solid #fff;
+    background: #fff;
+}
+
+.room_img_show {
+    width: 180px;
+    height: 180px;
+}
+
+.room_img_show img {
+    width: 100%;
+    height: 100%;
+}
+
+.img_btm_bg, .img_btm_bg1 {
+    position: absolute;
+    /*     left: 5px; */
+    /*     top: 95px; */
+    z-index: 5;
+    background-color: #000000;
+    opacity: 0.5;
+    /*     width: 180px; */
+    /*     height: 30px; */
+    line-height: 30px;
+    text-align: center;
+/*     color: #fff; */
+    right: -6px;
+    border-radius: 400px;
+}
+
+.delete_text {
+    display: block;
+    /*     float: left; */
+    /*      width: 180px; */
+    text-align: center;
+    color: red;
+    cursor: pointer;
+    float: right;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.file_input {
+    z-index: 6;
+    filter: Alpha(opacity = 0);
+    opacity: 0;
+}
+
+.h_add_pic, .file_input {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 180px;
+    height: 180px;
+    cursor: pointer;
+}
+
+.h_add_pic {
+    z-index: 5;
+}
+
+.keep_btn {
+    /*     display: block; */
+    width: 180px;
+    height: 44px;
+    line-height: 44px;
+    background: #f05b72;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    font-family: "Microsoft YaHei";
+    border-radius: 2px;
+    transition: background-color 0.2s ease 0s;
+    cursor: pointer;
+    border: none;
+}
+
+.color-grey {
+    color: #6c757d !important;
+}
+
+.color-pink {
+    color: #ff4081 !important;
+}

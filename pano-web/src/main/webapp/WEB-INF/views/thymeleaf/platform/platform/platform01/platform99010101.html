@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<title>功能一览</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js" th:src="@{/static/platform/common/js/createHead.js}"></script>
+</head>
+<body class="view-body">
+    <div class="view-upside view-row flex-column" style="min-width: 1205px; width: 100%; z-index: 1">
+        <div class="upside-title row flex-column text-center" style="width: 600px; padding-top: 45px">
+            <label class="title-cnText">社区综合服务平台</label>
+            <label class="title-enText">COMMUNITY INTEGRATED SERVICE PLATFORM</label>
+        </div>
+        <div class="upside-content view-row justify-content-center">
+            <div class="view-row justify-content-between" style="width: 1166px; height: 420px; padding-top: 60px">
+                <div onclick="gotoPortalPage('platforma')" class="content-block-left"
+                    style="background: rgba(227, 83, 88, 1); width: 410px; height: 410px">
+                    <span class="icon-platform-party content-icon" style="color: #f4ea2a; font-size: 120px"
+                        aria-hidden="true"></span>
+                    <span class="content-left" style="padding-top: 65px">基层党建</span>
+                </div>
+                <div class="view-row" style="width: 738px;">
+                    <div class="view-row justify-content-between" style="width: 738px;">
+                        <div onclick="gotoPortalPage('platformb')" class="content-block-right"
+                            style="background: rgba(109, 193, 116, 1); width: 360px; height: 200px">
+                            <span class="icon-platform-base content-icon" aria-hidden="true"></span>
+                            <span class="content-right">基础功能</span>
+                        </div>
+                        <div onclick="gotoPortalPage('platformc')" class="content-block-right"
+                            style="background: rgba(124, 182, 192, 1); width: 360px; height: 200px">
+                            <span class="icon-platform-resident content-icon" aria-hidden="true"></span>
+                            <span class="content-right">居民服务</span>
+                        </div>
+                    </div>
+                    <div class="view-row justify-content-between" style="width: 738px; padding-top: 10px">
+                        <div onclick="gotoPortalPage('platformd')" class="content-block-right"
+                            style="background: rgba(111, 141, 156, 1); width: 360px; height: 200px">
+                            <span class="icon-platform-emergency content-icon" aria-hidden="true"></span>
+                            <span class="content-right">社区应急</span>
+                        </div>
+                        <div onclick="gotoPortalPage('platformz')" class="content-block-right"
+                            style="background: rgba(208, 124, 101, 1); width: 360px; height: 200px">
+                            <span class="icon-platform-task content-icon" aria-hidden="true"></span>
+                            <span class="content-right">任务管理</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="canvas">
+        <ul id="build2">
+            <li>
+                <img src="../../../../../../static/platform/platform/images/platform01/build2.png"
+                    th:src="@{/static/platform/platform/images/platform01/build2.png}"
+                    style="height: 385px; width: 3795px; position: absolute; bottom: 60px;">
+            </li>
+        </ul>
+        <ul id="build3">
+            <li>
+                <img src="../../../../../../static/platform/platform/images/platform01/build3.png"
+                    th:src="@{/static/platform/platform/images/platform01/build3.png}"
+                    style="height: 385px; width: 3795px; position: absolute; bottom: 30px;">
+            </li>
+        </ul>
+        <ul id="build1">
+            <li>
+                <img src="../../../../../../static/platform/platform/images/platform01/build1.png"
+                    th:src="@{/static/platform/platform/images/platform01/build1.png}" style="height: 385px; width: 3795px">
+            </li>
+        </ul>
+    </div>
+    <!-- <canvas id="view-footer" style="display: block;"></canvas> -->
+</body>
+<!-- 信息显示组件 -->
+<link href="../../../../../../static/framework/plugins/overhang/1.0.5/overhang.css" rel="stylesheet"
+    th:href="@{/static/framework/plugins/overhang/1.0.5/overhang.css}" />
+<script src="../../../../../../static/framework/plugins/overhang/1.0.5/overhang.js"
+    th:src="@{/static/framework/plugins/overhang/1.0.5/overhang.js}"></script>
+<script src="../../../../../../static/framework/plugins/overhang/messageUtil.js"
+    th:src="@{/static/framework/plugins/overhang/messageUtil.js}"></script>
+<script src="../../../../../../static/platform/common/js/common.js" th:src="@{/static/platform/common/js/common.js}"></script>
+<!-- font-platformweb组件的引用 -->
+<link href="../../../../../../static/framework/plugins/font-platformweb/font-platformweb.css"
+    th:href="@{/static/framework/plugins/font-platformweb/font-platformweb.css}" rel="stylesheet">
+<script src="../../../../../../static/platform/platform/js/platform01/platform99010101.js" th:src="@{/static/platform/platform/js/platform01/platform99010101.js}"></script>
+<link href="../../../../../../static/platform/css/platform01/platform99010101.css" rel="stylesheet" type="text/css"
+    th:href="@{/static/platform/css/platform01/platform99010101.css}"></link>
+</html>

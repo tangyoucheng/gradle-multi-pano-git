@@ -1,0 +1,100 @@
+/************************************
+ztree 树形菜单 start
+**********************/
+.ztree-dropdown .dropdown-menu {
+    display: block;
+}
+
+.ztree.roster li a {
+    height: inherit !important;
+    padding: 6px 2px 6px 0 !important;
+    border: 0 !important;
+}
+
+.ztree.roster li a:hover {
+    background-color: #ffffff !important;
+    color: #1296db;
+}
+
+.ztree.roster li a.level0 {
+    cursor: default;
+}
+
+.ztree.roster li.level0 a.level0:hover {
+    color: inherit;
+}
+
+.node_name {
+    font-size: 14px !important;
+}
+
+.ztree.roster li.level0 {
+    align-items: inherit;
+    display: block;
+}
+
+.ztree.roster li a.curSelectedNode {
+    background-color: #ffffff !important;
+    color: #1296db;
+    /*border: 1px #FFB951 solid !important;*/
+    border: 0px !important;
+    font-size: 16px !important;
+    opacity: 1 !important;
+}
+
+.ztree.roster li a.curSelectedNode.level0 {
+    color: inherit;
+}
+
+.ztree-char {
+    padding-top: 6px;
+    display: inline-block;
+}
+/* 线条 */
+.ztree.roster li span.button.switch {
+    width: 18px;
+    height: 27px !important;
+}
+
+.ztree.roster  li span.button.root_open {
+    background-position: -92px -50px !important;
+}
+
+.ztree.roster li span.button.root_close {
+    background-position: -74px -50px !important;
+}
+
+.ztree.roster li span.button.roots_open {
+    background-position: -92px 6px !important;
+}
+
+.ztree.roster li span.button.roots_close {
+    background-position: -74px 6px !important;;
+}
+
+.ztree.roster li span.button.center_open {
+    background-position: -92px -14px !important
+}
+
+.ztree.roster li span.button.center_close {
+    background-position: -74px -14px !important;
+}
+
+.ztree.roster li span.button.bottom_open {
+    background-position: -92px -32px !important;
+}
+
+.ztree.roster li span.button.bottom_close {
+    background-position: -74px -32px !important;
+}
+
+.ztree.roster li span.button.center_docu {
+    background-position: -56px -14px !important;
+}
+
+.ztree.roster li span.button.bottom_docu {
+    background-position: -56px -32px !important;
+}
+/************************************
+ztree 树形菜单 end
+**********************/

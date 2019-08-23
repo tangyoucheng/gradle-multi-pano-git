@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js" th:src="@{/static/platform/common/js/createHead.js}"></script>
+<title>登陆日志</title>
+</head>
+<body>
+    <div class="card-body">
+        <div class="card card-default">
+            <div class="card-header">
+                <label>检索条件</label>
+            </div>
+            <div class="card-body">
+                <form id="platformz9904FormSearch" class="form-horizontal">
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="txt_loginId">登录用户ID</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_loginId" name="loginId">
+                        </div>
+                        <label class="col-form-label col-sm-1" for="txt_ipAddress">登录IP地址</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_ipAddress" name="ipAddress">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label class="col-form-label col-sm-1">&nbsp;</label>
+                        <div class="col-sm-auto">
+                            <button type="button" id="platformz9904Btn_query" class="btn cis-btn-blue">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span>检索</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="toolbar" class="btn-group">
+            <button id="platformz9904Btn_delete" type="button" class="btn pano-btn-danger">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span>删除</span>
+            </button>
+            <button id="platformz9904Btn_clear" type="button" class="btn pano-btn-danger">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span>清空</span>
+            </button>
+        </div>
+        <table id="table-loginInfo" data-toolbar="#toolbar">
+            <thead>
+                <tr>
+                    <th data-field="checkbox" data-checkbox="true" data-halign="center" data-align="center"></th>
+                    <th data-field="loginId" data-halign="center" data-align="left">登录用户ID</th>
+                    <th data-field="ipAddress" data-halign="center" data-align="left">登录IP地址</th>
+                    <th data-field="browser" data-halign="center" data-align="left">浏览器</th>
+                    <th data-field="operatingSystem" data-halign="center" data-align="left">操作系统</th>
+                    <th data-field="status" data-halign="center" data-align="center">登陆状态</th>
+                    <th data-field="msg" data-halign="center" data-align="left">操作信息</th>
+                    <th data-field="loginTime" data-halign="center" data-align="left">登陆时间</th>
+                    <th data-field="infoId" data-visible="false">访问ID</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+    <!-- Ajax提交用的Form -->
+    <form id="platformz9904FormAjaxSubmit"></form>
+    <script src="../../../../../../static/platform/platformz/js/platformz99/platformz9904.js" th:src="@{/static/platform/platformz/js/platformz99/platformz9904.js}"></script>
+</body>
+</html>

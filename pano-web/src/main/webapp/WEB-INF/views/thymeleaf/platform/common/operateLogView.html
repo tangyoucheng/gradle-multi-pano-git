@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js" th:src="@{/static/platform/common/js/createHead.js}"></script>
+<title>操作历史共通-查看</title>
+</head>
+<body>
+    <div class="card-body">
+        <div class="card card-default">
+            <div class="card-body">
+                <form id="operateLogViewForm" th:action="@{/}" th:object="${operateLogViewForm}">
+                    <!-- 模块主键 -->
+                    <input type="hidden" class="form-control" id="txt_moduleId" name="moduleId" th:value="*{moduleId}">
+                    <!-- 数据记录主键 -->
+                    <input type="hidden" class="form-control" id="txt_recordId" name="recordId" th:value="*{recordId}">
+                    <!--日志主键 -->
+                    <input type="hidden" class="form-control" id="txt_operateId" name="operateId"
+                        th:value="*{operateId}">
+                    <!-- 操作时间 -->
+                    <div class="form-group form-row">
+                        <label class="col-form-label text-right col-sm-1" for="txt_editTime">操作时间：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="layui-input form-control border" placeholder="yyyy-MM-dd HH:mm:ss"
+                                th:value="*{operateTime}" readonly="readonly">
+                        </div>
+                    </div>
+                    <!-- 操作人员 -->
+                    <div class="form-group form-row">
+                        <label class="col-form-label text-right col-sm-1" for="txt_editUnit">操作人员：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_operateName" name="operateName"
+                                placeholder="请输入" maxlength="100" th:value="*{operateName}" readonly="readonly">
+                        </div>
+                    </div>
+                    <!-- 业务类型 -->
+                    <div class="form-group form-row">
+                        <label class="col-form-label text-right form-group col-sm-1" for="txt_businessType">业务类型：</label>
+                        <div class="col-sm-3 form-group">
+                            <input type="text" class="form-control" id="txt_businessType" name="businessType"
+                                th:value="*{businessType}" readonly="readonly">
+                        </div>
+                    </div>
+                    <!-- 请求参数 -->
+                    <div class="form-group form-row">
+                        <label class="col-form-label form-group text-right col-sm-1" for="txt_operateParam">请求参数：</label>
+                        <div class="col-sm-5">
+                            <span class=" form-control m-0"
+                                style="line-height: 1.5 !important; min-height: 100px; height: inherit; max-height: 240px; overflow: auto;"
+                                th:text="*{operateParam}"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label class="col-form-label text-right col-sm-1">&nbsp;</label>
+                        <div class="col-sm-4">
+                            <!-- 关闭 -->
+                            <button type="button" id="operateLogView_close" class="btn pano-btn-danger">
+                                <span class="glyphicon glyphicon-floppy-disk"></span>
+                                <span>关闭</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../../../static/platform/common/js/operateLogView.js"
+        th:src="@{/static/platform/common/js/operateLogView.js}"></script>
+    <script src="../../../../../../static/platform/common/js/common.js" th:src="@{/static/platform/common/js/common.js}"></script>
+</body>
+</html>

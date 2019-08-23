@@ -1,0 +1,35 @@
+<krpano>
+
+    <!-- radar plugin, will be assigned to be a child of spot -->
+        <layer name="radar" keep="true" visible="false"
+           url="%SWFPATH%/plugins/radar.swf"
+           alturl="%SWFPATH%/plugins/radar.js"
+           align="center" edge="center" zorder="1"
+           fillcolor="#FF7800" fillalpha="0.5" scale="0.3"
+           headingoffset="0"
+           />
+
+    <!-- activated spot image (child of the radar layer) -->
+    <layer name="activespot" parent="radar" url="radar-image/mappointactive.png" keep="true" align="center" edge="center" visible="true" scale="1.4"/>
+    <layer name="spotRead" parent="radar" url="spotRead.png" keep="true" align="center" edge="center" visible="false"/>
+    
+    <!-- activatespot action - %1 = the current spot, %2 = the current radar heading -->
+    <action name="activatespot">
+    <![CDATA[
+    if(layer[%1],
+        if(layer[%1].url != layer[spotRead].url
+	    ,
+	        copy(layer[%1].url, layer[spotRead].url);
+	    );
+        set(layer[radar].parent, layer[%1]);
+        set(layer[radar].visible, true);
+        set(layer[activespot].visible, true);
+        set(layer[radar].heading, %2);
+    ,
+        set(layer[radar].visible, false);
+        set(layer[activespot].visible, false);
+    );
+    ]]>
+    </action>
+
+</krpano>

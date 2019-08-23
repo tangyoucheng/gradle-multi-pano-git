@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<krpano>
+    <preview url="preview.jpg"/>
+    <image>
+        <cube url="panos_l/sphere_%s.jpg"/>
+    </image>
+    <view fov="100" fovmax="150" fovmin="50" fovtype="MFOV" hlookat="0" vlookat="0"/>
+<include url="../../../../../../../static/pano/pano/common/template/gallery/swipe_gallery.xml"/>
+<include url="../../../../../../../static/pano/pano/common/template/tooltip.xml"/>
+<include url="../../../../../../../static/pano/pano/common/template/radar.xml"/>
+<include url="../../../../../../../static/pano/pano/common/template/sound.xml"/>
+<include url="../../../../../../../static/pano/pano/common/template/anihotspots.xml"/>
+<include url="../../../../../../../static/pano/pano/common/template/recommend_path.xml"/>
+<include url="../../../../../../../static/pano/pano/common/template/video/videointerface.xml"/>
+<include url="../../../../../../../static/pano/pano/common/template/video/videoplayercontrol.xml"/>
+<include url="../../../../../../../static/pano/pano/common/template/video/videoplayer.xml"/>
+<events onloadcomplete="js(doPano0104KrpanoOnloadcomplete(););"/>
+<gallery name="v_5it1ovjvf01cj_gallery">
+<img name="img1" url="../../../../../../../session_temp/6B526C898489004A9C33BB177CF6C44A/file_w_app/material/common_material/images/5it1nybc07qso/5it1nybc07qso.jpg"/>
+</gallery>
+</krpano>

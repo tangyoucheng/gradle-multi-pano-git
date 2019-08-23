@@ -1,0 +1,13 @@
+<krpano>
+    
+
+
+    <!-- hotspot animation action -->
+    <action name="hotspot_animate">
+        inc(frame,1,get(lastframe),0);
+        mul(ypos,frame,frameheight);
+        txtadd(crop,'0|',get(ypos),'|',get(framewidth),'|',get(frameheight));
+        delayedcall(%1, if(loaded, hotspot_animate(%1) ) );
+    </action>
+    
+</krpano>

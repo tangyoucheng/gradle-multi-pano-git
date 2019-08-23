@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>图文展示</title>
+<script src="js/jquery-1.12.4.min.js"></script>
+<script src="js/jquery.panzoom.min.js"></script>
+<script src="js/jquery.mousewheel.js"></script>
+<script src="js/base.js"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div id="img_info" style="width:100%;">
+	  <div class="parent" style="overflow:hidden; position: relative;height:100%;">
+		<div class="panzoom" style="height:100%;text-align:center;">
+		  <img id="zoom_img" src="">
+		</div>
+	  </div>
+	</div>
+	<table style="left:0;right:0;margin:0 auto;" align="center">
+		<tr>
+			<td>
+			<ul class="block-navigation">
+				<li id="li_prev" style="display:none;"><button class="prev">&lt;</button></li>
+				<li><button class="zoom-in">放大</button></li>
+				<li><button class="zoom-out">缩小</button></li>
+				<li><button class="reset">重置</button></li>
+				<li id="li_next" style="display:none;"><button class="next">&gt;</button></li>
+		    </ul>
+			</td>
+		</tr>
+		<tr>
+			<td><div class="btn_m_hide" id="btn_m_hide">隐藏文字</div></td>
+		</tr>
+	</table>
+	
+	<div id="text_info" class="text_info">
+		<div id="text_box" style="padding:32px;height:100%;overflow:auto;"></div>
+	</div>
+	<script type="text/javascript">
+        (function() {
+			$('.panzoom').panzoom({
+				$zoomIn: $(".zoom-in"),
+				$zoomOut: $(".zoom-out"),
+				$reset: $(".reset")
+            });
+			// mobile
+			$("#img_info").width($(window).width());
+			$("#text_info").width($(window).width());
+			//$("#btn_m_hide").show();
+			//$("#btn_hide_div").hide();
+			$("#zoom_img").width("100%");
+            
+			// 手机显示文字按钮
+			$("#btn_m_hide").click(function(){
+			    if ($("#text_box").is(":visible")) {
+				    $("#text_box").hide();
+					$("#btn_m_hide").text("显示文字");
+					$("#img_info").height($(window).height() - 100);
+				} else{
+					$("#text_box").show();
+					$("#btn_m_hide").text("隐藏文字");
+					$("#img_info").height("auto");
+				}
+				$(".reset").click();
+			});
+			$(".prev").click(function(){
+			    index = index - 1;
+			    setContext(index);
+			});
+			$(".next").click(function(){
+			    index = index + 1;
+			    setContext(index);
+			});
+			var index = 0;
+        	if(typeof hotspot_info == "undefined") {
+        		$.getScript(window.parent.getJsPath(), function(data, textStatus, jqxhr) {
+        			setContext(index);
+        		});
+        	} else {
+        		setContext(index);
+        	}
+            
+        })();
+		function setContext(index){
+		    try{
+				var id = window.location.href.split("=")[1];
+				if (hotspot_info[id].length > 1) {
+					$("#li_prev").show();
+					$("#li_next").show();
+					$(".navigation").width("250");
+				}
+				if (index == 0) {
+				    $(".prev").addClass("inactive");
+					$(".prev").attr("disabled", true);
+				} else {
+				    $(".prev").removeClass("inactive");
+					$(".prev").attr("disabled", false);
+				}
+				if ((index + 1) == hotspot_info[id].length) {
+				    $(".next").addClass("inactive");
+					$(".next").attr("disabled", true);
+				} else {
+				    $(".next").removeClass("inactive");
+					$(".next").attr("disabled", false);
+				}
+				$("#text_box").html(hotspot_info[id][index].text);
+				$("#zoom_img").attr("src", hotspot_info[id][index].img).load(function() {
+				    var size = 1;
+					var _h = parseInt($(window).height()) * size;
+					var _w = parseInt($(window).width()) * size;
+					var realHeight = this.height;
+					var realWidth = this.width;
+					//console.log(_w + ":" + _h + "|" + realHeight + ":" + realWidth);
+					//宽度与高度的比例大于或等于要求显示的比例（说明比较宽）
+					if ((realWidth / realHeight) >= (_w / _h)) {
+					    //如果宽度大于要求显示的宽度
+						if (realWidth > _w) {
+							$(this).css("width", "100%").css("height", "auto");
+						}
+					} else {
+						//说明比较高
+                        if(realHeight > _h){
+							$(this).css("width", "auto").css("height", (_h * 0.7 - 5) +'px');
+						}
+					}
+				});
+				
+			} catch(e){}
+		}
+    </script>
+</body>
+</html>

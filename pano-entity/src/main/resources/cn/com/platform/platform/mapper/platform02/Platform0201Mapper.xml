@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.platform.platform.mapper.platform02.Platform0201Mapper">
+    <resultMap id="BaseResultMap" type="cn.com.platform.platform.model.platform02.Platform0201Model"
+        extends="cn.com.platform.platform.mapper.common.PlatformAdminUserMapper.BaseResultMap">
+        <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId" />
+        <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+    </resultMap>
+    <!--检索指定管理员用户的角色 -->
+    <select id="selectAdminRoleInfo" parameterType="map" resultMap="BaseResultMap">
+        select platform_admin_user.*,platform_admin_role.ROLE_ID,platform_admin_role.ROLE_NAME from platform_admin_user
+        left join platform_admin_role_user on (platform_admin_user.ADMIN_ID = platform_admin_role_user.ADMIN_ID)
+        inner join platform_admin_role on (platform_admin_role.ROLE_ID = platform_admin_role_user.ROLE_ID)
+        <where>
+            1 = 1
+            <if test="deleteFlag != null">
+                AND platform_admin_user.DELETE_FLAG = #{deleteFlag}
+            </if>
+            <if test="adminId != null">
+                AND platform_admin_user.ADMIN_ID = #{adminId}
+            </if>
+        </where>
+    </select>
+    <!--根据roleId检索管理员用户 -->
+    <select id="selectUsersInfoByRoleId" parameterType="map" resultMap="BaseResultMap">
+        select * from platform_admin_user platformAU
+        LEFT JOIN platform_admin_role_user platformARU 
+        ON platformAU.ADMIN_ID = platformARU.ADMIN_ID
+        <where>
+            <if test="roleId != null">
+                platformARU.ROLE_ID = #{roleId}
+            </if>
+        </where>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="offSet != null and pageSize !=null">
+            limit #{offSet},#{pageSize}
+        </if>
+    </select>
+</mapper>

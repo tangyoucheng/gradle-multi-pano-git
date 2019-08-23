@@ -1,0 +1,4 @@
+::cleaneclipse
+
+gradle initDirs
+

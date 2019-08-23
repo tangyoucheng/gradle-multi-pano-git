@@ -1,0 +1,183 @@
+
+	configurations {
+		// mybatisタスクの設定。
+		genMyBatis
+		genMyBatisPanoa
+		genMyBatisPanob
+		genMyBatisPanoc
+		genMyBatisPanod
+		genMyBatisPano
+		genMyBatisPanoExample
+		genMyBatisPlatform
+		genMyBatisPlatformExample
+		// jdbcの依存解決に使用する。
+		jdbcResolve
+
+	}
+
+	// 依存関係設定
+	dependencies {
+	 
+        //compile project(':rp-framework')
+
+		// JDBC Driver
+		try {
+			jdbcResolve "${dbSetting.driverArtifactId}"
+			configurations.jdbcResolve.getResolvedConfiguration().getResolvedArtifacts()
+			compile "${dbSetting.driverArtifactId}"
+			logger.warn("JDBC driver dependency is resolved by BOM")
+		} catch (e) {
+			// BOMで解決出来なかった場合はバージョン指定を行う。
+			compile "${dbSetting.driverArtifactId}:${dbSetting.driverVersion}"
+			logger.warn("JDBC driver dependency is resolved by setting")
+		}
+
+
+		// MyBatis
+		compile "org.mybatis:mybatis:$myBatisVersion"
+		compile "org.mybatis:mybatis-spring:$myBatisSpringVersion"
+		
+		compile "org.projectlombok:lombok:1.18.8"
+		compile "com.softwareloop:mybatis-generator-lombok-plugin:1.0"
+		
+
+		// genMyBatisタスクの依存ライブラリ。
+		genMyBatis "org.mybatis.generator:mybatis-generator-core:${myBatisGeneratorConfig.generatorVersion}"
+		genMyBatis "${dbSetting.driverArtifactId}:${dbSetting.driverVersion}"
+		genMyBatis "org.mybatis:mybatis-typehandlers-jsr310:${myBatisGeneratorConfig.mybatisTypehandlersJsr310Version}"
+		//genMyBatis "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${myBatisGeneratorConfig.jacksonDatatypeJsr310Version}"
+		
+		// MyBatis plugin、 lombok
+		genMyBatis "org.projectlombok:lombok:1.18.8"
+		genMyBatis "com.softwareloop:mybatis-generator-lombok-plugin:1.0"
+		
+		//genMyBatisPanoa "org.mybatis.generator:mybatis-generator-core:${myBatisGeneratorPanoaConfig.generatorVersion}"
+		//genMyBatisPanoa "${dbSetting.driverArtifactId}:${dbSetting.driverVersion}"
+		
+		//genMyBatisPano "org.mybatis.generator:mybatis-generator-core:${myBatisGeneratorPanoConfig.generatorVersion}"
+		//genMyBatisPano "${dbSetting.driverArtifactId}:${dbSetting.driverVersion}"
+
+
+	}
+
+	// genMyBatisはMyBatisのジェネレータを実行する。
+	task genMyBatis {
+		doLast{
+			myBatisGeneratorConfig.each { key, val ->
+				ant.properties["conf.$key"] = val
+			}
+			dbSetting.each { key, val ->
+				ant.properties["conf.$key"] = val
+			}
+			ant.properties["conf.buildDir"] = projectDir.absolutePath + "/src/main/"
+			ant.taskdef(
+					name: 'genfiles',
+					classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+					classpath: configurations.genMyBatis.asPath)
+			ant.genfiles(
+					overwrite: 'true',
+					configfile: "${project.rootDir}/gradle-plugin/common-mybatis-generator-config.xml",
+					verbose: 'true') {
+				propertyset {
+					propertyref(prefix: 'conf.')
+				}
+			}
+		}
+	}
+
+	// genMyBatisはMyBatisのジェネレータを実行する。
+	task genMyBatisPano {
+		doLast{
+			myBatisGeneratorPanoConfig.each { key, val ->
+				ant.properties["conf.$key"] = val
+			}
+			dbSetting.each { key, val ->
+				ant.properties["conf.$key"] = val
+			}
+			ant.properties["conf.buildDir"] = projectDir.absolutePath + "/src/main/"
+			ant.taskdef(
+					name: 'genfiles',
+					classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+					classpath: configurations.genMyBatis.asPath)
+			ant.genfiles(
+					overwrite: 'true',
+					configfile: "${project.rootDir}/gradle-plugin/common-mybatis-generator-config-subtemplate.xml",
+					verbose: 'true') {
+				propertyset {
+					propertyref(prefix: 'conf.')
+				}
+			}
+		}
+	}
+	task genMyBatisPanoExample {
+		doLast{
+			myBatisGeneratorPanoConfig.each { key, val ->
+				ant.properties["conf.$key"] = val
+			}
+			dbSetting.each { key, val ->
+				ant.properties["conf.$key"] = val
+			}
+			ant.properties["conf.buildDir"] = projectDir.absolutePath + "/src/main/"
+			ant.taskdef(
+					name: 'genfiles',
+					classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+					classpath: configurations.genMyBatis.asPath)
+			ant.genfiles(
+					overwrite: 'true',
+					configfile: "${project.rootDir}/gradle-plugin/common-mybatis-generator-config-sub-example-template.xml",
+					verbose: 'true') {
+				propertyset {
+					propertyref(prefix: 'conf.')
+				}
+			}
+		}
+	}
+
+	
+	// genMyBatisはMyBatisのジェネレータを実行する。
+	task genMyBatisPlatform {
+		doLast{
+			myBatisGeneratorPlatformConfig.each { key, val ->
+				ant.properties["conf.$key"] = val
+			}
+			dbSetting.each { key, val ->
+				ant.properties["conf.$key"] = val
+			}
+			ant.properties["conf.buildDir"] = projectDir.absolutePath + "/src/main/"
+			ant.taskdef(
+					name: 'genfiles',
+					classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+					classpath: configurations.genMyBatis.asPath)
+			ant.genfiles(
+					overwrite: 'true',
+					configfile: "${project.rootDir}/gradle-plugin/common-mybatis-generator-config-subtemplate.xml",
+					verbose: 'true') {
+				propertyset {
+					propertyref(prefix: 'conf.')
+				}
+			}
+		}
+	}
+	task genMyBatisPlatformExample {
+		doLast{
+			myBatisGeneratorPlatformConfig.each { key, val ->
+				ant.properties["conf.$key"] = val
+			}
+			dbSetting.each { key, val ->
+				ant.properties["conf.$key"] = val
+			}
+			ant.properties["conf.buildDir"] = projectDir.absolutePath + "/src/main/"
+			ant.taskdef(
+					name: 'genfiles',
+					classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+					classpath: configurations.genMyBatis.asPath)
+			ant.genfiles(
+					overwrite: 'true',
+					configfile: "${project.rootDir}/gradle-plugin/common-mybatis-generator-config-sub-example-template.xml",
+					verbose: 'true') {
+				propertyset {
+					propertyref(prefix: 'conf.')
+				}
+			}
+		}
+	}

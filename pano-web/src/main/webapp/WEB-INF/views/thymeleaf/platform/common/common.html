@@ -1,0 +1,51 @@
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    currentContextPath = /*[[@{/}]]*/'';
+    /*]]>*/
+    // 定数设定
+    var PlatformConstants = {};
+    //有效
+    PlatformConstants.flagStatus_Enable = [[${T(cn.com.platform.framework.code.FlagStatus).Enable.toString()}]];
+    //无效
+    PlatformConstants.flagStatus_Disable = [[${T(cn.com.platform.framework.code.FlagStatus).Disable.toString()}]];
+    //待申请
+    PlatformConstants.taskStatus_applywait = [[${T(cn.com.platform.framework.code.TaskStatus).APPLYWAIT.toString()}]];
+    //已退回
+    PlatformConstants.taskStatus_sendback = [[${T(cn.com.platform.framework.code.TaskStatus).SENDBACK.toString()}]];
+    //已撤回
+    PlatformConstants.taskStatus_pullback = [[${T(cn.com.platform.framework.code.TaskStatus).PULLBACK.toString()}]];
+    //审核中
+    PlatformConstants.taskStatus_approvewait = [[${T(cn.com.platform.framework.code.TaskStatus).APPROVEWAIT.toString()}]];
+    //已同意
+    PlatformConstants.taskStatus_approve = [[${T(cn.com.platform.framework.code.TaskStatus).APPROVE.toString()}]];
+    //已否决
+    PlatformConstants.taskStatus_deny = [[${T(cn.com.platform.framework.code.TaskStatus).DENY.toString()}]];
+    //普通用户URI
+    PlatformConstants.URI_BASE_MEMBER = [[${T(cn.com.platform.common.CommonConstantsIF).URI_BASE_MEMBER}]];
+    //后台管理员URI
+    PlatformConstants.URI_BASE_ADMIN = [[${T(cn.com.platform.common.CommonConstantsIF).URI_BASE_ADMIN}]];
+
+    function getContextPath(path) {
+        if (path) {
+            return currentContextPath + path;
+        } else {
+            return currentContextPath;
+        }
+    }
+    function getMemberContextPath(path) {
+        if (path) {
+            path = PlatformConstants.URI_BASE_MEMBER + "/" + path;
+            return currentContextPath + path;
+        } else {
+            return currentContextPath + PlatformConstants.URI_BASE_MEMBER + '/';
+        }
+    }
+    function getAdminContextPath(path) {
+        if (path) {
+            path = PlatformConstants.URI_BASE_ADMIN + "/" + path;
+            return currentContextPath + path ;
+        } else {
+            return currentContextPath + PlatformConstants.URI_BASE_ADMIN + '/';
+        }
+    }
+</script>

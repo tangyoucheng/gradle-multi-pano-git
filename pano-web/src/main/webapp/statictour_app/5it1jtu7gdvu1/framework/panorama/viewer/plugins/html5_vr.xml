@@ -1,0 +1,232 @@
+<krpano>
+<!-- VR模式下缩略图的操作2016/12/26  -->
+<!-- 重写webvr_events -->
+<events name="webvr_events"
+	        devices="html5"
+	        keep="true"
+	        onmousedown="if(webvr AND webvr.isenabled, webvr_showbuttons());"
+	        onviewchange="vr_menu_following();" 
+	/>
+	
+	<action name="enterVR">
+		delayedcall(0.25,vr_menu_setvisibility(true););
+		set(hotspot[nadirlogo].distorted,true);
+		set(events[skin_events].onviewchange,'set(hotspot[nadirlogo].rotate,get(view.hlookat));');
+			for(set(i,0),i LT hotspot.count,inc(i), set(hot_name,get(hotspot[get(i)].name));
+			if(hotspot[get(hot_name)].linkedscene,
+				set(hotspot[get(hot_name)].distorted,true);
+			);
+		);
+		
+		Interface();
+		delayedcall(2.0,add_vr_thumbs(););
+		set(settings.jumpmob,false);
+		set(settings.jump,false);
+	</action>
+	
+    <action name="exitVR">
+		vr_menu_setvisibility(false);
+		set(hotspot[nadirlogo].distorted,false);
+		set(hotspot[nadirlogo].rotate,0);
+		set(events[skin_events].onviewchange,false);
+		for(set(i,0),i LT hotspot.count,inc(i), 
+			set(hot_name,get(hotspot[get(i)].name));
+			if(hotspot[get(hot_name)].linkedscene, 
+				set(hotspot[get(hot_name)].distorted,false);
+			);
+		);
+		set(Inter,show);
+		Interface();
+		set(settings.jumpmob,true);
+		set(settings.jump,true);
+	</action>
+	
+	<style name="vr_menu_style" depth="800" scale="0.2" url="texts.png" distorted="true" ath="0" atv="45" alpha="0.35" visible="false"/>
+
+	<hotspot name="vr_menu_bg" style="vr_menu_style" keep="true" zorder="5" url="black.png"
+	         width="500" height="120" onover="vr_menu_over();" onout="vr_menu_out();"
+	         handcursor="false" />
+
+	<hotspot name="vr_menu_home" style="vr_menu_style" keep="true" zorder="6" crop="190|0|100|100"
+	         ox="0" onover="vr_menu_over();"
+	         onout="vr_menu_out();" vr_timeout="700" onclick="start_thumbs();" />
+	<!-- VR模式下隐藏切换上一个场景的操作，即去掉style="vr_menu_style"-->
+	<hotspot name="vr_menu_l" style="vr_menu_style" keep="true" zorder="6" crop="0|0|100|100"
+	         ox="-30" onover="vr_menu_over();"
+	         onout="vr_menu_out();" vr_timeout="700" onclick="skin_nextscene_loop(-1);" />
+	<!-- VR模式下隐藏切换下一个场景的操作，即去掉style="vr_menu_style"-->
+	<hotspot name="vr_menu_r" style="vr_menu_style" keep="true" zorder="6" crop="80|0|100|100"
+	         ox="+30" onover="vr_menu_over();"
+	         onout="vr_menu_out();" vr_timeout="700" onclick="skin_nextscene_loop(+1);" />
+	
+	<action name="vr_menu_over">
+		callwith(hotspot[vr_menu_bg], tween(alpha|depth,1.0|600););
+		callwith(hotspot[vr_menu_home], tween(alpha|depth,0.8|500););
+		callwith(hotspot[vr_menu_l], tween(alpha|depth,0.8|550););
+		callwith(hotspot[vr_menu_r], tween(alpha|depth,0.8|550););
+	</action>
+
+	<action name="vr_menu_out">
+		callwith(hotspot[vr_menu_bg], tween(alpha|depth,0.35|800););
+		callwith(hotspot[vr_menu_home], tween(alpha|depth,0.35|800););
+		callwith(hotspot[vr_menu_l], tween(alpha|depth,0.35|800););
+		callwith(hotspot[vr_menu_r], tween(alpha|depth,0.35|800););
+	</action>
+	
+	<action name="vr_menu_setvisibility">
+		set(hotspot[vr_menu_bg].visible, %1);
+		set(hotspot[vr_menu_home].visible, %1);
+		if(scene.count GT 1, 
+			<!-- 隐藏切换场景的操作时，vr_menu_bg宽度(500)减半-->
+			set(hotspot[vr_menu_bg].width, 500);
+			set(hotspot[vr_menu_l].visible, %1);
+			set(hotspot[vr_menu_r].visible, %1);
+			
+		);
+	</action>
+	
+	<action name="vr_menu_following" type="Javascript" devices="html5"><![CDATA[
+		var hs1=krpano.get("hotspot[vr_menu_bg]");
+		var hs2=krpano.get("hotspot[vr_menu_home]");
+		var hs3=krpano.get("hotspot[vr_menu_l]");
+		var hs4=krpano.get("hotspot[vr_menu_r]");
+		if(!hs1.hovering&&!hs2.hovering&&!hs3.hovering&&!hs4.hovering){
+			var f=0.02;
+			var h=krpano.view.hlookat;
+			var v=krpano.view.vlookat;
+			var hsh=hs1.ath;
+			var hsv=hs1.atv;
+			h   = (h  -(h|0))   + (((h|0)  +360180)%360) - 180.0;
+			v   = (v  -(v|0))   + (((v|0)  +360180)%360) - 180.0;
+			hsh=(hsh-(hsh|0))+(((hsh|0)+360180)%360)-180.0;
+			dh=h-hsh;
+			dh+=(dh>180)?-360:(dh<-180)?360:0;
+			hsh+=dh*f;
+			var a=Math.abs(v-hs1.atv)/90.0;
+			a=0.5*Math.max(1.0-2.0*Math.sqrt(a),0);
+			v=v+55.0-v*1.5;
+			hsv=hsv*(1-f)+v*f;
+			hs2.alpha=hs1.alpha=a;
+			if(!hs3.hovering)hs3.alpha=a;
+			if(!hs4.hovering)hs4.alpha=a;
+			hs4.ath=hs3.ath=hs2.ath=hs1.ath=hsh;
+			hs4.atv=hs3.atv=hs2.atv=hs1.atv=hsv;
+		}
+	]]></action>
+	
+	<style name="panel" distorted="true" enabled="false" zorder="1" url="black.png" width="100" height="70" alpha="0" depth="700" ty="10000" keep="true"/>
+	
+	<style name="thumb" distorted="true" enabled="false" zorder="3" capture="false" alpha="0" depth="700" ty="10000" width="90" height="60" onover="tween(depth,500);" onout="tween(depth,700);" keep="true"/>
+	
+	<action name="add_vr_thumbs">
+		set(vr_hot_ath,0);
+		set(vr_hot_atv,0);
+		set(vr_ts,true);
+		for(set(i,0), i LT scene.count, inc(i),
+			set(vr_thumbs,get(scene[get(i)].name));
+			if(vr_ts, 
+				set(vr_thumbs_bg,vr_tishi_bg);
+				set(vr_thumbs,vr_tishi);
+				set(vr_hot_url,'%SWFPATH%/plugins/texts.png');
+				set(vr_ts,false);
+				sub(i,1);
+				, 
+				txtadd(vr_thumbs_bg,get(vr_thumbs),'bg');
+				set(vr_hot_url,get(scene[get(vr_thumbs)].thumburl));
+			);
+			
+			if((vr_hot_ath == 360) OR (vr_hot_ath == 720) OR (vr_hot_ath == 1080), 
+				add(vr_hot_atv,15);
+			);
+			
+			if(vr_hot_url !== null OR scene[get(i)].thumburl 
+				,
+					addhotspot(get(vr_thumbs_bg));
+					hotspot[get(vr_thumbs_bg)].loadstyle(panel);
+					set(hotspot[get(vr_thumbs_bg)].ath,get(vr_hot_ath));
+					set(hotspot[get(vr_thumbs_bg)].atv,get(vr_hot_atv));
+					addhotspot(get(vr_thumbs));
+					hotspot[get(vr_thumbs)].loadstyle(thumb);
+					set(hotspot[get(vr_thumbs)].ath,get(vr_hot_ath));
+					set(hotspot[get(vr_thumbs)].atv,get(vr_hot_atv));
+					set(hotspot[get(vr_thumbs)].url,get(vr_hot_url));
+					if((vr_hot_ath == vr_ts) AND (vr_hot_atv == 0), 
+						set(hotspot[vr_tishi].crop,287|0|252|176);
+						, 
+						txtadd(hotspot[get(vr_thumbs)].onclick,
+							"start_thumbs(exit);
+							set(hotspot[recommedInfoHotspot].visible,false);
+							delayedcall(2,loadscene(",get(vr_thumbs),", null, NOPREVIEW|MERGE|KEEPMOVING, BLEND(1)));");
+					);
+					add(vr_hot_ath,20);
+			);
+		);
+	</action>
+	
+	<action name="start_thumbs">
+		set(start_ty, 10000);
+		add(vr_juli,get(view.hlookat),20);
+		if(%1 == "exit",
+			callwith(hotspot[vr_tishi_bg], tween(alpha|ty, 0|10000,2.5, easeInQuint|easeInQuint););
+			callwith(hotspot[vr_tishi], tween(alpha|ty, 0|10000,2.5, easeInQuint|easeInQuint, set(enabled,false)););
+			, 
+			set(hotspot[vr_tishi_bg].ath,get(view.hlookat));
+			set(hotspot[vr_tishi].ath,get(view.hlookat));
+			callwith(
+				hotspot[vr_tishi_bg], copy(ty,start_ty);
+				tween(alpha|ty, 0.5|0 , 3, easeOutQuad|easeOutQuint);
+			);
+			callwith(hotspot[vr_tishi], copy(ty,start_ty);
+				tween(alpha|ty, 1.0|0 , 3, easeOutQuad|easeOutQuint, set(enabled,true)););
+		);
+		for(set(i,0), i LT scene.count, inc(i),
+			if(scene[get(i)].thumburl
+				,
+					set(vr_thumbs,get(scene[get(i)].name));
+					txtadd(vr_thumbs_bg,get(vr_thumbs),'bg');
+					if(%1 == "exit", 
+						callwith(hotspot[get(vr_thumbs_bg)], tween(alpha|ty, 0|10000,2.5, easeInQuint|easeInQuint););
+						callwith(hotspot[get(vr_thumbs)], tween(alpha|ty, 0|10000,2.5, easeInQuint|easeInQuint, set(enabled,false)););
+						, 
+						set(hotspot[get(vr_thumbs_bg)].ath,get(vr_juli));
+						set(hotspot[get(vr_thumbs)].ath,get(vr_juli));
+						callwith(hotspot[get(vr_thumbs_bg)], copy(ty,start_ty);
+							tween(alpha|ty, 0.5|0 , 3,easeOutQuad|easeOutQuint););
+						callwith(hotspot[get(vr_thumbs)], copy(ty,start_ty);tween(alpha|ty, 1.0|0 , 3,easeOutQuad|easeOutQuint, set(enabled,true)););
+						add(vr_juli,20);
+					);
+			);		
+		);
+	</action>
+	
+	<action name="Interface" type="Javascript" devices="html5">
+        <![CDATA[
+			var hss1 = krpano.get("Inter");
+			if(hss1 == "hide"){
+				$(".top_bar,.zimu,#box").hide();
+			}else{
+				$(".top_bar,.zimu,#box").show();       
+			}
+		]]>
+	</action>
+	
+	<!-- 重写webvr_showbuttons -->
+	<action name="webvr_showbuttons">
+		stopdelayedcall(vr_button_fadeout);
+		if(webvr.ismobilevr,
+			tween(layer[webvr_exitbutton].alpha|layer[webvr_setupbutton].alpha, 1.0|1.0, 0.25);
+			tween(layer[webvr_exitbutton].alpha|layer[webvr_fakemode_info].alpha, 1.0|1.0, 0.25);
+			tween(layer[webvr_exitbutton].alpha|layer[webvr_fakemode_info2].alpha, 1.0|1.0, 0.25);
+			
+			delayedcall(vr_button_fadeout, 5.0,
+				tween(layer[webvr_exitbutton].alpha|layer[webvr_setupbutton].alpha, 0.0|0.0, 1.0);
+				tween(layer[webvr_exitbutton].alpha|layer[webvr_fakemode_info].alpha, 0.0|0.0, 1.0);
+				tween(layer[webvr_exitbutton].alpha|layer[webvr_fakemode_info2].alpha, 0.0|0.0, 1.0);
+			);,
+			tween(layer[webvr_exitbutton].alpha, 1.0, 0.25);
+			delayedcall(vr_button_fadeout, 5.0,
+				tween(layer[webvr_exitbutton].alpha, 0.0, 1.0);
+			);
+		);
+	</action>
+</krpano>

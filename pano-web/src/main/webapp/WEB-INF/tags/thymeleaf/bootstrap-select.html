@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <section th:fragment="select-required(name, selectList, selectedValue, className, style, blank, required)"
+        th:switch="${blank}">
+        <select th:name="${name}" th:class="${className}" th:style="${style}" th:required="${required}?'required'" >
+            <option th:case="true" label="" value=""></option>
+            <option th:each="itemData:${selectList}" th:value="${itemData.recordCode}" th:text="${itemData.recordValue}"
+                th:selected="${selectedValue} eq ${itemData.recordCode}"></option>
+        </select>
+        <script type="text/javascript">
+             var selectObjectId = '[[${name}]]';
+            // 刷新select
+            $("select[name=" + selectObjectId + "]").selectpicker('refresh');
+            $("select[name=" + selectObjectId + "]").selectpicker('render');
+            //$("#" + selectObjectId).selectpicker('val', selectedValue);
+            // 必填项的星号设定
+            var isRequired = '[[${required}]]';
+            if (isRequired == 'true') {
+                var labelObject = $("select[name=" + selectObjectId + "]").parent().parent().parent().prev();
+                labelObject.html('<span style="color:#dc3545;font-weight: 700;">*</span>' + labelObject.html());
+            }
+        </script>
+    </section>
+    <section th:fragment="select-disabled(name, selectList, selectedValue, className, style, blank, disabled)"
+        th:switch="${blank}">
+        <select th:name="${name}" th:class="${className}" th:style="${style}" th:disabled="${disabled}?'disabled'" >
+            <option th:case="true" label="" value=""></option>
+            <option th:each="itemData:${selectList}" th:value="${itemData.recordCode}" th:text="${itemData.recordValue}"
+                th:selected="${selectedValue} eq ${itemData.recordCode}"></option>
+        </select>
+    </section>
+    <section th:fragment="select-multiple(name, selectList, selectedValue, className, style, blank, multiple)"
+        th:switch="${blank}">
+        <select th:name="${name}" th:class="${className}" th:style="${style}" th:multiple="${multiple}?'multiple'" >
+            <option th:case="true" label="" value=""></option>
+            <option th:each="itemData:${selectList}" th:value="${itemData.recordCode}" th:text="${itemData.recordValue}"
+                th:selected="${selectedValue} eq ${itemData.recordCode}"></option>
+        </select>
+    </section>
+    
+</body>
+</html>

@@ -1,0 +1,75 @@
+<krpano>
+    
+    <!-- loading animation text -->
+    
+    
+    <!-- loading animation events -->
+    <events name="loadinganimation" keep="true"
+            onxmlcomplete="if(webvr.isenabled,null,loadinganimation_startloading(););"
+            onloadcomplete="if(webvr.isenabled,null,delayedcall(0.25, loadinganimation_stoploading() ););"
+            />
+
+
+    <!-- loading animation graphic -->
+    <layer name="loadinganimation"
+    zorder='101'
+           keep="true"
+           visible="false"
+           url="loadinganimation.png"
+           crop="0|0|64|64"
+           align="rightbottom" x="10" y="10"
+           frame="0" frames="8"
+           />
+    <layer name="loadinganimation_scene"
+    zorder='101'
+           keep="true"
+           visible="false"
+           url="loadinganimation.png"
+           crop="0|0|64|64"
+           align="center" x="0" y="0"
+           frame="0" frames="8"
+           />
+
+
+    <!-- loading percent actions -->    
+    <action name="loadinganimation_startloading">
+	
+    set(loadinganimation_isloading, true);
+    if(layer[preload_container].visible,
+        set(layer[loadinganimation].visible, true);
+        loadinganimation_animate();
+		,
+        set(layer[loadinganimation_scene].visible, true);
+        loadinganimation_animate_scene();
+     );
+    </action>
+    
+    <action name="loadinganimation_stoploading">
+        set(loadinganimation_isloading, false); 
+        set(layer[loadinganimation].visible, false);
+        set(layer[loadinganimation_scene].visible, false);
+    </action>
+    
+    <action name="loadinganimation_animate">
+        mul(xcrop, layer[loadinganimation].frame, 64);
+        txtadd(layer[loadinganimation].crop, get(xcrop), '|0|64|64');
+        
+        if(loadinganimation_isloading,
+            inc(layer[loadinganimation].frame);
+            if(layer[loadinganimation].frame GE layer[loadinganimation].frames, set(layer[loadinganimation].frame,0));
+            delayedcall(0.05, loadinganimation_animate() );
+          );
+    </action>
+    
+    <action name="loadinganimation_animate_scene">
+        mul(xcrop, layer[loadinganimation_scene].frame, 64);
+        txtadd(layer[loadinganimation_scene].crop, get(xcrop), '|0|64|64');
+        
+        if(loadinganimation_isloading,
+            inc(layer[loadinganimation_scene].frame);
+            if(layer[loadinganimation_scene].frame GE layer[loadinganimation_scene].frames, set(layer[loadinganimation_scene].frame,0));
+            delayedcall(0.05, loadinganimation_animate_scene() );
+          );
+    </action>
+
+</krpano>

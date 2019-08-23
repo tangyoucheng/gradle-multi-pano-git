@@ -1,0 +1,458 @@
+﻿# A5:ER FORMAT:11
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  http://www.wind.sannet.ne.jp/m_matsu/developer/a5m2/
+
+[Manager]
+ProjectName=全景管理系统
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",7,"A3Landscape",$FFFFFF
+Domain==
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=7
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=5
+RDBMSTypeName=MySQL
+GenerateDropTableStatement=1
+DropTableIfExists=1
+CommonField="删除标识","DELETE_FLAG","TINYINT(1)","NOT NULL",,"","1：删除 0：未删除",$FFFFFFFF
+CommonField="创建者","CREATE_USER_ID","VARCHAR(100)","NOT NULL",,"","",$FFFFFFFF
+CommonField="创建日期","CREATE_DATE","DATETIME","NOT NULL",,"","",$FFFFFFFF
+CommonField="最终更新者","LAST_UPDATE_USER_ID","VARCHAR(100)","NOT NULL",,"","",$FFFFFFFF
+CommonField="最终更新日期","LAST_UPDATE_DATE","DATETIME","NOT NULL",,"","",$FFFFFFFF
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+ShowTag=1
+ShowCommonAttributes=1
+
+[Entity]
+PName=PLATFORM_OPERATE_LOG
+LName=操作日志记录
+Comment=
+TableOption=
+Page=MAIN
+Left=1400
+Top=1800
+Field="模块主键","MODULE_ID","varchar(255)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="数据记录主键","RECORD_ID","varchar(255)",,,"","",$FFFFFFFF,""
+Field="日志主键","OPERATE_ID","varchar(50)",,,"","",$FFFFFFFF,""
+Field="模块标题","MODULE_TITLE","varchar(50)",,,"","",$FFFFFFFF,""
+Field="业务类型","BUSINESS_TYPE","int(2)",,,"","（0其它 1新增 2修改 3删除）",$FFFFFFFF,""
+Field="方法名称","METHOD","varchar(100)",,,"","",$FFFFFFFF,""
+Field="操作类别","OPERATOR_TYPE","int(2)",,,"","（0其它 1后台用户 2手机端用户）",$FFFFFFFF,""
+Field="操作人员","OPERATE_NAME","varchar(50)",,,"","",$FFFFFFFF,""
+Field="部门名称","DEPARTMENT_NAME","varchar(50)",,,"","",$FFFFFFFF,""
+Field="请求URL","OPERATE_URL","varchar(255)",,,"","",$FFFFFFFF,""
+Field="主机地址","OPERATE_IP","varchar(50)",,,"","",$FFFFFFFF,""
+Field="操作地点","OPERATE_LOCATION","varchar(255)",,,"","",$FFFFFFFF,""
+Field="请求参数","OPERATE_PARAM","LONGTEXT",,,"","",$FFFFFFFF,""
+Field="操作状态","SUCCESS_STATUS","int(1)",,,"","（1正常 0异常）",$FFFFFFFF,""
+Field="错误消息","ERROR_MSG","varchar(2000)",,,"","",$FFFFFFFF,""
+Field="操作时间","OPERATE_TIME","DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+UsingCommonColumns=0
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190730154311
+Position="MAIN",1400,1800
+
+[Entity]
+PName=PLATFORM_ADMIN_MENU
+LName=系统菜单表
+Comment=
+TableOption=
+Page=MAIN
+Left=2100
+Top=50
+Field="菜单编码","MENU_ID","varchar(50)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="菜单名","MENU_NAME","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="菜单URL","MENU_URL","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="父菜单","PARENT_MENU_ID","varchar(50)",,,"","",$FFFFFFFF,""
+Field="网页字体","WEB_FONT","varchar(1000)",,,"","",$FFFFFFFF,""
+Field="表示顺","DISP_FLAG","numeric(3)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190614121123
+Position="MAIN",2100,50
+
+[Entity]
+PName=PLATFORM_ADMIN_ROLE_MENU
+LName=系统菜单访问权限
+Comment=
+TableOption=
+Page=MAIN
+Left=1450
+Top=50
+Field="身份编码","ROLE_ID","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="菜单编码","MENU_ID","varchar(50)","NOT NULL",1,"","",$FFFFFFFF,""
+Field="部门编码","DEPARTMENT_ID","varchar(50)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190614121000
+Position="MAIN",1450,50
+
+[Entity]
+PName=PLATFORM_COMPANY
+LName=公司表
+Comment=
+TableOption=
+Page=MAIN
+Left=1600
+Top=450
+Field="公司编码","COMPANY_ID","varchar(50)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="公司名","COMPANY_NAME","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190614105205
+Position="MAIN",1600,450
+
+[Entity]
+PName=PLATFORM_DEPARTMENT_USER
+LName=部门用户关系表
+Comment=
+TableOption=
+Page=MAIN
+Left=2250
+Top=1000
+Field="部门编码","DEPARTMENT_ID","varchar(50)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="会员编码","MEMBER_ID","varchar(20)","NOT NULL",1,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190614111547
+Position="MAIN",2250,1000
+
+[Entity]
+PName=PLATFORM_ROLE_USER
+LName=角色用户关系表
+Comment=
+TableOption=
+Page=MAIN
+Left=1600
+Top=1000
+Field="身份编码","ROLE_ID","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="会员编码","MEMBER_ID","varchar(50)","NOT NULL",1,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190614113908
+Position="MAIN",1600,1000
+
+[Entity]
+PName=PLATFORM_ROLE
+LName=角色表
+Comment=
+TableOption=
+Page=MAIN
+Left=1600
+Top=750
+Field="身份编码","ROLE_ID","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="身份名","ROLE_NAME","varchar(300)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190614103149
+Position="MAIN",1600,750
+
+[Entity]
+PName=PLATFORM_DEPARTMENT
+LName=部门表
+Comment=
+TableOption=
+Page=MAIN
+Left=2250
+Top=450
+Field="公司编码","COMPANY_ID","varchar(50)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="部门编码","DEPARTMENT_ID","varchar(50)","NOT NULL",1,"","",$FFFFFFFF,""
+Field="部门名","DEPARTMENT_NAME","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="部门层级","DEPARTMENT_HIERARCHY","varchar(2)",,,"","",$FFFFFFFF,""
+Field="父部门","PARENT_DEPARTMENT_ID","varchar(50)",,,"","",$FFFFFFFF,""
+Field="表示顺","DISP_FLAG","numeric(3)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190621102440
+Position="MAIN",2250,450
+
+[Entity]
+PName=PLATFORM_JOB_REPEAT
+LName=重复任务调度表
+Comment=
+TableOption=
+Page=MAIN
+Left=750
+Top=1500
+Field="任务ID","JOB_ID","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="任务名称","JOB_NAME","varchar(64)","NOT NULL",,"","",$FFFFFFFF,""
+Field="任务组名","JOB_GROUP","varchar(64)","NOT NULL",,"","",$FFFFFFFF,""
+Field="任务方法","METHOD_NAME","varchar(500)",,,"","",$FFFFFFFF,""
+Field="方法参数","METHOD_PARAMS","varchar(200)",,,"","",$FFFFFFFF,""
+Field="重复次数","REPEAT_COUNT","varchar(7)",,,"","",$FFFFFFFF,""
+Field="重复间隔","REPEAT_INTERVAL","varchar(12)",,,"","",$FFFFFFFF,""
+Field="开始时间","START_DATE","DATETIME",,,"","",$FFFFFFFF,""
+Field="结束时间","END_DATE","DATETIME",,,"","",$FFFFFFFF,""
+Field="触发器说明","TRIGGER_REMARK","varchar(1000)",,,"","",$FFFFFFFF,""
+Field="优先级","PRIORITY","varchar(11)",,,"","数值越大优先级越高",$FFFFFFFF,""
+Field="计划执行错误策略","MISFIRE_POLICY","varchar(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="任务状态","JOB_STATUS","varchar(2)","NOT NULL",,"","1：正常 0：暂停",$FFFFFFFF,""
+Field="备注","REMARK","varchar(1000)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190129101151
+Position="MAIN",750,1500
+
+[Entity]
+PName=PLATFORM_JOB_LOG
+LName=任务调度日志表
+Comment=
+TableOption=
+Page=MAIN
+Left=1400
+Top=1250
+Field="任务日志ID","JOB_LOG_ID","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="任务ID","JOB_ID","varchar(20)",,,"","",$FFFFFFFF,""
+Field="任务名称","JOB_NAME","varchar(64)",,,"","",$FFFFFFFF,""
+Field="任务组名","JOB_GROUP","varchar(64)",,,"","",$FFFFFFFF,""
+Field="任务方法","METHOD_NAME","varchar(500)",,,"","",$FFFFFFFF,""
+Field="方法参数","METHOD_PARAMS","varchar(200)",,,"","",$FFFFFFFF,""
+Field="日志信息","JOB_MESSAGE","varchar(500)",,,"","",$FFFFFFFF,""
+Field="执行状态","STATUS","varchar(2)",,,"","0：正常 1：失败",$FFFFFFFF,""
+Field="异常信息","EXCEPTION_INFO","varchar(2000)",,,"","",$FFFFFFFF,""
+Field="创建时间","CREATE_TIME","DATETIME",,,"","",$FFFFFFFF,""
+UsingCommonColumns=0
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190129101130
+Position="MAIN",1400,1250,469,261
+
+[Entity]
+PName=PLATFORM_JOB_CRON
+LName=定时任务调度表
+Comment=
+TableOption=
+Page=MAIN
+Left=0
+Top=1400
+Field="任务ID","JOB_ID","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="任务名称","JOB_NAME","varchar(64)","NOT NULL",,"","",$FFFFFFFF,""
+Field="任务组名","JOB_GROUP","varchar(64)","NOT NULL",,"","",$FFFFFFFF,""
+Field="任务方法","METHOD_NAME","varchar(500)",,,"","",$FFFFFFFF,""
+Field="方法参数","METHOD_PARAMS","varchar(200)",,,"","",$FFFFFFFF,""
+Field="cron执行表达式","CRON_EXPRESSION","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="触发器说明","TRIGGER_REMARK","varchar(1000)",,,"","",$FFFFFFFF,""
+Field="优先级","PRIORITY","varchar(11)",,,"","数值越大优先级越高",$FFFFFFFF,""
+Field="计划执行错误策略","MISFIRE_POLICY","varchar(20)","NOT NULL",,"","1：立即执行 2；执行一次 3：放弃执行",$FFFFFFFF,""
+Field="任务状态","JOB_STATUS","varchar(2)","NOT NULL",,"","1：正常 0：暂停",$FFFFFFFF,""
+Field="备注","REMARK","varchar(1000)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190129101313
+Position="MAIN",0,1400
+
+[Entity]
+PName=PLATFORM_ONLINE_USER
+LName=在线用户记录
+Comment=
+TableOption=
+Page=MAIN
+Left=2200
+Top=1650
+Field="用户会话id","SESSION_ID","varchar(50)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="登录账号","LOGIN_ID","varchar(50)",,,"","",$FFFFFFFF,""
+Field="登录IP地址","IP_ADDRESS","varchar(50)",,,"","",$FFFFFFFF,""
+Field="登录地点","LOGIN_ADDRESS","varchar(300)",,,"","",$FFFFFFFF,""
+Field="浏览器类型","BROWSER","varchar(50)",,,"","",$FFFFFFFF,""
+Field="操作系统","OPERATING_SYSTEM","varchar(50)",,,"","",$FFFFFFFF,""
+Field="在线状态（1在线 0离线）","STATUS","varchar(2)",,,"","",$FFFFFFFF,""
+Field="会话创建时间","START_DATE","DATETIME",,,"","",$FFFFFFFF,""
+Field="会话最后访问时间","LAST_ACCESS_DATE","DATETIME",,,"","",$FFFFFFFF,""
+Field="超时时间，单位为分钟","EXPIRE_TIME","numeric(5)",,,"","",$FFFFFFFF,""
+UsingCommonColumns=0
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190219162223
+Position="MAIN",2200,1650,625,275
+
+[Entity]
+PName=PLATFORM_LOGIN_INFO
+LName=系统访问记录
+Comment=
+TableOption=
+Page=MAIN
+Left=2200
+Top=1350
+Field="访问ID","INFO_ID","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="登录账号","LOGIN_ID","varchar(50)",,,"","",$FFFFFFFF,""
+Field="登录IP地址","IP_ADDRESS","varchar(50)",,,"","",$FFFFFFFF,""
+Field="登录地点","LOGIN_ADDRESS","varchar(300)",,,"","",$FFFFFFFF,""
+Field="浏览器类型","BROWSER","varchar(50)",,,"","",$FFFFFFFF,""
+Field="操作系统","OPERATING_SYSTEM","varchar(50)",,,"","",$FFFFFFFF,""
+Field="登录状态（1成功 0失败）","STATUS","varchar(2)",,,"","",$FFFFFFFF,""
+Field="提示消息","MSG","varchar(300)",,,"","",$FFFFFFFF,""
+Field="访问时间","LOGIN_TIME","DATETIME",,,"","",$FFFFFFFF,""
+UsingCommonColumns=0
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190219171637
+Position="MAIN",2200,1350
+
+[Entity]
+PName=PLATFORM_MEMBER_EXTEND
+LName=会员信息扩展表
+Comment=
+TableOption=
+Page=MAIN
+Left=800
+Top=550
+Field="会员编号","MEMBER_ID","VARCHAR(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="会员注销状态","MEMBER_DEREGISTER_STATUS","VARCHAR(2)",,,"","1:注销待审核、0:已注销",$FFFFFFFF,""
+Field="会员注销原因","MEMBER_DEREGISTER_REASON","VARCHAR(1000)",,,"","",$FFFFFFFF,""
+Field="会员注册时间","MEMBER_REGISTER_TIME","DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="会员头像","MEMBER_PROFILE_PICTURE","LONGTEXT",,,"","",$FFFFFFFF,""
+Field="会员真实姓名","MEMBER_REAL_NAME","VARCHAR(20)",,,"","",$FFFFFFFF,""
+Field="会员身份证号","MEMBER_IDCARD","VARCHAR(20)",,,"","",$FFFFFFFF,""
+Field="备注","REMARKS","VARCHAR(1000)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20181220154657
+Position="MAIN",800,550
+
+[Entity]
+PName=PLATFORM_ADMIN_ROLE_USER
+LName=系统角色系统管理员关系表
+Comment=
+TableOption=
+Page=MAIN
+Left=800
+Top=300
+Field="身份编码","ROLE_ID","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="管理员编码","ADMIN_ID","varchar(50)","NOT NULL",1,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190614114643
+Position="MAIN",800,300
+
+[Entity]
+PName=PLATFORM_ADMIN_ROLE
+LName=系统角色表
+Comment=
+TableOption=
+Page=MAIN
+Left=800
+Top=50
+Field="身份编码","ROLE_ID","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="身份名","ROLE_NAME","varchar(300)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190614114652
+Position="MAIN",800,50
+
+[Entity]
+PName=PLATFORM_ADMIN_USER
+LName=系统管理员表
+Comment=
+TableOption=
+Page=MAIN
+Left=150
+Top=50
+Field="管理员编号","ADMIN_ID","VARCHAR(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="管理员登陆编码","ADMIN_LOGIN_ID","VARCHAR(20)",,,"","",$FFFFFFFF,""
+Field="管理员名称","ADMIN_NAME","VARCHAR(1000)","NOT NULL",,"","",$FFFFFFFF,""
+Field="管理员密码","ADMIN_PASSWORD","VARCHAR(300)","NOT NULL",,"","",$FFFFFFFF,""
+Field="管理员邮箱","ADMIN_EMAIL","VARCHAR(300)",,,"","",$FFFFFFFF,""
+Field="管理员状态","ADMIN_STATUS","VARCHAR(2)",,,"","1：激活 0：冻结",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190614122557
+Position="MAIN",150,50
+
+[Entity]
+PName=PLATFORM_ROLE_MENU
+LName=菜单访问权限
+Comment=
+TableOption=
+Page=MAIN
+Left=100
+Top=1000
+Field="身份编码","ROLE_ID","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="菜单编码","MENU_ID","varchar(50)","NOT NULL",1,"","",$FFFFFFFF,""
+Field="部门编码","DEPARTMENT_ID","varchar(50)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190614095619
+Position="MAIN",100,1000
+
+[Entity]
+PName=PLATFORM_MENU
+LName=菜单表
+Comment=
+TableOption=
+Page=MAIN
+Left=800
+Top=1000
+Field="菜单编码","MENU_ID","varchar(50)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="菜单名","MENU_NAME","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="菜单URL","MENU_URL","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="父菜单","PARENT_MENU_ID","varchar(50)",,,"","",$FFFFFFFF,""
+Field="网页字体","WEB_FONT","varchar(1000)",,,"","",$FFFFFFFF,""
+Field="表示顺","DISP_FLAG","numeric(3)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20180812150815
+Position="MAIN",800,1000,572,328
+
+[Entity]
+PName=PLATFORM_MEMBER
+LName=会员表
+Comment=
+TableOption=
+Page=MAIN
+Left=100
+Top=550
+Field="会员编号","MEMBER_ID","VARCHAR(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="会员登陆编号","MEMBER_LOGIN_ID","VARCHAR(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="会员名","MEMBER_NAME","VARCHAR(1000)","NOT NULL",,"","",$FFFFFFFF,""
+Field="会员密码","MEMBER_PASSWORD","VARCHAR(300)","NOT NULL",,"","",$FFFFFFFF,""
+Field="会员电子邮箱","MEMBER_EMAIL","VARCHAR(300)",,,"","",$FFFFFFFF,""
+Field="会员手机号","MEMBER_PHONE","VARCHAR(20)",,,"","",$FFFFFFFF,""
+Field="会员状态","MEMBER_STATUS","VARCHAR(2)","NOT NULL",,"","1：激活  0：冻结",$FFFFFFFF,""
+Field="会员认证状态","MEMBER_IDENTIFICATION_STATE","VARCHAR(2)","NOT NULL",,"","1：实名认证 0：待认证",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190219164104
+Position="MAIN",100,550

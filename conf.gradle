@@ -1,0 +1,113 @@
+ext {
+    // SpringBootに組み込めるロガー一覧。
+    loggers = [
+            logback: "org.springframework.boot:spring-boot-starter-logging",
+            log4j  : "org.springframework.boot:spring-boot-starter-log4j",
+            log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
+    ]
+    // 使用ロガーの選択
+    useLogger = loggers.logback
+    // 全ソースがUTF-8であることを指定する、
+    defaultEncoding = "UTF-8"
+    // servlet-apiバージョン
+    servletApiVersion = "4.0.0"
+    
+    // logbackバージョン
+    logbackVersion = "1.2.3"
+    // lombokバージョン
+    lombokVersion = "1.18.8"
+    
+    // jqueryバージョン
+    jqueryVersion = "3.4.1"
+    // popperバージョン
+    popperVersion = "1.15.0"
+    // bootstrapバージョン
+    bootstrapVersion = "4.3.1"
+    // jquery-validationバージョン
+    jqueryValidationVersion = "1.19.0"
+    // layuiバージョン
+    layuiVersion = "2.4.5"
+    // bignumber.jsバージョン
+    bignumberVersion = "6.0.0"
+    // bootstrap-selectバージョン
+    bootstrapSelectVersion = "1.13.8"
+	
+    // jquery-uiバージョン
+    jqueryUiVersion = "1.12.1"
+    // fullCalendarバージョン
+    fullCalendarVersion = "3.9.0"
+    // commons-lang3バージョン
+    commonsLang3Version = "3.9"
+    // guavaバージョン
+    guavaVersion = "28.0-jre"
+    // commons-fileuploadバージョン
+    commonsFileuploadVersion = "1.4"
+    // font-awesomeバージョン
+    fontAwesomeVersion = "5.8.1"
+    // UserAgentUtilsバージョン
+    UserAgentUtilsVersion = "1.21"
+    // jodconverterバージョン
+    jodconverterVersion = "4.2.2"
+    // jaxb-apiバージョン
+    jaxbApiVersion = "2.3.1"
+    // log4jdbcバージョン
+    log4jdbcVersion = "1.2"
+    // janinoバージョン
+    janinoVersion = "3.0.11"
+    // cropperバージョン
+    cropperVersion = "1.4.3"
+    // quartzバージョン
+    quartzVersion = "2.3.1"
+    // druid-springバージョン
+    DruidSpringVersion = "1.1.18"
+    // oshi-coreバージョン
+    oshiCoreVersion = "3.13.2"
+    // jnaバージョン
+    jnaVersion = "5.3.1"
+    // typeaheadバージョン
+    typeaheadVersion = "4.0.2"
+    // excel-streaming-readerバージョン
+    excelStreamingReaderVersion = "2.2.1"
+    // springMobile バージョン
+    springMobileVersion = "1.5.22.RELEASE"
+    
+    // 下記URLのライブラリを依存関係に追加する場合はBOMでバージョン解決されるので指定しない。
+    // http://docs.spring.io/spring-boot/docs/2.1.7.RELEASE/reference/html/appendix-dependency-versions.html
+    springBootVersion = "2.1.7.RELEASE"
+
+    // JDBC Driver設定
+    // SpringBootで使用されるJDBCドライババージョンは下記設定よりもBOM解決を優先する。
+    // ただし、BOM解決不能の場合は下記指定のバージョンを使用する。
+    // Flywayマイグレーションおよび、MyBatisGeneratorの実行には下記指定のドライババージョンを使用する。
+    dbSetting = [
+            driverArtifactId: "mysql:mysql-connector-java",
+            driverVersion   : "8.0.16",
+            driverClass     : "com.mysql.cj.jdbc.Driver",
+            //connectionUrl   : "jdbc:mysql://localhost/test",
+            connectionUrl   : "jdbc:mysql://120.78.13.166:3306/db_pano?characterEncoding=utf-8&useSSL=false",
+            userId          : "panoadmin",
+            password        : "AAA111+++",
+    ]
+
+    // MyBatisバージョン
+    myBatisVersion = "3.5.1"
+    myBatisSpringVersion = "2.0.1"
+
+    // MyBatisGeneratorの設定。各項目とも必須。
+    myBatisGeneratorConfig = [
+            // ジェネレータバージョン。
+            generatorVersion : "1.3.7",
+            mybatisTypehandlersJsr310Version : "1.0.2",
+            jacksonDatatypeJsr310Version : "2.9.9",
+            // スキーマ名の設定
+            schema           : "panoadmin",
+            //schema           : "public",
+            // 自動生成ファイルの出力パッケージのベース。
+            basePackage      : "cn.com.pano",
+            basePackageExample      : "cn.com.example",
+            // DBのスキーマ名でサブパッケージを切るかどうか。
+            enableSubPackages: "false",
+            // mapperのタイプはANNOTATEDMAPPER,XMLMAPPER,MIXEDMAPPERから選択
+            mapperType       : "XMLMAPPER",
+    ]
+}

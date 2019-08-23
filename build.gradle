@@ -1,0 +1,319 @@
+buildscript {
+    apply from: "${projectDir}/conf.gradle" 
+    repositories {
+        // 仓库
+       maven { url 'https://maven.aliyun.com/repository/public/' }
+       maven { url 'https://maven.aliyun.com/repository/google' }
+       
+       maven {url "https://plugins.gradle.org/m2/" }
+    }
+    // 工程的依赖关系
+    dependencies {
+        //classpath fileTree(include: ["*.jar"], dir: "libs")
+        //classpath files("libs/alipay-sdk-java-3.1.0.jar")
+        
+        // gradle插件依赖的库
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:latest.integration'
+        
+        //classpath "io.spring.gradle:dependency-management-plugin:${springIOVersion}"
+        //classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        //classpath files('libs/alipay-sdk-java-3.1.0.jar')
+    }
+}
+    
+// 所有subprojects的共同设定
+subprojects {
+
+    tasks.whenTaskAdded { task ->
+        if (task.name.equals("bootJar")) {
+            task.enabled = false
+        }
+    }
+	
+    // 做成Eclipse工程所需的plugin
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    
+
+    // 编码格式为UTF-8
+    tasks.withType(JavaCompile) {
+        options.encoding = defaultEncoding
+    }
+
+    // java虚拟机版本
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    // 打包后的version指定
+    version = '0.0.1-SNAPSHOT'
+
+    repositories {
+       maven { url 'https://maven.aliyun.com/repository/public/' }
+       maven { url 'https://maven.aliyun.com/repository/google' }
+       
+       mavenCentral()
+       maven {
+           url "https://plugins.gradle.org/m2/"
+       }   
+    }
+    
+   // project的依赖信息
+    dependencies {
+        // 工具类 commons-lang3
+        compile ("org.apache.commons:commons-lang3:$commonsLang3Version")
+        // 工具类 guava
+        compile ("com.google.guava:guava:$guavaVersion")
+        // java工具类 lombok
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    }
+    
+    // 显示依赖树 gradle allDeps >>dp.txt
+    task allDeps(type: DependencyReportTask) {}
+    
+}
+// 【pano-framework】工程的个别设定
+project(':pano-framework') {
+
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    //configurations {
+    //  providedRuntime
+    //}
+    
+   // project的依赖信息
+    dependencies {
+    
+        // spring-boot的web启动的jar包
+        compile ('org.springframework.boot:spring-boot-starter-web')
+        
+        // spring-boot的Spring Security的jar包
+        compile ('org.springframework.boot:spring-boot-starter-security')
+        compile ('org.springframework.security:spring-security-taglibs')
+        
+        // 解析客户端操作系统、浏览器等
+        compile ("eu.bitwalker:UserAgentUtils:$UserAgentUtilsVersion")
+        
+        
+        
+        compile (   
+            // 图片处理开源工具
+            "net.coobird:thumbnailator:latest.integration",
+            // 操作office的依赖包 poi
+            "org.apache.poi:poi:latest.integration",
+            "org.apache.poi:poi-ooxml:latest.integration",
+            "org.apache.poi:ooxml-schemas:latest.integration",
+            "org.apache.poi:poi-scratchpad:latest.integration",
+            "org.apache.poi:poi-excelant:latest.integration",
+            "com.github.pjfanning:excel-streaming-reader:$excelStreamingReaderVersion",
+        )   
+    
+        // 调用开源office jodconverter 
+        compile ("org.jodconverter:jodconverter-local:$jodconverterVersion")
+        
+        // 打印SQL文 log4jdbc 
+        compile ("com.googlecode.log4jdbc:log4jdbc:$log4jdbcVersion")
+        
+        // 单元测试模块
+        //testCompile 'junit:junit:4.12'    
+    }
+    
+    jar {
+        enabled=true
+    }
+}
+
+//【pano-entity】工程的个别设定
+project(':pano-entity-generator-mybatis') {
+    // 工程的以来信息
+    dependencies {        
+        // MyBatis
+				
+		compile "org.mybatis:mybatis:$myBatisVersion"
+        compile "org.mybatis.generator:mybatis-generator-core:${myBatisGeneratorConfig.generatorVersion}"
+		compile "org.mybatis:mybatis-typehandlers-jsr310:${myBatisGeneratorConfig.mybatisTypehandlersJsr310Version}"
+        compile "com.softwareloop:mybatis-generator-lombok-plugin:1.0"
+        compile "${dbSetting.driverArtifactId}:${dbSetting.driverVersion}"
+    }
+}
+
+//【pano-entity】工程的个别设定
+project(':pano-entity') {
+    //apply plugin: 'org.springframework.boot'
+    
+    configurations {
+        // 解决JDBC的依赖
+        jdbcResolve
+    }
+    // 工程的以来信息
+    dependencies {
+        //compile project(':pano-framework')
+
+        // JDBC Driver
+        try {
+            jdbcResolve "${dbSetting.driverArtifactId}"
+            configurations.jdbcResolve.getResolvedConfiguration().getResolvedArtifacts()
+            compile "${dbSetting.driverArtifactId}"
+            logger.warn("JDBC driver dependency is resolved by BOM")
+        } catch (e) {
+            // BOM异常的场合，手动指定
+            compile "${dbSetting.driverArtifactId}:${dbSetting.driverVersion}"
+            logger.warn("JDBC driver dependency is resolved by setting")
+        }
+        
+        // MyBatis
+        compile "org.mybatis:mybatis:$myBatisVersion"
+        compile "org.mybatis:mybatis-spring:$myBatisSpringVersion"
+    }
+}
+
+// 【pano-web】工程的个别设定
+project(':pano-web') {
+    apply plugin: 'war'
+    apply plugin: 'eclipse-wtp'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'tomcat'
+    
+    // 工程的依赖信息
+    dependencies {
+        compile project(':pano-framework')  
+        compile project(':pano-entity')  
+        
+        //加载本地包
+        //compile files('libs/alipay-sdk-java-3.1.0.jar')
+        //compile fileTree(dir:'libs',include:['*.jar'])
+
+        // spring热部署模块
+        runtime ('org.springframework.boot:spring-boot-devtools')
+        
+        // spring-boot的web启动的jar包
+        //compile ('org.springframework.boot:spring-boot-starter-web')
+        
+        // spring-boot的Spring Security的jar包
+        //compile ('org.springframework.boot:spring-boot-starter-security')
+        //compile ('org.springframework.security:spring-security-taglibs')
+        
+        // spring-boot的websocket的jar包
+        compile ('org.springframework.boot:spring-boot-starter-websocket')
+        // Spring-context的扩展
+        compile ('org.springframework:spring-context-support')
+        
+        //jpa的jar包 ，操作数据库的，类似hibernate 
+        compile ("org.springframework.boot:spring-boot-starter-data-jpa")
+        
+        // SpringBoot集成JDBC
+        //compile ("org.springframework.boot:spring-boot-starter-jdbc")
+        
+        //添加对tomcat的支持
+        providedCompile "org.springframework.boot:spring-boot-starter-tomcat"
+        providedCompile "org.apache.tomcat:tomcat-jdbc"
+        
+        //配置servlet
+        //providedRuntime "javax.servlet:javax.servlet-api:$servletApiVersion"
+        providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
+        
+        //对jsp支持的模块
+        providedCompile "org.apache.tomcat.embed:tomcat-embed-jasper"  
+        //配置jsp jstl的支持
+        compile 'javax.servlet:jstl'
+        // 对thymeleaf的模块
+        compile ("org.springframework.boot:spring-boot-starter-thymeleaf")       
+        
+        compile useLogger
+        
+        // 数据库驱动
+        providedCompile "${dbSetting.driverArtifactId}:${dbSetting.driverVersion}"
+        
+        
+        // java工具类 lombok
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        
+        // JavaScript 相关库
+        compile ( 
+            // jquery
+            "org.webjars:jquery:$jqueryVersion",
+            // jquery-ui
+            "org.webjars:jquery-ui:$jqueryUiVersion",
+            // layui
+            "org.webjars:layui:$layuiVersion",
+            // bignumber.js
+            "org.webjars.npm:bignumber.js:$bignumberVersion",
+            // cropper
+            compile ("org.webjars.npm:cropperjs:$cropperVersion"),
+            // bootstrap-select
+            compile ("org.webjars:bootstrap-select:$bootstrapSelectVersion"),
+            
+        )       
+        // 表单验证插件 jquery-validation
+        compile ("org.webjars.bower:jquery-validation:$jqueryValidationVersion"){
+                exclude module: 'jquery'
+                //exclude group: 'org.webjars.bower',module: 'jquery'
+        }       
+        // 日历插件 fullCalendar
+        compile ("org.webjars.bower:fullcalendar:$fullCalendarVersion"){
+                exclude module: 'jquery'
+                //exclude group: 'org.webjars.bower',module: 'jquery'
+        }
+        
+        // popup定位引擎 popper
+        compile ("org.webjars:popper.js:$popperVersion")
+        // 前端开发的开源工具包 bootstrap
+        compile ("org.webjars:bootstrap:$bootstrapVersion"){
+                exclude module: 'jquery'
+                exclude module: 'popper.js'
+                //exclude group: 'org.webjars',module: 'popper.js'
+        }
+        // 开源网络字体 font-awesome 
+        compile ("org.webjars:font-awesome:$fontAwesomeVersion")
+        
+        // 工具类 fileupload
+        compile ("commons-fileupload:commons-fileupload:$commonsFileuploadVersion")
+        // 图片处理开源工具
+        compile ("net.coobird:thumbnailator:latest.integration")    
+        // 解析客户端操作系统、浏览器等
+        //compile ("eu.bitwalker:UserAgentUtils:$UserAgentUtilsVersion")
+        // 获取系统信息
+        compile ("com.github.oshi:oshi-core:$oshiCoreVersion")
+        compile ("net.java.dev.jna:jna:$jnaVersion")
+        compile ("net.java.dev.jna:jna-platform:$jnaVersion")
+        // Spring的移动端扩展包
+        compile ("org.springframework.boot:spring-boot-starter-mobile:$springMobileVersion")
+        
+        // 任务日程管理 quartz 
+        compile ("org.quartz-scheduler:quartz:$quartzVersion")
+        
+        //阿里数据库连接池
+        // compile ("com.alibaba:druid:$DruidVersion")
+        compile ("com.alibaba:druid-spring-boot-starter:$DruidSpringVersion"){
+                exclude module: 'jconsole'
+                exclude module: 'tools'
+        }
+        //阿里支付宝
+        //compile "com.alipay.sdk:alipay-sdk-java:3.4.49.ALL" 
+        //compile (
+            // 阿里云短信
+            //"com.aliyun:aliyun-java-sdk-core:4.4.0",
+            //"com.aliyun:aliyun-java-sdk-dysmsapi:1.1.0",
+        //)  
+        
+        // 打包场合，其他相关依赖包
+        // jaxb-api
+        compile ("javax.xml.bind:jaxb-api:$jaxbApiVersion")
+        // janino
+        compile ("org.codehaus.janino:janino:$janinoVersion")
+        
+        // 单元测试模块
+        compile('org.springframework.boot:spring-boot-starter-test')
+        //providedCompile ("org.springframework.boot:spring-boot-starter-test")
+        //testCompile('org.springframework.boot:spring-boot-starter-test')
+        
+        // typeahead插件
+        compile ("org.webjars.npm:bootstrap-3-typeahead:$typeaheadVersion")
+
+         
+    }
+   
+}

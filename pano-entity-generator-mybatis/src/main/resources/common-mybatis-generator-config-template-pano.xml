@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+ "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+ <!-- 引入配置文件 -->
+ <properties resource="generator-common.properties" />
+<!--  <classPathEntry location="generator-common.properties" /> -->
+ 
+ <context id="dbtable" targetRuntime="MyBatis3">
+	<!-- 此处是将Example改名为Criteria 当然 想改成什么都行~    -->      
+	<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">  
+		<property name="searchString" value="Example$" />
+		<!-- 替换后
+		<property name="replaceString" value="Criteria" />  
+		 -->
+		<property name="replaceString" value="Query" />
+	</plugin>  
+	<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+	<!-- 整合lombok-->
+	<plugin type="com.softwareloop.mybatis.generator.plugins.LombokPlugin">
+		 <!-- enable annotations 
+		 <property name="builder" value="true"/>-->
+		 <!-- annotation's option(boolean) 
+		 <property name="builder.fluent" value="true"/>-->
+		 <!-- annotation's option(String) 
+		 <property name="builder.builderMethodName" value="myBuilder"/>
+		 
+		 <property name="accessors" value="true"/>-->
+		 <!-- annotation's option(array of String) 
+		 <property name="accessors.prefix" value="m_, _"/>-->
+		 
+		 <!-- disable annotations 
+		 <property name="allArgsConstructor" value="false"/>-->
+	</plugin>
+	<commentGenerator>
+		<!-- 是否去除自动生成的注释 true：是 ： false:否 
+		<property name="suppressAllComments" value="true" />-->
+		<property name="suppressDate" value="true" />
+	</commentGenerator>
+   <!-- DBの接続情報を設定 -->
+   <jdbcConnection driverClass="${conf.driverClass}"
+       connectionURL="${conf.connectionUrl}"
+       userId="${conf.userId}"
+       password="${conf.password}">
+	   <property name="nullCatalogMeansCurrent" value="true" />
+   </jdbcConnection>
+
+   <!-- タイプ変換 -->
+   <javaTypeResolver >
+     <!-- 数値型（Long, Integer, Short, etc.）をbigdecimalに変更するかの設定。 たぶん省略可能 -->
+     <property name="forceBigDecimals" value="true" />
+	 <!-- This property is used to specify whether MyBatis Generator should force the use of JSR-310 data types for DATE, TIME,
+            and TIMESTAMP fields, rather than using java.util.Date -->
+	 <property name="useJSR310Types" value="true"/>
+   </javaTypeResolver>
+
+   <!-- Java Model(Entity)クラスの生成先を指定
+       targetPackage : 生成先パッケージ
+       targetProject : プロジェクトディレクトリから生成先パッケージの親ディレクトリまでのパス
+   -->
+   <javaModelGenerator targetPackage="${conf.basePackage.pano}.model.common" targetProject="${conf.buildDir}java">
+     <property name="enableSubPackages" value="${conf.enableSubPackages}" />
+     <property name="trimStrings" value="true" />
+   </javaModelGenerator>
+
+   <!-- SQL Mapper(Dao)ファイルの生成先を指定
+       targetPackage : 生成先パッケージ
+       targetProject : プロジェクトディレクトリから生成先パッケージの親ディレクトリまでのパス
+   -->
+   <sqlMapGenerator targetPackage="${conf.basePackage.pano}.mapper.common"  targetProject="${conf.buildDir}resources">
+     <property name="enableSubPackages" value="${conf.enableSubPackages}" />
+   </sqlMapGenerator>
+
+   <!-- Java Clientクラスの生成先を指定     ※Java ClientはSQL Mapperファイルを呼び出すためのインターフェースクラスです。
+       targetPackage : 生成先パッケージ
+       targetProject : プロジェクトディレクトリから生成先パッケージの親ディレクトリまでのパス
+   -->
+   <javaClientGenerator type="XMLMAPPER" targetPackage="${conf.basePackage.pano}.mapper.common"  targetProject="${conf.buildDir}java">
+     <property name="enableSubPackages" value="${conf.enableSubPackages}" />
+   </javaClientGenerator>
+
+   <!--  自動生成対象のテーブル名を[tableName]に指定する。 schema="${conf.schema}"　-->
+    <table  schema="${conf.schema}"
+	        tableName="${conf.tableName.pano}%"
+            enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableUpdateByPrimaryKey="true"
+            enableDeleteByPrimaryKey="true"
+            selectByPrimaryKeyQueryId="true"
+            enableSelectByExample="false"
+            enableUpdateByExample="false"
+            enableDeleteByExample="false"
+            enableCountByExample="false"
+            selectByExampleQueryId="false"
+            modelType="flat">
+    </table>
+ </context>
+</generatorConfiguration>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js" th:src="@{/static/platform/common/js/createHead.js}"></script>
+<title>重复任务</title>
+</head>
+<body>
+    <div class="card-body">
+        <div class="card card-default">
+            <div class="card-header">
+                <label>检索条件</label>
+            </div>
+            <div class="card-body">
+                <form id="platformz9906FormSearch" class="form-horizontal" th:object="${platformz9906Form}">
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="txt_selectedJobName">任务名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_selectedJobName" name="selectedJobName">
+                        </div>
+                        <label class="col-form-label col-sm-1" for="txt_selectedMethodName">方法名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_selectedMethodName" name="selectedMethodName">
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="txt_selectedJobStatus">任务状态</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" name="selectedJobStatus">
+                                <option label="" value=""></option>
+                                <option th:each="job:*{jobStatusList}"
+                                    th:value="${job.recordCode}" th:text="${job.recordValue}"
+                                    th:selected="*{selectedJobStatus} eq ${job.recordCode}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-row">
+                        <label class="col-form-label col-sm-1">&nbsp;</label>
+                        <div class="col-sm-auto">
+                            <button type="button" id="platformz9906Btn_query" class="btn cis-btn-blue">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span>检索</span>
+                            </button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <div id="toolbar" class="btn-group">
+            <button id="platformz9906Btn_new" type="button" class="btn pano-btn-danger">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span>新建</span>
+            </button>
+            <button id="platformz9906Btn_delete" type="button" class="btn pano-btn-danger">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span>删除</span>
+            </button>
+            <button id="platformz9906Btn_resume" type="button" class="btn pano-btn-danger">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span>启用</span>
+            </button>
+            <button id="platformz9906Btn_pause" type="button" class="btn pano-btn-danger">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span>暂停</span>
+            </button>
+            <button id="platformz9906Btn_run" type="button" class="btn pano-btn-danger">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span>执行一次</span>
+            </button>
+        </div>
+        <table id="table-jobList" data-toolbar="#toolbar">
+            <thead>
+                <tr>
+                    <th data-field="checkbox" data-checkbox="true" data-halign="center" data-align="center"></th>
+                    <th data-field="jobId" data-halign="center" data-align="left">任务编号</th>
+                    <th data-field="jobName" data-halign="center" data-align="left">任务名称</th>
+                    <th data-field="jobGroup" data-visible="false">任务组名</th>
+                    <th data-field="methodName" data-halign="center" data-align="left">方法名称</th>
+                    <th data-field="methodParams" data-halign="center" data-align="left">方法参数</th>
+                    <th data-field="triggerRemark" data-halign="center" data-align="left">触发器说明</th>
+                    <th data-field="priority" data-halign="center" data-align="left">优先级</th>
+                    <th data-field="jobStatus" data-visible="false">任务状态</th>
+                    <th data-field="jobStatusName" data-halign="center" data-align="left">任务状态</th>
+                    <th data-field="createDate" data-halign="center" data-align="left">创建时间</th>
+                    <th data-field="rowOperate" data-halign="center" data-align="center">操作</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+    <!-- Ajax提交用的Form -->
+    <form id="platformz9906FormAjaxSubmit"></form>
+    <script src="../../../../../../static/platform/platformz/js/platformz99/platformz9906.js" th:src="@{/static/platform/platformz/js/platformz99/platformz9906.js}"></script>
+</body>
+</html>

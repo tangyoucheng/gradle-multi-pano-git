@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.pano.pano.mapper.pano01.Pano0110Mapper">
+    <resultMap id="BaseResultMap" type="cn.com.pano.pano.model.common01.PanoExposition01Model"
+        extends="cn.com.pano.pano.mapper.common.PanoExpositionMapper.BaseResultMap">
+        <result column="material_path" jdbcType="VARCHAR" property="materialPath" />
+        <result column="text_info" jdbcType="VARCHAR" property="textInfo" />
+        <result column="material_id" jdbcType="VARCHAR" property="materialId" />
+        <result column="hotspot_id" jdbcType="VARCHAR" property="hotspotId" />
+    </resultMap>
+
+    <!--检索展览总件数 -->
+    <select id="selectExpositionInfoCount" parameterType="map" resultType="java.lang.Long">
+        select count(*) from pano_exposition
+        <where>
+            1 = 1
+            <if test="deleteFlag != null">
+                AND DELETE_FLAG = #{deleteFlag}
+            </if>
+            <if test="expositionMapId != null">
+                AND exposition_id like #{expositionMapId}
+            </if>
+            <if test="expositionName != null">
+                AND exposition_name like #{expositionName}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="expositionStartDate != null">
+                AND APPLY_DATE &gt;= #{expositionStartDate,jdbcType=DATE}
+            </if>
+            <if test="expositionEndDate != null">
+                AND APPLY_DATE &lt;= #{expositionEndDate,jdbcType=DATE}
+            </if>
+        </where>
+    </select>
+    <!--检索展览一览 -->
+    <select id="selectExpositionInfo" parameterType="map" resultMap="BaseResultMap">
+        select * from pano_exposition
+        <where>
+            1 = 1
+            <if test="deleteFlag != null">
+                AND DELETE_FLAG = #{deleteFlag}
+            </if>
+            <if test="expositionMapId != null">
+                AND exposition_id like #{expositionMapId}
+            </if>
+            <if test="expositionName != null">
+                AND exposition_name like #{expositionName}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="expositionStartDate != null">
+                AND APPLY_DATE &gt;= #{expositionStartDate,jdbcType=DATE}
+            </if>
+            <if test="expositionEndDate != null">
+                AND APPLY_DATE &lt;= #{expositionEndDate,jdbcType=DATE}
+            </if>
+        </where>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="offSet != null and pageSize !=null">
+            limit #{offSet},#{pageSize}
+        </if>
+    </select>
+    <!--热点的图文信息检索 -->
+    <select id="selectTxtImg" parameterType="map" resultMap="BaseResultMap">
+        select
+        D.material_path, D.text_info, D.material_id, B.hotspot_id
+        from
+        pano_panorama A
+        INNER JOIN
+        pano_panorama_hotspot B ON A.panorama_id = B.panorama_id AND B.delete_flag = #{deleteFlag}
+        INNER JOIN
+        pano_hotspot_url C ON B.hotspot_id = C.hotspot_id AND C.delete_flag = #{deleteFlag}
+        INNER JOIN pano_material D ON C.hotspot_url_object_id = D.material_id AND D.delete_flag = #{deleteFlag}
+        <where>
+            A.delete_flag = #{deleteFlag}
+            <if test="expositionId != null">
+                AND A.exposition_id = #{expositionId}
+            </if>
+            <if test="materialTypeId != null">
+                AND D.material_type_id = #{materialTypeId}
+            </if>
+        </where>
+    </select>
+</mapper>

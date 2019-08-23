@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <section th:fragment="checkbox-required(name, checkboxList, selectedValue, required)">
+        <div th:each="itemData,itemDataStat:${checkboxList}" class="checkbox-custom checkbox-default form-row mr-2"
+            th:required="${itemDataStat.index == 0}?'required'">
+            <input th:id="${name + '-' + itemData.recordCode}" th:name="${name}" th:value="${itemData.recordCode}"
+                type="checkbox" th:checked="${selectedValue} eq ${itemData.recordCode}" />
+            <label th:text="${itemData.recordValue}"></label>
+        </div>
+    </section>
+    <section th:fragment="checkbox-disabled(name, checkboxList, selectedValue">
+        <div th:each="itemData:${checkboxList}" class="radio-custom radio-default form-row mr-2">
+            <input th:each="itemData:${radioList}" th:id="${name + '-' + itemData.recordCode}" th:name="${name}"
+                th:value="${itemData.recordCode}" type="radio" th:checked="${selectedValue} eq ${itemData.recordCode}"
+                th:disabled="disabled" />
+            <label th:text="${itemData.recordValue}"></label>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<krpano>
+
+    <!-- the action for dragging the layer/plugin elements - call it once in the ondown event -->
+    <action name="draglayer">
+        if(%1 != dragging,
+            copy(drag_currentx, x);
+            copy(drag_currenty, y);
+            copy(drag_stagex, mouse.stagex);
+            copy(drag_stagey, mouse.stagey);
+            set(drag_sx, +1);
+            set(drag_sy, +1);
+            if(align == righttop,    set(drag_sx,-1); );
+            if(align == right,       set(drag_sx,-1); );
+            if(align == rightbottom, set(drag_sx,-1); set(drag_sy,-1); );
+            if(align == bottom,      set(drag_sy,-1); );
+            if(align == leftbottom,  set(drag_sy,-1); );
+            draglayer(dragging);
+          ,
+            if(pressed,
+                sub(dx, mouse.stagex, drag_stagex);
+                sub(dy, mouse.stagey, drag_stagey);
+                mul(dx, drag_sx);
+                mul(dy, drag_sy);
+                add(x, drag_currentx, dx);
+                add(y, drag_currenty, dy);
+                delayedcall(0, draglayer(dragging) );
+              );
+          );
+    </action>
+    <!-- textfield with information about the currently dragged hotspot
+    <plugin name="hotspotinfo" keep="true"
+            url="%SWFPATH%/plugins/textfield.swf"
+            html="drag the hotspots..."
+            css="font-family:Courier;"
+            border="false"
+            selectable="true"
+            align="left" y="-100"
+            width="200"
+            height="80"
+            />
+            txtadd(plugin[hotspotinfo].html, '&lt;hotspot name="',get(name),'"[br]&nbsp;ath="',get(layer[get(name)].x),'"[br]&nbsp;atv="',get(drag_stagey),'"[br]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...[br]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&gt;');
+     -->
+    
+
+</krpano>

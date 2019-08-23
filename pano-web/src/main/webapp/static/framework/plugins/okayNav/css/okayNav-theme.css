@@ -1,0 +1,98 @@
+.okayNav-header {
+    height: 70px;
+    background-color: #1f1f1f;
+}
+
+.okayNav-header__logo {
+    float: left;
+    padding: 0 15px;
+    height: 100%;
+    width: 220px;
+    border-right: 1px solid #1F1F1F;
+    line-height: 70px;
+    cursor: pointer;
+}
+
+.okayNav>li.active {
+    border-bottom: 4px solid #D74635;
+    background: #000;
+}
+
+.okayNav>li>a.active::after {
+    transform: scale3d(1, 1, 1);
+}
+.okayNav>li>a::after {
+    transform: scale3d(1, 1, 1);
+}
+
+.okayNav>li:hover {
+    border-bottom: 4px solid #D74635;
+    color: #000;
+}
+
+.okayNav a {
+    /*     color: #2e2e33; */
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.okayNav ul>li>a:hover {
+    /*     color: #546edb; */
+    color: #fff;
+    background-color: #000;
+}
+.okayNav ul>li>a.selected {
+    /*     color: #546edb; */
+    color: #fff;
+    background-color: #000;
+}
+
+.okayNav__nav--visible a:hover {
+    /*     color: #546edb; */
+    color: #fff;
+}
+
+.okayNav__nav--invisible {
+    /*   background: #1F1F1F; */
+    background: #fff;
+}
+
+.okayNav__menu-toggle {
+    margin-top: 12px;
+}
+.okayNav__menu-toggle span {
+    /*   background: #2e2e33; */
+    background: #fff;
+}
+
+.okayNav__menu-toggle.icon--active span {
+    /*     background: #546edb; */
+    background: #fff;
+}
+
+
+.okayNav ul>li>a {
+/*     text-transform: uppercase; */
+    position: relative;
+    line-height: 70px;
+}
+
+.okayNav ul>li>a:after {
+    content: "";
+    width: 0;
+    height: 5px;
+    background: #D74635;
+    bottom: 0;
+    left: 0;
+    transition: all 0.5s ease 0s;
+    position: absolute;
+}
+
+.okayNav ul>li>a.selected:after {
+    width: 100%;
+}
+
+.okayNav ul>li>a:hover:after {
+    width: 100%;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<title>后台管理员登陆</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js"
+    th:src="@{/static/platform/common/js/createHead.js}"></script>
+</head>
+<body class="bg-white">
+    <div class="container" style="min-width: 1000px;">
+        <div class="row align-items-center justify-content-center" style="height: 100vh;">
+            <div class="col-6">
+                <img src="../../../../../../static/platform/platform/images/platform01/rig.jpg" width="500" alt=""
+                    th:src="@{/static/platform/platform/images/platform01/rig.jpg}">
+            </div>
+            <div class="col-6">
+                <div class="login-box ml-4 pl-4 pr-4 row align-items-center justify-content-center">
+                    <form id="platform010101Form" th:object="${platform010101Form}">
+                        <img src="../../../../../../static/platform/platform/images/platform01/logo.png" class="logo"
+                            th:src="@{/static/platform/platform/images/platform01/logo.png}">
+                        <div class="col-12 input-group mt-3 pl-0 pr-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-0">
+                                    <span class="fa fa-user" aria-hidden="true"></span>
+                                </span>
+                            </div>
+                            <input id="username" name=loginId placeholder="用户代码" maxlength="20" autocomplete="off"
+                                class="form-control shadow-none border-left-0 border-top-0 border-right-0" type="text">
+                        </div>
+                        <div class="col-12 input-group mt-4 mb-4 pl-0 pr-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-0">
+                                    <span class="fa fa-key" aria-hidden="true"></span>
+                                </span>
+                            </div>
+                            <input id="password" name="password" placeholder="密码" maxlength="30" autocomplete="off"
+                                class="form-control shadow-none border-left-0 border-top-0 border-right-0"
+                                type="password">
+                        </div>
+                        <button type="button" class="btn pano-btn-danger col-12 pt-3 pb-3" onclick="generalLogin()">
+                            <span>登录</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- 信息显示组件 -->
+<link href="../../../../../../static/framework/plugins/overhang/1.0.5/overhang.css" rel="stylesheet"
+    th:href="@{/static/framework/plugins/overhang/1.0.5/overhang.css}" />
+<link href="../../../../../../static/platform/css/platform01/platform010101.css" rel="stylesheet"
+    th:href="@{/static/platform/css/platform01/platform010101.css}" />
+<script src="../../../../../../static/framework/plugins/overhang/1.0.5/overhang.js"
+    th:src="@{/static/framework/plugins/overhang/1.0.5/overhang.js}"></script>
+<script src="../../../../../../static/framework/plugins/overhang/messageUtil.js"
+    th:src="@{/static/framework/plugins/overhang/messageUtil.js}"></script>
+<script src="../../../../../../static/platform/common/js/common.js" th:src="@{/static/platform/common/js/common.js}"></script>
+<script src="../../../../../../static/platform/platform/js/platform01/platform010101.js"
+    th:src="@{/static/platform/platform/js/platform01/platform010101.js}"></script>
+</html>

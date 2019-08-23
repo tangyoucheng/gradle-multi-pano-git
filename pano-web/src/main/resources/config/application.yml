@@ -1,0 +1,47 @@
+spring:
+  servlet:    multipart:
+      max-file-size: 50MB      max-request-size: 500MB
+  profiles:
+    active: development
+#   active: production
+  messages:
+  # 复数个文件的场合，spring.messages.basename=hoge,moge,fuga
+    basename: classpath:i18n/platform/messages,classpath:i18n/pano/messages
+    cache-duration: -1
+    encoding: UTF-8
+  jpa:
+    show-sql: true
+  thymeleaf:
+    #开发时关闭thymeleaf缓存,不然没法看到实时页面
+    cache: false
+  activiti:
+    #自动更新数据库
+    #database-schema-update: true
+    #校验流程文件，默认校验resources下的processes文件夹里的流程文件
+    check-process-definitions: false
+    #保存历史数据级别设置为full最高级别，便于历史数据的追溯
+    #history-level: full
+server:
+  port: 8080
+  servlet:
+    context-path: /pano
+    #会话过期时间 单位：秒
+    session:
+      timeout: 9000s
+ # tomcat:
+ #   max-http-header-size: 10240
+  max-http-header-size: 10240
+  
+#端口号
+#server.port: 8443
+#SSL https证书配置
+#server.ssl.key-store: cis.keystore
+#密钥库密码
+#server.ssl.key-store-password: AAA111+++
+#行业标准JKS
+#server.ssl.keyStoreType: JKS
+#server.ssl.keyAlias: cis
+
+#日志
+#logging:
+#  config: classpath:logback/logback-${spring.profiles.active}.xml

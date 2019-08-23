@@ -1,0 +1,2 @@
+var hotspot_info = 
+{"5it1rn5pi5gqf":[{"img":"../../../../com_mats/images/5it1rnmczihru/5it1rnmczihru.PNG","text":"图文信息文字测试一"},{"img":"../../../../com_mats/images/5it1rnmek1lrv/5it1rnmek1lrv.jpg","text":"图文信息文字测试二"}]}

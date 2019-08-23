@@ -1,0 +1,95 @@
+<krpano>
+    
+    <!-- loading percent text -->
+    
+    
+    <!-- loading percent events -->
+    <events name="loadingpercent" keep="true"
+            onxmlcomplete="if(webvr.isenabled,null,loadingpercent_startloading(););"
+            onloadcomplete="if(webvr.isenabled,null,delayedcall(0.25, loadingpercent_stoploading() ););"
+            />
+
+
+    <!-- loading percent graphics/text -->
+    <layer name="loadingpercent_text" keep="true"
+           url="%SWFPATH%/plugins/textfield.swf"
+           zorder='101'
+           
+           background="false"
+           align="rightbottom" x="22" y="30"
+           border="false"
+           autoheight="true"
+           css="text-align:center; color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:15px; font-style:italic;" textshadow="2"
+           html=""
+           />
+    <layer name="loadingpercent_text_scene" keep="true"
+           url="%SWFPATH%/plugins/textfield.swf"
+           zorder='101'
+           
+           background="false"
+           align="center" x="0" y="0"
+           border="false"
+           autoheight="true"
+           css="text-align:center; color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:15px; font-style:italic;" textshadow="2"
+           html=""
+           />
+           
+
+
+    
+    <!-- loading percent actions -->    
+    <action name="loadingpercent_startloading">
+	
+    set(loadingpercent_isloading, true);
+    if(layer[preload_container].visible,
+            set(layer[loadingpercent_text].visible, true);
+        
+            asyncloop(loadingpercent_isloading,
+                mul(pv, progress.progress, 100);
+                roundval(pv,0);
+                txtadd(layer[loadingpercent_text].html, '', get(pv), '%');
+            );
+		,
+			set(layer[loadingpercent_text_scene].visible, true);
+        
+            asyncloop(loadingpercent_isloading,
+                mul(pv, progress.progress, 100);
+                roundval(pv,0);
+                txtadd(layer[loadingpercent_text_scene].html, '', get(pv), '%');
+            );
+    );
+
+    </action>
+    
+    <action name="loadingpercent_stoploading">
+        set(loadingpercent_isloading, false); 
+        set(layer[loadingpercent_text].visible, false); 
+        set(layer[loadingpercent_text_scene].visible, false); 
+        
+     if(layer[preload_container].visible,      
+	        set(layer[skip_layer].visible, true);
+	        set(layer[count_down_text].visible, true);
+	        delayedcall(0.9, count_down(6) );
+        );
+    </action>
+    
+    <action name="count_down">
+    <![CDATA[
+        
+    if(_count==1,
+        layer[videoplayer_plugin].pause();
+        set(layer[videoplayer_bg].visible,false);
+        set(layer[preload_container].visible,false);
+        set(layer[skip_layer].visible,false);
+        set(layer[count_down_text].visible, false);
+        layer[skip_layer].onclick().start();
+        ,
+        sub(_count,%1,1);
+        txtadd(layer[count_down_text].html, '', get(_count),'s[br]跳过');         
+        delayedcall(1, count_down(get(_count)) );
+    );
+    ]]>
+        
+    </action>
+
+</krpano>

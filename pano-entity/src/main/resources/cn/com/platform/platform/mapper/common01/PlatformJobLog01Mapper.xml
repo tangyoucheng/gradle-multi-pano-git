@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.platform.platform.mapper.common01.PlatformJobLog01Mapper">
+  <resultMap id="BaseResultMap" type="cn.com.platform.platform.model.common.PlatformJobLog"
+        extends="cn.com.platform.platform.mapper.common.PlatformJobLogMapper.BaseResultMap">
+    </resultMap>
+    <!--检索定时任务总件数 -->
+    <select id="selectJobLogsCount" parameterType="map" resultType="java.lang.Long">
+        select count(*) from platform_job_log
+        <where>
+            1 = 1
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+    </select>
+    <!--检索定时任务 -->
+    <select id="selectJobLogsInfo" parameterType="map" resultMap="BaseResultMap">
+        select * from platform_job_log
+        <where>
+            1 = 1
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="offSet != null and pageSize !=null">
+            limit #{offSet},#{pageSize}
+        </if>
+    </select>
+    <sql id="selectJobLogVo">
+        select job_log_id, job_name, job_group, method_name, method_params, job_message, status, exception_info, create_time 
+        from platform_job_log
+    </sql>
+    
+    <select id="selectJobLogList" parameterType="cn.com.platform.platform.model.common.PlatformJobLog" resultMap="BaseResultMap">
+        <include refid="selectJobLogVo"/>
+        <where>
+            <if test="jobName != null and jobName != ''">
+                AND job_name like concat('%', #{jobName}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="methodName != null and methodName != ''">
+                AND method_name like concat('%', #{methodName}, '%')
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectJobAll" resultMap="BaseResultMap">
+        <include refid="selectJobLogVo"/>
+    </select>
+    
+    <select id="selectJobLogById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <include refid="selectJobLogVo"/>
+        where job_log_id = #{jobLogId}
+    </select>
+    
+    <delete id="deleteJobLogById" parameterType="java.lang.String">
+        delete from platform_job_log where job_log_id = #{jobLogId}
+    </delete>
+    
+    <delete id="deleteJobLogByIds" parameterType="java.lang.String">
+        delete from platform_job_log where job_log_id in
+        <foreach collection="array" item="jobLogId" open="(" separator="," close=")">
+            #{jobLogId}
+        </foreach> 
+    </delete>
+    
+    <update id="cleanJobLog">
+        truncate table platform_job_log
+    </update>
+    
+    <insert id="insertJobLog" parameterType="cn.com.platform.platform.model.common.PlatformJobLog">
+        insert into platform_job_log(
+            <if test="jobLogId != null and jobLogId != 0">job_log_id,</if>
+            <if test="jobName != null and jobName != ''">job_name,</if>
+            <if test="jobGroup != null and jobGroup != ''">job_group,</if>
+            <if test="methodName != null and methodName != ''">method_name,</if>
+            <if test="methodParams != null and methodParams != ''">method_params,</if>
+            <if test="jobMessage != null and jobMessage != ''">job_message,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="exceptionInfo != null and exceptionInfo != ''">exception_info,</if>
+            create_time
+        )values(
+            <if test="jobLogId != null and jobLogId != 0">#{jobLogId},</if>
+            <if test="jobName != null and jobName != ''">#{jobName},</if>
+            <if test="jobGroup != null and jobGroup != ''">#{jobGroup},</if>
+            <if test="methodName != null and methodName != ''">#{methodName},</if>
+            <if test="methodParams != null and methodParams != ''">#{methodParams},</if>
+            <if test="jobMessage != null and jobMessage != ''">#{jobMessage},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="exceptionInfo != null and exceptionInfo != ''">#{exceptionInfo},</if>
+            sysdate()
+        )
+    </insert>
+</mapper>

@@ -1,0 +1,182 @@
+<krpano>
+    <textstyle name="onviewchange_textstyle"
+               origin="leftbottom" edge="leftbottom" xoffset="250" yoffset="150" textalign="left" background="false" border="false"
+               fontsize="20" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,2,2);glow(0x000000,1,2,2);dropshadow(3,45,0x000000,1,0.3);"
+               showtime="80"
+               />
+               
+    <action name="skin_thumbs_v">
+    if(layer[thumbContainer].state == closed
+    , 
+        tween(layer[thumbContainer].x, get(layer[thumbContainer].x_opened), 0.5, easeOutQuint);
+        set(layer[thumbContainer].state, 'opened');
+    , 
+        tween(layer[thumbContainer].x, get(layer[thumbContainer].x_closed), 0.5, easeOutQuint);
+        set(layer[thumbContainer].state, 'closed');
+    );
+    </action>
+    
+    <action name="skin_bar_v">
+    if(layer[showBtnContainer].visible == false
+    , 
+        tween(layer[thumbContainer].x, get(layer[thumbContainer].x_closed), 0.5, easeOutQuint);
+        set(layer[thumbContainer].state, "closed");
+        
+        tween(layer[skin_control_bar_v].x, get(layer[skin_control_bar_v].x_closed), 0.5, easeOutQuint);
+        set(layer[skin_control_bar_v].state, 'opened');
+        set(layer[showBtnContainer].visible, true);
+        set(layer[defaultskin_buttons].visible, false);
+        <!-- 工具栏纵向时，点击隐藏按钮隐藏导航地图 -->
+        if(layer[skin_btn_rt_v].hadMap == 'yes', closemap_v(););
+    , 
+        tween(layer[skin_control_bar_v].x, get(layer[skin_control_bar_v].x_opened), 0.5, easeOutQuint);
+        set(layer[skin_control_bar_v].state, 'closed');
+        set(layer[showBtnContainer].visible, false);
+        ifnot(layer[skin_btn_share_v].visible
+        ,
+            wait(0.2);set(layer[defaultskin_buttons].visible, true);
+        );
+    )   
+    </action>
+    <action name="skin_setBoder">
+        set(layer[%2].onclick, layer[%1].onclick);
+    </action>
+    
+    <action name="skin_getBoder">
+    
+        set(layer[skin_thumbborder].visible, false);
+        
+        if(layer[skin_scroll_window].visible == true
+        ,
+    
+            txtadd(hparent, %1,'_h');
+            if(layer[get(hparent)]
+            ,
+                set(layer[skin_thumbborder].parent, get(hparent));
+                set(layer[skin_thumbborder].visible, true);
+            );
+        ,
+            txtadd(vparent, %1,'_v');
+            if(layer[get(vparent)]
+            ,
+                set(layer[skin_thumbborder].parent, get(vparent));
+                set(layer[skin_thumbborder].visible, true);
+            );
+        );
+    </action>
+    
+    <action name="skin_switchBoder">
+        copy(oldBoderPar, layer[skin_thumbborder].parent);
+
+        if(%1==null
+        ,
+            txtreplace(newBoderPar,oldBoderPar, "_v", "_h");
+
+        ,
+            txtreplace(newBoderPar,oldBoderPar, "_h", "_v");
+        );
+
+        if(layer[get(newBoderPar)]
+        ,
+            set(layer[skin_thumbborder].parent, get(newBoderPar));
+        );
+
+    </action>
+
+    <!--<action name="skin_showV">
+        if(layer[skin_scroll_window].visible==true
+        ,
+            set(layer[thumbBarLayer].visible, true);
+            set(layer[skin_scroll_window].visible, false);
+        ,
+            set(layer[thumbBarLayer].visible, false);
+            set(layer[skin_scroll_window].visible, true);   
+        );
+    </action>
+    --> 
+    <action name="skin_swapVH">
+        switch(layer[skin_scroll_window].visible, true, false);
+        switch(layer[skin_control_bar].visible, true, false);
+        switch(layer[thumbContainer].visible, false, true);
+        <!-- 横向与纵向声音按键图案保持一致 -->
+        if(layer[skin_control_bar].visible,
+			set(plugin[snd].crop, get(plugin[snd_v].crop));
+		,
+			set(plugin[snd_v].crop, get(plugin[snd].crop));
+		);
+        if(layer[thumbContainer].visible == 'true'
+        ,
+            if(device.mobile
+            ,  
+            set(layer[layer_nimi_map_container].y, 98);
+            ,  
+            set(layer[layer_nimi_map_container].y, 64);
+            );  
+        );
+        
+        if(layer[skin_btn_share_v].visible
+        ,
+            if(layer[thumbContainer].visible
+            ,
+                set(layer[defaultskin_buttons].visible, false);
+            ,
+                set(layer[defaultskin_buttons].visible, true);
+            );
+        );
+        
+        if(layer[skin_btn_rt_v].hadMap == 'yes'
+        ,
+            if(layer[layer_nimi_map_container].scale == '0'   
+	        ,
+	        set(layer[skin_btn_map].onclick, openmap(););   
+	        ,
+	        set(layer[skin_btn_map].onclick, closemap(););
+	        );
+        
+        );
+
+    </action>
+    
+    <!-- open/close map -->
+    <action name="openmap_v">
+        set(layer[skin_btn_map_v].onclick, closemap_v(); );
+        layer[layer_nimi_map_container].changeorigin(rightbottom,rightbottom);
+        tween(layer[layer_nimi_map_container].x, get(layer[layer_nimi_map_container].x));
+        tween(layer[layer_nimi_map_container].y, get(layer[layer_nimi_map_container].y));
+        tween(layer[layer_nimi_map_container].scale, 1);   
+    </action>
+    <action name="closemap_v">
+	        set(layer[skin_btn_map_v].onclick, openmap_v(); );
+	        
+	        layer[layer_nimi_map_container].changeorigin(rightbottom,rightbottom);
+	
+	        delayedcall(0.2,tween(layer[layer_nimi_map_container].x, get(layer[layer_nimi_map_container].x)););
+	        delayedcall(0.2,tween(layer[layer_nimi_map_container].y, get(layer[layer_nimi_map_container].y)););
+	        tween(layer[layer_nimi_map_container].scale, 0);
+    </action>
+    <action name="openmap">
+        set(layer[skin_btn_map].onclick, closemap(); );
+        
+        layer[layer_nimi_map_container].changeorigin(rightbottom,rightbottom);
+
+        tween(layer[layer_nimi_map_container].x, get(layer[layer_nimi_map_container].x));
+        tween(layer[layer_nimi_map_container].y, get(layer[layer_nimi_map_container].y));
+        tween(layer[layer_nimi_map_container].scale, 1);
+    </action>
+    <action name="closemap">
+
+	        set(layer[skin_btn_map].onclick, openmap(); );
+	        
+	        layer[layer_nimi_map_container].changeorigin(rightbottom,rightbottom);
+	
+	        tween(layer[layer_nimi_map_container].x, get(layer[layer_nimi_map_container].x));
+	        tween(layer[layer_nimi_map_container].y, get(layer[layer_nimi_map_container].y));
+	        tween(layer[layer_nimi_map_container].scale, 0);
+    </action>
+    <action name="setMapClickEvent">
+        if(layer[layer_nimi_map_container].scale == '0'
+           ,
+           set(layer[skin_btn_map_v].onclick, openmap_v(););
+         );
+    </action>
+</krpano>

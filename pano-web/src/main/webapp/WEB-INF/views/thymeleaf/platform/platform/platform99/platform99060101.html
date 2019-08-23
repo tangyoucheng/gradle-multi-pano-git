@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js"></script>
+<title>触发器设定 重复任务</title>
+</head>
+<style type="text/css">
+</style>
+<body>
+    <div class="card-body">
+        <div class="card card-default">
+            <div class="card-body">
+                <form id="platform99060101Form" th:action="@{/}" th:object="${platform99060101Form}">
+                    <input type="hidden" id="txt_jobId" name="jobId" th:value="*{jobId}">
+                    <input type="hidden" id="returnTargetIframe" name="returnTargetIframe"
+                        th:value="*{returnTargetIframe }">
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="txt_count">重复次数</label>
+                        <div class="col-sm-3">
+                            <input th:if="true" type="checkbox" name="isCount" th:checked="*{repeatCount}"
+                                data-on-color="default" data-on-text="指定" data-off-text="不限"
+                                data-off-color="default" data-handle-width="50px">
+                        </div>
+                        <div id="for_count" class="col-sm-3" th:style="*{repeatCount}?'':'display: none'">
+                            <input type="text" class="form-control" id="txt_repeatCount" name="repeatCount"
+                                th:value="*{repeatCount}" maxlength="7">
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="txt_repeatInterval">重复间隔（秒）</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_repeatInterval" name="repeatInterval"
+                                th:value="*{repeatInterval}" maxlength="12">
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="txt_startDate">任务开始时间</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" id="txt_startDate" name="startDate"
+                                th:value="*{startDate}" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label class="col-form-label text-right col-sm-1">&nbsp;</label>
+                        <div class="col-sm-2">
+                            <!-- 保存 -->
+                            <button type="button" id="btn_entry" class="btn pano-btn-danger">
+                                <span class="glyphicon glyphicon-save" aria-hidden="true"> </span>
+                                <span>保存</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../../../static/platform/platform/js/platform99/platform99060101.js" th:src="@{/static/platform/platform/js/platform99/platform99060101.js}"></script>
+</body>
+</html>

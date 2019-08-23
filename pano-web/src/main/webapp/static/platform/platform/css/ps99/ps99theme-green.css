@@ -1,0 +1,375 @@
+/*===============================
+   Logo  Start   
+=================================*/
+.brand-logo {
+    background: #ffffff;
+}
+
+.brand-logo a {
+    color: #333333;
+}
+
+.brand-logo a {
+	line-height: 70px;
+	padding: 0 !important;
+}
+
+/*===============================
+   Logo  End   
+=================================*/
+
+/*===============================
+   okayNav  Start    顶部菜单栏
+=================================*/
+.okayNav-header {
+	background-color: #ffffff;
+}
+
+.okayNav a {
+	color: #333333;
+}
+
+.okayNav ul>li>a:hover {
+	color: #00a22c;
+	background-color: #ffffff;
+}
+
+.okayNav ul>li>a.selected {
+	color: #00a22c;
+    background-color: #ffffff;
+}
+
+.okayNav__nav--visible a:hover {
+	/*     color: #546edb; */
+	color: #00a22c;
+}
+
+.okayNav__nav--invisible {
+	/*   background: #1F1F1F; */
+	background: #fff;
+}
+
+.okayNav ul>li>a:after {
+	background: #00a22c;
+}
+
+.okayNav__menu-toggle:hover span {
+	background: #00a22c;
+}
+
+.okayNav__menu-toggle span, .okayNav__menu-toggle.icon--active span {
+	background: #999999;
+}
+
+.okayNav__menu-toggle.icon--active span {
+	background: #00a22c;
+}
+
+.okayNav__menu-toggle.icon--active:hover span {
+	background: #00a22c;
+}
+
+/*===============================
+   okayNav  End    顶部菜单栏
+=================================*/
+
+/* 右边个人信息样式 */
+.header-right {
+	/*     background: #1f1f1f; */
+	-webkit-box-shadow: 0px 0px 2px #00a22c;
+	-moz-box-shadow: 0px 0px 2px #00a22c;
+	box-shadow: 0px 0px 2px #00a22c;
+}
+
+}
+.user-info-dropdown {
+	/*     background-color: #1f1f1f; */
+	
+}
+
+.user-info-dropdown .dropdown-toggle {
+	color: #333333;
+}
+
+.user-info-dropdown .dropdown-toggle .user-icon {
+	border: 1px solid #333333;
+	color: #333333;
+}
+
+.user-info-dropdown .dropdown-toggle .user-name {
+	color: #333333;
+}
+
+.user-info-dropdown .show .dropdown-toggle {
+	color: #00a22c;
+}
+
+.user-info-dropdown .show .dropdown-toggle .user-icon {
+	border: 1px solid #00a22c;
+	color: #00a22c;
+}
+
+.user-info-dropdown .show .dropdown-toggle .user-name {
+	color: #00a22c;
+}
+
+.user-info-dropdown .show a.dropdown-toggle {
+	background-color: #def9e0;
+}
+
+.dropdown-menu-right .dropdown-item:before {
+	background: #00a22c;
+}
+
+.dropdown-menu-right .dropdown-item:after {
+	background: #00a22c;
+}
+
+/*==============================================================
+	Header End
+==============================================================*/
+
+/*==============================================================
+ 	content Start  //标签栏
+ ==============================================================*/
+.content-tabs {
+	border-bottom: solid 1px #dddddd;
+}
+
+.content-tabs .roll-nav, .page-tabs-list {
+	color: #999;
+}
+
+.content-tabs .roll-nav:hover, .page-tabs a:hover {
+	color: #00a22c;
+	background: #def9e0 !important;
+}
+
+.content-tabs .roll-left {
+	border-right: solid 1px #dddddd;
+}
+
+.content-tabs .roll-right {
+	border-left: solid 1px #dddddd;
+}
+
+.page-tabs a {
+	border-right: solid 1px #dddddd;
+	color: #666666;
+}
+
+.page-tabs a i {
+	color: #999999;
+}
+
+.page-tabs a i:hover {
+	color: #00a22c;
+}
+
+.page-tabs a.active {
+	color: #000;
+	/*border-bottom: solid 1px #ffffff;*/
+	background: #def9e0;
+}
+
+.page-tabs a.active i:hover, .page-tabs a.active:hover {
+	background: #fff;
+}
+
+.page-tabs a:after {
+	background: #00a22c;
+}
+
+.page-tabs a:hover {
+	color: #333333;
+	background: #def9e0;
+}
+
+/*==============================================================
+	content End
+ ==============================================================*/
+/*==============================================================
+	dropdown-menu Start //右侧定位选项卡
+ ==============================================================*/
+.dropdown-menu {
+	border-color: #cccccc;
+	border-color: red;
+	background-color: #white;
+	-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
+	-moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
+}
+
+.dropdown .dropdown-toggle.J_tabClose {
+	color: #666666;
+}
+
+.dropdown .dropdown-toggle.J_tabClose:hover {
+	background-color: #def9e0;
+	color: #333333;
+}
+
+.dropdown.show .dropdown-toggle.J_tabClose {
+	background-color: #def9e0;
+	color: #333333;
+}
+
+.dropdown-item {
+	color: #333333;
+}
+
+.dropdown-item {
+	color: #333333;
+}
+
+.dropdown-item .fa {
+	color: #999999;
+}
+
+.dropdown-toggle::after {
+	color: #999999;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+	background: #def9e0;
+	color: #00a22c;
+}
+
+/*==============================================================
+	dropdown-menu End //右侧定位选项卡
+ ==============================================================*/
+
+/*==============================================================
+	Side Bar Start  //左侧菜单栏
+==============================================================*/
+.left-side-bar {
+	/*     background: #1f1f1f; */
+	
+}
+
+.first-level-menu {
+	background-color: #ffffff;
+}
+
+.first-level-menu a {
+	color: #00a22c;
+}
+
+.left-side-bar .mCustomScrollBox {
+	background-color: white;
+}
+
+.sidebar-menu {
+	background-color: white;
+}
+
+.sidebar-menu .dropdown-toggle {
+	color: #333333;
+}
+
+.sidebar-menu .dropdown-toggle:after {
+	color: #999999;
+}
+
+.sidebar-menu .dropdown-toggle:hover, .sidebar-menu .show>.dropdown-toggle
+	{
+	background: #def9e0;
+	color: #00a22c;
+}
+
+.sidebar-menu .submenu {
+	/*background: #def9e0;*/
+	background: #ffffff;
+}
+
+.sidebar-menu ul>li.dropdown:after {
+	background: #00a22c;
+}
+
+.sidebar-menu ul>li.show .J_menuItem:before {
+	background: #00a22c;
+}
+
+.sidebar-menu ul>li.show .J_menuItem:after {
+	background: #00a22c;
+}
+
+.sidebar-menu .submenu li a {
+	color: #000000;
+}
+
+.sidebar-menu .submenu li a:hover, .sidebar-menu .submenu li a.active {
+	/*  color: #0099ff; */
+	color: #00a22c;
+}
+
+.sidebar-menu .submenu li a:hover:before, .sidebar-menu .submenu li a.active:before
+	{
+	/*  color: #0099ff; */
+	color: #00a22c;
+}
+/*==============================================================
+	Side Bar End  //左侧菜单栏
+==============================================================*/
+
+/*==============================================================
+	Footer Start  //底部区域
+==============================================================*/
+.footer {
+	border-top: 1px solid #dddddd;
+}
+/*==============================================================
+	Footer End
+==============================================================*/
+/* ps99theme 主题 */
+.ps99theme-dropdown-toggle {
+	background: #00a22c;
+}
+
+.ps99theme-dropdown-toggle .fa {
+	color: #fff;
+}
+
+/* 图标色彩 SRART */
+.okayNav a span {
+	color: #00a22c;
+}
+
+.okayNav a.selected span {
+	color: #00a22c;
+}
+
+.first-level-menu a span {
+	color: #00a22c;
+}
+
+.sidebar-menu .dropdown-toggle .fa {
+	color: #333333;
+}
+
+.sidebar-menu .dropdown-toggle .fa {
+	color: #00a22c;
+}
+
+.sidebar-menu .dropdown-toggle:hover .fa, .sidebar-menu .show>.dropdown-toggle .fa
+	{
+	color: #00a22c;
+}
+
+.dropdown-item:hover .fa {
+	color: #00a22c;
+}
+
+.sidebar-menu .dropdown-toggle:hover .fa, .sidebar-menu .show>.dropdown-toggle .fa
+	{
+	color: #00a22c;
+}
+
+.dropdown-item:hover .fa {
+	color: #00a22c;
+}
+
+.sidebar-menu .submenu li:before {
+	color: #00a22c;
+}
+/* 图标色彩 END */

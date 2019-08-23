@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js"></script>
+<title>新建任务</title>
+</head>
+<body>
+    <div class="card-body">
+        <div class="card card-default">
+            <div class="card-body">
+                <form id="platformz990501Form" th:action="@{/}" th:object="${platformz990501Form}">
+                    <input type="hidden" id="txt_jobId" name="jobId" th:value="*{jobId}">
+                    <input type="hidden" id="txt_cronExpression" name="cronExpression" th:value="*{cronExpression}">
+                    <input type="hidden" id="txt_triggerJson" name="triggerJson" th:value="*{triggerJson}">
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="txt_jobName">任务名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_jobName" name="jobName"
+                                th:value="*{jobName}">
+                        </div>
+                        <label class="col-form-label col-sm-1"></label>
+                        <label class="col-form-label col-sm-1" for="txt_jobStatus">任务状态</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" name="jobStatus">
+                                <option th:each="job:*{jobStatusList}" th:value="${job.recordCode}"
+                                    th:text="${job.recordValue}" th:selected="*{jobStatus} eq ${job.recordCode}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="txt_methodName">方法名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_methodName" name="methodName"
+                                th:value="*{methodName}">
+                        </div>
+                        <label class="col-form-label col-sm-1"></label>
+                        <label class="col-form-label col-sm-1" for="txt_methodParams">方法参数</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_methodParams" name="methodParams"
+                                th:value="*{methodParams}">
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="txt_priority">优先级</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_priority" name="priority"
+                                placeholder="请输入1-10的整数，10为最高优先级" th:value="*{priority}">
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label col-sm-1" for="txt_triggerRemark">触发器设定</label>
+                        <div class="col-sm-8 input-group">
+                            <input type="text" class="form-control" id="txt_triggerRemark" name="triggerRemark"
+                                th:value="*{triggerRemark}" readonly="readonly">
+                            <div class="input-group-append btn-group-sm">
+                                <button type="button" id="platformz990501_cron"
+                                    class="btn cis-btn-blue badge font-weight-normal">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label class="col-form-label text-right col-sm-1">&nbsp;</label>
+                        <div class="col-sm-3">
+                            <!-- 保存 -->
+                            <button type="button" id="btn_entry" class="btn pano-btn-danger">
+                                <span class="glyphicon glyphicon-save" aria-hidden="true"> </span>
+                                <span>保存</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../../../static/platform/platformz/js/platformz99/platformz990501.js" th:src="@{/static/platform/platformz/js/platformz99/platformz990501.js}"></script>
+</body>
+</html>

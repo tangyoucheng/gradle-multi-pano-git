@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.platform.platformz.mapper.platformz02.Platformz0201Mapper">
+    <resultMap id="BaseResultMap" type="cn.com.platform.platformz.model.platformz02.Platformz0201Model"
+        extends="cn.com.platform.platform.mapper.common.PlatformMemberMapper.BaseResultMap">
+        <!-- 多表查询时需添加主表外的字段  -->
+        <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId" />
+        <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+        <result column="DEPARTMENT_ID" jdbcType="VARCHAR" property="departmentId" />
+        <result column="DEPARTMENT_NAME" jdbcType="VARCHAR" property="departmentName" />
+        <result column="COMPANY_ID" jdbcType="VARCHAR" property="companyId" />
+        <result column="COMPANY_NAME" jdbcType="VARCHAR" property="companyName" />
+    </resultMap>
+    <!--检索指定会员用户的角色 -->
+    <select id="selectMemberRoleInfo" parameterType="map" resultMap="BaseResultMap">
+        select platform_member.*,platform_role.ROLE_ID,platform_role.ROLE_NAME from platform_member
+        left join platform_role_user on (platform_member.MEMBER_ID = platform_role_user.MEMBER_ID)
+        inner join platform_role on (platform_role.ROLE_ID = platform_role_user.ROLE_ID)
+        <where>
+            1 = 1
+            <if test="memberLoginId != null">
+                AND MEMBER_LOGIN_ID LIKE
+                CONCAT('%',#{memberLoginId},'%')
+            </if>
+            <if test="memberName != null">
+                AND MEMBER_NAME LIKE
+                CONCAT('%',#{memberName},'%')
+            </if>
+            <if test="deleteFlag != null">
+                AND platform_member.DELETE_FLAG = #{deleteFlag}
+            </if>
+            <if test="memberId != null">
+                AND platform_member.MEMBER_ID = #{memberId}
+            </if>
+        </where>
+    </select>
+    <!--检索指定会员用户的社区 -->
+    <select id="selectMemberDepartmentInfo" parameterType="map" resultMap="BaseResultMap">
+        select platform_member.*,platform_department.DEPARTMENT_ID,platform_department.DEPARTMENT_NAME from platform_member
+        left join platform_department_user on (platform_member.MEMBER_ID = platform_department_user.MEMBER_ID)
+        inner join platform_department on (platform_department.DEPARTMENT_ID = platform_department_user.DEPARTMENT_ID)
+        <where>
+            1 = 1
+            <if test="memberLoginId != null">
+                AND MEMBER_LOGIN_ID LIKE
+                CONCAT('%',#{memberLoginId},'%')
+            </if>
+            <if test="memberName != null">
+                AND MEMBER_NAME LIKE
+                CONCAT('%',#{memberName},'%')
+            </if>
+            <if test="deleteFlag != null">
+                AND platform_member.DELETE_FLAG = #{deleteFlag}
+            </if>
+            <if test="memberId != null">
+                AND platform_member.MEMBER_ID = #{memberId}
+            </if>
+        </where>
+    </select>
+    <!--检索会员信息（session用） -->
+    <select id="selectMemberSessionInfo" parameterType="map" resultMap="BaseResultMap">
+        SELECT member.*
+        , department.DEPARTMENT_ID
+        , department.DEPARTMENT_NAME
+        , company.COMPANY_ID
+        , company.COMPANY_NAME
+        FROM platform_member member
+        LEFT JOIN platform_department_user departmentUser
+        ON member.MEMBER_ID = departmentUser.MEMBER_ID
+        LEFT JOIN platform_department department
+        ON departmentUser.DEPARTMENT_ID = department.DEPARTMENT_ID
+        LEFT JOIN platform_company company
+        ON department.COMPANY_ID = company.COMPANY_ID
+        <where>
+            member.MEMBER_LOGIN_ID = #{memberLoginId}
+        </where>
+    </select>
+</mapper>

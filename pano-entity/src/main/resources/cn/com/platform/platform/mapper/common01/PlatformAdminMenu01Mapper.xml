@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.platform.platform.mapper.common01.PlatformAdminMenu01Mapper">
+    <resultMap id="BaseResultMap" type="cn.com.platform.platform.model.common01.PlatformAdminMenu01Model"
+        extends="cn.com.platform.platform.mapper.common.PlatformAdminMenuMapper.BaseResultMap">
+    </resultMap>
+    <sql id="Base_Model_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and
+                                    #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                        separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <select id="selectByBaseModel" parameterType="cn.com.platform.platform.model.common.PlatformAdminMenuQuery"
+        resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="cn.com.platform.platform.mapper.common.PlatformAdminMenuMapper.Base_Column_List" />
+        from platform_admin_menu
+        <if test="_parameter != null">
+            <include refid="Base_Model_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <delete id="deleteByBaseModel" parameterType="cn.com.platform.platform.model.common.PlatformAdminMenuQuery">
+        delete from platform_admin_menu
+        <if test="_parameter != null">
+            <include refid="Base_Model_Where_Clause" />
+        </if>
+    </delete>
+    <!--检索左侧竖直菜单 -->
+    <select id="selectSubMenu" parameterType="map" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        MENU.*
+        from PLATFORM_ADMIN_MENU MENU
+        <if test="roleIds != null and roleIds.size > 0">
+            INNER JOIN PLATFORM_ADMIN_ROlE_MENU ROlE_MENU ON (ROlE_MENU.MENU_ID = MENU.MENU_ID
+            AND ROlE_MENU.ROLE_ID IN
+            <foreach collection="roleIds" item="roleId" index="index" open="(" close=")" separator=",">
+                #{roleId}
+            </foreach>
+            )
+        </if>
+        <where>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                MENU.DELETE_FLAG = #{deleteFlag}
+            </if>
+            <if test="parentMenuId != null and parentMenuId !=''">
+                MENU.PARENT_MENU_ID = #{parentMenuId}
+            </if>
+        </where>
+        <if test="orderByClause != null and orderByClause != ''">
+            order by ${orderByClause}
+        </if>
+    </select>
+</mapper>

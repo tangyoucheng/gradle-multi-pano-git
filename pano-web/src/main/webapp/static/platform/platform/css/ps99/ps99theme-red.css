@@ -1,0 +1,331 @@
+/*===============================
+   Logo  Start   
+=================================*/
+.brand-logo {
+    background: #ffffff;
+}
+
+.brand-logo a {
+	color: #333333;
+}
+
+.brand-logo a {
+	line-height: 70px;
+	padding: 0 !important;
+}
+
+/*===============================
+   Logo  End   
+=================================*/
+
+/*===============================
+   okayNav  Start    �����˵���
+=================================*/
+.okayNav-header {
+	background-color: #ffffff;
+}
+
+.okayNav a {
+	color: #333333;
+}
+
+.okayNav ul>li>a:hover {
+	color: #dc3a3a;
+	background-color: #ffffff;
+}
+
+.okayNav ul>li>a.selected {
+	color: #dc3a3a;
+    background-color: #ffffff;
+}
+
+.okayNav__nav--visible a:hover {
+	/*     color: #546edb; */
+	color: #dc3a3a;
+}
+
+.okayNav__nav--invisible {
+	/*   background: #1F1F1F; */
+	background: #fff;
+}
+
+.okayNav ul>li>a:after {
+	background: #dc3a3a;
+}
+
+.okayNav__menu-toggle:hover span {
+	background: #dc3a3a;
+}
+
+.okayNav__menu-toggle span, .okayNav__menu-toggle.icon--active span {
+	background: #999999;
+}
+
+.okayNav__menu-toggle.icon--active span {
+	background: #dc3a3a;
+}
+
+.okayNav__menu-toggle.icon--active:hover span {
+	background: #dc3a3a;
+}
+
+/*===============================
+   okayNav  End    �����˵���
+=================================*/
+
+/* �ұ߸�����Ϣ��ʽ */
+.header-right {
+	/*     background: #1f1f1f; */
+	-webkit-box-shadow: 0px 0px 2px #dc3a3a; 
+	-moz-box-shadow: 0px 0px 2px #dc3a3a;
+	box-shadow: 0px 0px 2px #dc3a3a;
+}
+
+}
+.user-info-dropdown {
+	/*     background-color: #1f1f1f; */
+	
+}
+
+.user-info-dropdown .dropdown-toggle {
+	color: #333333;
+}
+
+.user-info-dropdown .dropdown-toggle .user-icon {
+	border: 1px solid #333333;
+	color: #333333;
+}
+
+.user-info-dropdown .dropdown-toggle .user-name {
+	color: #333333;
+}
+
+.user-info-dropdown .show .dropdown-toggle {
+	color: #dc3a3a;
+}
+
+.user-info-dropdown .show .dropdown-toggle .user-icon {
+	border: 1px solid #dc3a3a;
+	color: #dc3a3a;
+}
+
+.user-info-dropdown .show .dropdown-toggle .user-name {
+	color: #dc3a3a;
+}
+
+.user-info-dropdown .show a.dropdown-toggle {
+	background-color: #ffe8e8;
+}
+
+.dropdown-menu-right .dropdown-item:before {
+	background: #dc3a3a;
+}
+
+.dropdown-menu-right .dropdown-item:after {
+	background: #dc3a3a;
+}
+
+/*==============================================================
+	Header End
+==============================================================*/
+
+/*==============================================================
+ 	content Start  //��ǩ��
+ ==============================================================*/
+.content-tabs {
+	border-bottom: solid 1px #dddddd;
+}
+
+.content-tabs .roll-nav, .page-tabs-list {
+	color: #999;
+}
+
+.content-tabs .roll-nav:hover, .page-tabs a:hover {
+	color: #dc3a3a;
+	background: #ffe8e8 !important;
+}
+
+.content-tabs .roll-left {
+	border-right: solid 1px #dddddd;
+}
+
+.content-tabs .roll-right {
+	border-left: solid 1px #dddddd;
+}
+
+.page-tabs a {
+	border-right: solid 1px #dddddd;
+	color: #666666;
+}
+
+.page-tabs a i {
+	color: #999999;
+}
+
+.page-tabs a i:hover {
+	color: #dc3a3a;
+}
+
+.page-tabs a.active {
+	color: #000;
+	/*border-bottom: solid 1px #ffffff;*/
+	background: #ffe8e8;
+}
+
+.page-tabs a.active i:hover, .page-tabs a.active:hover {
+	background: #fff;
+}
+
+.page-tabs a:after {
+	background: #dc3a3a;
+}
+
+.page-tabs a:hover {
+	color: #333333;
+	background: #ffe8e8;
+}
+
+/*==============================================================
+	content End
+ ==============================================================*/
+/*==============================================================
+	dropdown-menu Start //�Ҳඨλѡ�
+ ==============================================================*/
+.dropdown-menu {
+	border-color: #cccccc;
+	border-color: red;
+	background-color: #white;
+	-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
+	-moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
+}
+
+.dropdown .dropdown-toggle.J_tabClose {
+	color: #666666;
+}
+
+.dropdown .dropdown-toggle.J_tabClose:hover {
+	background-color: #ffe8e8;
+	color: #333333;
+}
+
+.dropdown.show .dropdown-toggle.J_tabClose {
+	background-color: #ffe8e8;
+	color: #333333;
+}
+
+.dropdown-item {
+	color: #333333;
+}
+
+.dropdown-item {
+	color: #333333;
+}
+
+.dropdown-item .fa {
+	color: #999999;
+}
+
+.dropdown-toggle::after {
+	color: #999999;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+	background: #ffe8e8;
+	color: #dc3a3a;
+}
+
+/*==============================================================
+	dropdown-menu End //�Ҳඨλѡ�
+ ==============================================================*/
+
+/*==============================================================
+	Side Bar Start  //���˵���
+==============================================================*/
+.left-side-bar {
+	/*     background: #1f1f1f; */
+	
+}
+
+.first-level-menu {
+	background-color: #ffffff;
+}
+
+.first-level-menu a {
+	color: #dc3a3a;
+}
+
+.left-side-bar .mCustomScrollBox {
+	background-color: white;
+}
+
+.sidebar-menu {
+	background-color: white;
+}
+
+.sidebar-menu .dropdown-toggle {
+	color: #333333;
+}
+
+.sidebar-menu .dropdown-toggle:after {
+	color: #999999;
+}
+
+.sidebar-menu .dropdown-toggle:hover, .sidebar-menu .show>.dropdown-toggle
+	{
+	background: #ffe8e8;
+	color: #dc3a3a;
+}
+
+.sidebar-menu .submenu {
+	/*background: #ffe8e8;*/
+	background: #ffffff;
+}
+
+.sidebar-menu ul>li.dropdown:after {
+	background: #dc3a3a;
+}
+
+.sidebar-menu ul>li.show .J_menuItem:before {
+	background: #dc3a3a;
+}
+
+.sidebar-menu ul>li.show .J_menuItem:after {
+	background: #dc3a3a;
+}
+
+.sidebar-menu .submenu li a {
+	color: #000000;
+}
+
+.sidebar-menu .submenu li a:hover, .sidebar-menu .submenu li a.active {
+	/*  color: #0099ff; */
+	color: #dc3a3a;
+}
+
+.sidebar-menu .submenu li a:hover:before, .sidebar-menu .submenu li a.active:before
+	{
+	/*  color: #0099ff; */
+	color: #dc3a3a;
+}
+/*==============================================================
+	Side Bar End  //���˵���
+==============================================================*/
+
+/*==============================================================
+	Footer Start  //�ײ�����
+==============================================================*/
+.footer {
+	border-top: 1px solid #dddddd;
+}
+/*==============================================================
+	Footer End
+==============================================================*/
+/* ps99theme ���� */
+.ps99theme-dropdown-toggle {
+	background: #dc3a3a;
+}
+
+.ps99theme-dropdown-toggle .fa {
+	color: #fff;
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<title>一览页面</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js" th:src="@{/static/platform/common/js/createHead.js}"></script>
+</head>
+<style type="text/css">
+.body-style {
+    background: url(../../../../../../static/platform/platform/images/ps99/bg-menu.png);
+    background-size: 100%;
+    overflow: hidden;
+    background-repeat: no-repeat; display : flex; align-items : center;
+    height : 100vh; justify-content : center;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+}
+
+.menu-icon1 {
+    font-size: 48px;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 2px 2px 1px #0000004d;
+    position: absolute;
+    top: 15px;
+    z-index: 6;
+    left: 23px;
+    font-weight: bold;
+    z-index: 6;
+    left: 23px;
+}
+
+.menu-icon2 {
+    font-size: 48px;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 0px 3px 2px #0006;
+    position: absolute;
+    top: 18px;
+    z-index: 5;
+    left: 26px;
+    font-weight: bold;
+    opacity: 0.5;
+    z-index: 5;
+    left: 26px;
+}
+
+.div-1 {
+    background: #dc3a3a;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 50%;
+    top: 0;
+    z-index: 2;
+    transform: perspective(1000px) translate3d(0, 1vh, 0)
+        rotate3d(1, 0, 0, 60deg);
+    box-shadow: 0px 5px 6px #ffffffe6;
+}
+
+.div-2 {
+    background: #dc3a3a;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 50%;
+    top: 8px;
+    box-shadow: 0px 2px 5px #ffffffb3;
+    z-index: 0;
+    transform: perspective(1000px) translate3d(0, 1vh, 0)
+        rotate3d(1, 0, 0, 60deg);
+    box-shadow: 0px 5px 12px #000;
+}
+</style>
+<body class="body-style">
+    <div style="position: relative; display: flex;">
+        <div style="position: relative; width: 200px; height: 200px; transform: scale(2); left: 52px; top: 40px;">
+            <span class="menu-icon1 icon-platform-party" aria-hidden="true"></span>
+            <span class="menu-icon2 icon-platform-party" aria-hidden="true"></span>
+            <div class="div-1"></div>
+            <div class="div-2"></div>
+        </div>
+    </div>
+    <div style="position: relative; display: flex;">
+        <div style="position: relative; width: 200px; height: 200px">
+            <span class="menu-icon1 icon-platform-base" aria-hidden="true"></span>
+            <span class="menu-icon2 icon-platform-base" aria-hidden="true"></span>
+            <div class="div-1"></div>
+            <div class="div-2"></div>
+        </div>
+        <div style="position: relative; width: 200px; height: 200px">
+            <span class="menu-icon1 icon-platform-resident" aria-hidden="true"></span>
+            <span class="menu-icon2 icon-platform-resident" aria-hidden="true"></span>
+            <div class="div-1"></div>
+            <div class="div-2"></div>
+        </div>
+        <div style="position: relative; width: 200px; height: 200px">
+            <span class="menu-icon1 icon-platform-emergency" aria-hidden="true"></span>
+            <span class="menu-icon2 icon-platform-emergency" aria-hidden="true"></span>
+            <div class="div-1"></div>
+            <div class="div-2"></div>
+        </div>
+        <div style="position: relative; width: 200px; height: 200px">
+            <span class="menu-icon1 icon-platform-position" aria-hidden="true"></span>
+            <span class="menu-icon2 icon-platform-position" aria-hidden="true"></span>
+            <div class="div-1"></div>
+            <div class="div-2"></div>
+        </div>
+    </div>
+</body>
+<!-- 信息显示组件 -->
+<link href="../../../../../../static/framework/plugins/overhang/1.0.5/overhang.css" rel="stylesheet"
+    th:href="@{/static/framework/plugins/overhang/1.0.5/overhang.css}" />
+<script src="../../../../../../static/framework/plugins/overhang/1.0.5/overhang.js"
+    th:src="@{/static/framework/plugins/overhang/1.0.5/overhang.js}"></script>
+<script src="../../../../../../static/framework/plugins/overhang/messageUtil.js"
+    th:src="@{/static/framework/plugins/overhang/messageUtil.js}"></script>
+<script src="../../../../../../static/platform/common/js/common.js" th:src="@{/static/platform/common/js/common.js}"></script>
+<!-- font-platformweb组件的引用 -->
+<link href="../../../../../../static/framework/plugins/font-platformweb/font-platformweb.css"
+    th:href="@{/static/framework/plugins/font-platformweb/font-platformweb.css}" rel="stylesheet">
+</html>

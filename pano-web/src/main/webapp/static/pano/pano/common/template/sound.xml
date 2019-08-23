@@ -1,0 +1,76 @@
+<krpano >
+    <plugin name="soundinterface"
+        url="%SWFPATH%/plugins/soundinterface.swf"
+        alturl="%SWFPATH%/plugins/soundinterface.js"
+        rootpath=""
+        preload="true"
+        keep="true"
+    />
+  <action name="doPlay">
+    <![CDATA[
+        loadscene(%1,%4,MERGE,BLEND(1));
+        if(%3 != null
+            ,
+            if( get(scene[get(xml.scene)].sceneSoundFlag),
+                stopsound('expositionbgsnd');
+                ,
+                if(%2,
+                    playsound(expositionbgsnd,%3,0);
+                   );
+            );
+        );
+    ]]>
+    </action>
+    <action name="playBefore">
+    <![CDATA[     
+        if( get(scene[get(xml.scene)].sceneSoundFlag),
+            stopallsounds();
+        );
+        doPlay(%1,get(scene[get(xml.scene)].sceneSoundFlag),%2,%3);
+    ]]>
+ </action>
+ 
+  <action name="playHotspotMusic">
+        if(%1 == '1',
+            stopallsounds();
+            playsound(hotspotsnd,%3,0,0);
+            
+            for(set(i,0), i LT hotspot.count, inc(i),
+                if(hotspot[get(i)].musicFlg == '1',
+                    set(hotspot[get(i)].visible,true);
+                );
+                
+                if(hotspot[get(i)].musicFlg == '2',
+                    set(hotspot[get(i)].visible,false); 
+                );
+              
+            );
+            
+            set(hotspot[%2_1].visible,false);
+            set(hotspot[%2_2].visible,true);
+        );
+        
+        if(%1 == '2',
+            stopallsounds();
+            if(%4 != '',
+	            playsound(hotspotsnd,%4,0,0);
+            );
+            set(hotspot[%2_1].visible,true);
+            set(hotspot[%2_2].visible,false);
+        );
+        
+    </action>
+    
+    <action name="setMusicHotspotDefalt">
+        for(set(i,0), i LT hotspot.count, inc(i),
+           if(hotspot[get(i)].musicFlg == '1',
+                set(hotspot[get(i)].visible,true);
+            );
+            
+            if(hotspot[get(i)].musicFlg == '2',
+                set(hotspot[get(i)].visible,false); 
+            );
+           
+         );
+    </action>
+</krpano>

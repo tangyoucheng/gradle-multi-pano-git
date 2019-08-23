@@ -1,0 +1,2 @@
+var hotspot_info = 
+{}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+ "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+ <context id="dbtable" targetRuntime="MyBatis3">
+	<!-- 此处是将Example改名为Criteria 当然 想改成什么都行~    -->      
+	<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">  
+		<property name="searchString" value="Example$" />
+		<!-- 替换后
+		<property name="replaceString" value="Criteria" />  
+		 -->
+		<property name="replaceString" value="Query" />
+	</plugin>  
+	<commentGenerator>
+		<!-- 是否去除自动生成的注释 true：是 ： false:否 
+		<property name="suppressAllComments" value="true" />-->
+		<property name="suppressDate" value="false" />
+	</commentGenerator>
+   <!-- DBの接続情報を設定 -->
+   <jdbcConnection driverClass="${conf.driverClass}"
+       connectionURL="${conf.connectionUrl}"
+       userId="${conf.userId}"
+       password="${conf.password}">
+	   <property name="nullCatalogMeansCurrent" value="true" />
+   </jdbcConnection>
+
+   <!-- タイプ変換 -->
+   <!-- 数値型（Long, Integer, Short, etc.）をbigdecimalに変更するかの設定。 たぶん省略可能 -->
+   <javaTypeResolver >
+     <property name="forceBigDecimals" value="true" />
+   </javaTypeResolver>
+
+   <!-- Java Model(Entity)クラスの生成先を指定
+       targetPackage : 生成先パッケージ
+       targetProject : プロジェクトディレクトリから生成先パッケージの親ディレクトリまでのパス
+   -->
+   <javaModelGenerator targetPackage="${conf.basePackage}.common.model" targetProject="${conf.buildDir}java">
+     <property name="enableSubPackages" value="${conf.enableSubPackages}" />
+     <property name="trimStrings" value="true" />
+   </javaModelGenerator>
+
+   <!-- SQL Mapper(Dao)ファイルの生成先を指定
+       targetPackage : 生成先パッケージ
+       targetProject : プロジェクトディレクトリから生成先パッケージの親ディレクトリまでのパス
+   -->
+   <sqlMapGenerator targetPackage="${conf.basePackage}.common.mapper"  targetProject="${conf.buildDir}resources">
+     <property name="enableSubPackages" value="${conf.enableSubPackages}" />
+   </sqlMapGenerator>
+
+   <!-- Java Clientクラスの生成先を指定     ※Java ClientはSQL Mapperファイルを呼び出すためのインターフェースクラスです。
+       targetPackage : 生成先パッケージ
+       targetProject : プロジェクトディレクトリから生成先パッケージの親ディレクトリまでのパス
+   -->
+   <javaClientGenerator type="${conf.mapperType}" targetPackage="${conf.basePackage}.common.mapper"  targetProject="${conf.buildDir}java">
+     <property name="enableSubPackages" value="${conf.enableSubPackages}" />
+   </javaClientGenerator>
+
+   <!--  自動生成対象のテーブル名を[tableName]に指定する。 schema="${conf.schema}"　-->
+    <table  schema="${conf.schema}"
+	        tableName="%"
+            enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableSelectByExample="true"
+            enableUpdateByPrimaryKey="true"
+            enableUpdateByExample="false"
+            enableDeleteByPrimaryKey="true"
+            enableDeleteByExample="false"
+            enableCountByExample="false"
+            selectByExampleQueryId="false"
+            modelType="hierarchical">
+    </table>
+ </context>
+</generatorConfiguration>

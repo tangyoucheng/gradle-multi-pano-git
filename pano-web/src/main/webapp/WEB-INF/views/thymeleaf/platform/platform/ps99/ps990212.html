@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="/thymeleaf/platform/common/common.html"></div>
+<head th:replace="/thymeleaf/platform/common/head :: common_header(~{::title},~{::link})">
+<title>一览页面</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../../../../../static/platform/common/js/createHead.js" th:src="@{/static/platform/common/js/createHead.js}"></script>
+</head>
+<style type="text/css">
+.body-style {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background: url(../../../../../../static/platform/platform/images/ps99/bg-menu.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.logo {
+    font-size: 38px;
+    color: #ffffff;
+    margin-bottom: 100px;
+}
+
+.interim-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+    min-width: 1200px;
+}
+
+.interim-item {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    cursor: pointer;
+}
+
+.interim-item:hover {
+    transform: scale(1.1, 1.1);
+}
+
+.interim-item-icon {
+    position: absolute;
+    width: 240px;
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.interim-item-icon:before {
+    font-size: 32px;
+    margin-right: 8px;
+}
+
+.interim-item-icon-up {
+    z-index: 6;
+    top: 100px;
+    left: 0px;
+    text-shadow: 2px 2px 1px #0000004d;
+}
+
+.interim-item-icon-down {
+    z-index: 5;
+    top: 140px;
+    left: 0px;
+    /*text-shadow: 0px 3px 2px #0/* 006;
+    /*opacity: 0.5; */
+    transform: rotatex(203deg);
+    background: -webkit-linear-gradient(rgba(255, 0, 0, 0),
+        rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.28));
+    background: -o-linear-gradient(rgba(255, 0, 0, 0),
+        rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.28));
+    background: -moz-linear-gradient(rgba(255, 0, 0, 0),
+        rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.28));
+    background: linear-gradient(rgba(255, 0, 0, 0),
+        rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.28));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.interim-item-base {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    transform: perspective(1000px) translate3d(0, 1vh, 0)
+        rotate3d(1, 0, 0, 70deg);
+}
+
+.interim-item-base-up {
+    z-index: 2;
+    top: 0;
+    box-shadow: 0px 5px 6px rgba(255, 255, 255, 0.9);
+}
+
+.interim-item-base-down {
+    z-index: 0;
+    top: 11px;
+    box-shadow: 0px 5px 12px #000;
+}
+
+.party-color {
+    background: #d70000;
+}
+
+.base-color {
+    background: #5E3BB8;
+}
+
+.resident-color {
+    background: #01A300;
+}
+
+.emergency-color {
+    background: #95009A;
+}
+
+.task-color {
+    background: #DB562D;
+}
+
+/* interim-items1 */
+.interim-items1 .interim-item {
+    width: 200px;
+    height: 200px;
+}
+
+.interim-items1 .interim-item-icon {
+    width: 200px;
+    font-size: 34px;
+}
+
+.interim-items1 .interim-item-icon-up {
+    top: 66px;
+}
+
+.interim-items1 .interim-item-icon-down {
+    
+    top: 110px;
+}
+
+.interim-items1 .interim-item-base {
+    width: 200px;
+    height: 200px;
+}
+
+.interim-items1 .interim-item-base-up {
+    
+}
+
+.interim-items1 .interim-item-base-down {
+    
+}
+</style>
+<body class="body-style">
+    <div class="logo">
+        <span class="icon-platform-party1" aria-hidden="true">社区综合系统管理平台</span>
+    </div>
+    <div class="interim-items">
+        <div class="interim-item">
+            <span class="interim-item-icon interim-item-icon-up icon-platform-party" aria-hidden="true">基层党建</span>
+            <span class="interim-item-icon interim-item-icon-down  icon-platform-party" aria-hidden="true">基层党建</span>
+            <div class="interim-item-base interim-item-base-up party-color"></div>
+            <div class="interim-item-base interim-item-base-down party-color"></div>
+        </div>
+        <div class="interim-item">
+            <span class="interim-item-icon interim-item-icon-up icon-platform-resident" aria-hidden="true">居民服务</span>
+            <span class="interim-item-icon interim-item-icon-down  icon-platform-resident" aria-hidden="true">居民服务</span>
+            <div class="interim-item-base interim-item-base-up resident-color"></div>
+            <div class="interim-item-base interim-item-base-down resident-color"></div>
+        </div>
+        <div class="interim-item">
+            <span class="interim-item-icon interim-item-icon-up icon-platform-preview" aria-hidden="true">任务管理</span>
+            <span class="interim-item-icon interim-item-icon-down  icon-platform-preview" aria-hidden="true">任务管理</span>
+            <div class="interim-item-base interim-item-base-up task-color"></div>
+            <div class="interim-item-base interim-item-base-down task-color"></div>
+        </div>
+        <div class="interim-item">
+            <span class="interim-item-icon interim-item-icon-up icon-platform-emergency" aria-hidden="true">社区应急</span>
+            <span class="interim-item-icon interim-item-icon-down  icon-platform-emergency" aria-hidden="true">社区应急</span>
+            <div class="interim-item-base interim-item-base-up emergency-color"></div>
+            <div class="interim-item-base interim-item-base-down emergency-color"></div>
+        </div>
+        <div class="interim-item">
+            <span class="interim-item-icon interim-item-icon-up icon-platform-base" aria-hidden="true">基础功能</span>
+            <span class="interim-item-icon interim-item-icon-down  icon-platform-base" aria-hidden="true">基础功能</span>
+            <div class="interim-item-base interim-item-base-up base-color"></div>
+            <div class="interim-item-base interim-item-base-down base-color"></div>
+        </div>
+    </div>
+    <div class="interim-items interim-items1">
+        <div class="interim-item">
+            <span class="interim-item-icon interim-item-icon-up icon-platform-party" aria-hidden="true">基层党建</span>
+            <span class="interim-item-icon interim-item-icon-down  icon-platform-party" aria-hidden="true">基层党建</span>
+            <div class="interim-item-base interim-item-base-up party-color"></div>
+            <div class="interim-item-base interim-item-base-down party-color"></div>
+        </div>
+        <div class="interim-item">
+            <span class="interim-item-icon interim-item-icon-up icon-platform-resident" aria-hidden="true">居民服务</span>
+            <span class="interim-item-icon interim-item-icon-down  icon-platform-resident" aria-hidden="true">居民服务</span>
+            <div class="interim-item-base interim-item-base-up resident-color"></div>
+            <div class="interim-item-base interim-item-base-down resident-color"></div>
+        </div>
+        <div class="interim-item">
+            <span class="interim-item-icon interim-item-icon-up icon-platform-preview" aria-hidden="true">任务管理</span>
+            <span class="interim-item-icon interim-item-icon-down  icon-platform-preview" aria-hidden="true">任务管理</span>
+            <div class="interim-item-base interim-item-base-up task-color"></div>
+            <div class="interim-item-base interim-item-base-down task-color"></div>
+        </div>
+        <div class="interim-item">
+            <span class="interim-item-icon interim-item-icon-up icon-platform-emergency" aria-hidden="true">社区应急</span>
+            <span class="interim-item-icon interim-item-icon-down  icon-platform-emergency" aria-hidden="true">社区应急</span>
+            <div class="interim-item-base interim-item-base-up emergency-color"></div>
+            <div class="interim-item-base interim-item-base-down emergency-color"></div>
+        </div>
+        <div class="interim-item">
+            <span class="interim-item-icon interim-item-icon-up icon-platform-base" aria-hidden="true">基础功能</span>
+            <span class="interim-item-icon interim-item-icon-down  icon-platform-base" aria-hidden="true">基础功能</span>
+            <div class="interim-item-base interim-item-base-up base-color"></div>
+            <div class="interim-item-base interim-item-base-down base-color"></div>
+        </div>
+    </div>
+</body>
+<!-- 信息显示组件 -->
+<link href="../../../../../../static/framework/plugins/overhang/1.0.5/overhang.css" rel="stylesheet"
+    th:href="@{/static/framework/plugins/overhang/1.0.5/overhang.css}" />
+<script src="../../../../../../static/framework/plugins/overhang/1.0.5/overhang.js"
+    th:src="@{/static/framework/plugins/overhang/1.0.5/overhang.js}"></script>
+<script src="../../../../../../static/framework/plugins/overhang/messageUtil.js"
+    th:src="@{/static/framework/plugins/overhang/messageUtil.js}"></script>
+<script src="../../../../../../static/platform/common/js/common.js" th:src="@{/static/platform/common/js/common.js}"></script>
+<!-- font-platformweb组件的引用 -->
+<link href="../../../../../../static/framework/plugins/font-platformweb/font-platformweb.css"
+    th:href="@{/static/framework/plugins/font-platformweb/font-platformweb.css}" rel="stylesheet">
+</html>
