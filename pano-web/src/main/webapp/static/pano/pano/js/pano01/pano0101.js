@@ -64,7 +64,9 @@ $(document).ready(function() {
                 dataType : "json",
                 data : ajaxFormData,
                 success : function(result) {
-                    CommonUtilJs.processAjaxSuccessAfter(result);
+                    if (CommonUtilJs.processAjaxSuccessAfter(result)) {
+                        location.reload(true);
+                    }
                 }
             // ,
             // error : function(result) {

@@ -35,11 +35,11 @@ public class Pano0101InitService extends BaseService {
     }
 
     // 展览类型radioBox
-    inForm.expositionTypeList = PanoCommonUtil.getExpositionTypeList(false);
+    inForm.expositionTypeList = PanoCommonUtil.getCodeMessageList(ExpositionType.class, false);
     inForm.expositionType = ExpositionType.OUTPUT.toString();
 
     // 展览状态radioBox
-    inForm.expositionStatusList = PanoCommonUtil.getExpositionStatusList(false);
+    inForm.expositionStatusList = PanoCommonUtil.getCodeMessageList(ExpositionStatus.class, false);;
 
     // 展览模式radioBox
     inForm.vrFlagList = PanoCommonUtil.getVrTypeList(false);

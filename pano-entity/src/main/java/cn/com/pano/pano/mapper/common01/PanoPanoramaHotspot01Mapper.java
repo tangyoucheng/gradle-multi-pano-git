@@ -50,6 +50,15 @@ public interface PanoPanoramaHotspot01Mapper extends PanoPanoramaHotspotMapper {
       @Param("baseCondition") PanoPanoramaHotspotQuery baseCondition);
 
   /**
+   * 根据展览ID 查询。
+   * 
+   * @param conditions 条件
+   * @return
+   */
+  public List<PanoPanoramaHotspot01Model> selectPanoramaHostSpotByExpositionId(
+      HashMap<?, ?> conditions);
+
+  /**
    * 全景图热点坐标检索
    * 
    * @param _conditions

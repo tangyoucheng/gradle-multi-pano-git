@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import cn.com.pano.pano.common.code.ExpositionStatus;
-import cn.com.pano.pano.common.code.ExpositionType;
 import cn.com.pano.pano.form.pano01.Pano0101Form;
 import cn.com.pano.pano.mapper.common.PanoExpositionMapper;
 import cn.com.pano.pano.model.common.PanoExposition;

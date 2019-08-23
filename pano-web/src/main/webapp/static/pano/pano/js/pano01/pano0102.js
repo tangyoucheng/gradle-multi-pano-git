@@ -133,7 +133,7 @@ function searchData() {
                 var showData = '';
                 // 编辑按钮
                 showData = showData + '<a href="javascript:void(0);" ';
-                showData = showData + ' class="btn cis-btn-blue font-12 p-1 row-edit"';
+                showData = showData + ' class="btn pano-btn-danger font-12 p-1 row-edit"';
                 showData = showData + '>';
                 showData = showData + '<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑';
                 showData = showData + '</a>';
@@ -147,14 +147,14 @@ function searchData() {
 
 // 编辑
 function doEdit(tableRowInfo) {
-    var targetUrl = 'pano01003/';
-    targetUrl = targetUrl + '?departmentId=' + tableRowInfo.departmentId;
+    var targetUrl = 'pano0103/';
+    targetUrl = targetUrl + '?expositionId=' + tableRowInfo.expositionId;
     window.top.layer.open({
-        title : '编辑社区',
+        title : '编辑展览',
         type : 2,
         closeBtn : 1, // 显示关闭按钮
         area : [ '90%', '90%' ], // 宽高
-        content : [ getAdminContextPath(targetUrl), 'yes' ],
+        content : [ getMemberContextPath(targetUrl), 'yes' ],
         end : function() {
             searchData();
         }

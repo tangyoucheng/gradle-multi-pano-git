@@ -15,6 +15,7 @@ public interface PanoHotspotUrl01Mapper extends PanoHotspotUrlMapper {
 
   /**
    * 通过基础model删除数据。
+   * 
    * @param conditions 检索条件
    *
    */
@@ -22,10 +23,19 @@ public interface PanoHotspotUrl01Mapper extends PanoHotspotUrlMapper {
 
   /**
    * 通过基础model检索数据。
+   * 
    * @param conditions 检索条件
    *
    */
   List<PanoHotspotUrl01Model> selectByBaseModel(PanoHotspotUrlQuery conditions);
+
+  /**
+   * 根据展览ID 查询。
+   * 
+   * @param conditions 检索条件
+   * @return
+   */
+  public List<PanoHotspotUrl> selectHotspotUrlByExpositionId(HashMap<?, ?> conditions);
 
   /**
    * 根据全景图ID 查询
@@ -34,14 +44,6 @@ public interface PanoHotspotUrl01Mapper extends PanoHotspotUrlMapper {
    * @return
    */
   public List<PanoHotspotUrl> selectByPanoramaId(HashMap<?, ?> _conditions);
-
-  /**
-   * 根据展览ID 查询
-   * 
-   * @param _conditions
-   * @return
-   */
-  public List<PanoHotspotUrl> selectByExpositionId(HashMap<?, ?> _conditions);
 
   /**
    * 查询指定热点下的所有url信息

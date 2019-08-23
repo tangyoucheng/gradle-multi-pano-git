@@ -93,6 +93,7 @@
                     <th data-field="expositionStatusName" data-halign="center" data-align="left">状态</th>
                     <th data-field="expositionStartDate" data-halign="center" data-align="left">开展时间</th>
                     <th data-field="expositionEndDate" data-halign="center" data-align="left">撤展时间</th>
+                    <th data-field="rowOperate" data-halign="center" data-align="center">操作</th>
                 </tr>
             </thead>
         </table>

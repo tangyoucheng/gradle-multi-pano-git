@@ -244,5 +244,14 @@
             </if>
         </where>
     </select>
+    <!-- 根据expositionId获取场景热点位置信息 -->
+    <select id="selectPanoramaHostSpotByExpositionId" parameterType="map" resultMap="BaseResultMap">
+        SELECT w_panohost.*
+            FROM  pano_panorama_hotspot w_panohost
+            INNER JOIN pano_panorama w_pano on w_pano.panorama_id=w_panohost.panorama_id
+            INNER JOIN pano_exposition w_expo on w_expo.exposition_id=w_pano.exposition_id
+        WHERE
+            w_expo.exposition_id= #{expositionId}
+    </select>
 
 </mapper>

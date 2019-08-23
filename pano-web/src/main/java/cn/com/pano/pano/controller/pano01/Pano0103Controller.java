@@ -44,13 +44,9 @@ public class Pano0103Controller extends BaseController {
    * 初期显示处理。
    * 
    * @return
-   * @throws Exception 异常的场合
    */
   @RequestMapping("/")
   public String index(Pano0103Form inForm) throws Exception {
-    // 每次取预览图时先删掉一次临时文件
-    FileServiceUtil.clearSessionScopeStorage("");
-    doDeleteTempFile(inForm);
     pano0103InitService.doInit(inForm);
     return viewJsp("/pano/pano/pano01/pano0103");
   }
@@ -59,12 +55,22 @@ public class Pano0103Controller extends BaseController {
    * 展览信息更新处理。
    * 
    * @return
-   * @throws Exception 异常的场合
    */
+  @ResponseBody
   @RequestMapping("/doUpdate")
-  public String doUpdate(Pano0103Form inForm) throws Exception {
-    pano0103UpdateService.doUpdateExpositionInfo(inForm);
-    return viewJsp("/pano/pano/pano01/pano0103");
+  public EasyJson<Object> doUpdate(Pano0103Form inForm) throws Exception {
+    return pano0103UpdateService.doUpdateExpositionInfo(inForm);
+  }
+
+  /**
+   * 展览删除处理。
+   * 
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping("/doDelete")
+  public EasyJson<Object> doDelete(Pano0103Form inForm) throws Exception {
+    return pano0103UpdateService.doDeleteExpositionInfo(inForm);
   }
 
   /**
@@ -100,18 +106,6 @@ public class Pano0103Controller extends BaseController {
     FileUtils.deleteDirectory(new File(FwFileUtils.getAbsolutePath(filePath)));
     EasyJson<Object> easyJson = new EasyJson<Object>();
     return easyJson;
-  }
-
-  /**
-   * 展览删除处理。
-   * 
-   * @return
-   * @throws Exception
-   */
-  @RequestMapping("/doDelete")
-  public String doDelete(Pano0103Form inForm) throws Exception {
-    pano0103UpdateService.doDeleteExpositionInfo(inForm);
-    return viewJsp("/pano/pano/pano01/pano0103");
   }
 
   /**
