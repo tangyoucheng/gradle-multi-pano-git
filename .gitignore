@@ -1,0 +1,50 @@
+# 忽略 .gradle/ 目录下的所有文件
+.gradle/ 
+
+# 忽略pano-activiti6工程的eclipse配置信息
+pano-activiti6/.settings/
+pano-activiti6/.classpath
+pano-activiti6/.project
+pano-activiti6/.checkstyle
+
+# 忽略pano-activiti6工程的编译后文件
+pano-activiti6/bin/
+pano-activiti6/build/
+
+# 忽略pano-entity工程的eclipse配置信息
+pano-entity/.settings/
+pano-entity/.classpath
+pano-entity/.project
+pano-entity/.checkstyle
+
+# 忽略pano-entity工程的编译后文件
+pano-entity/bin/
+pano-entity/build/
+
+# 忽略pano-framework工程的eclipse配置信息
+pano-framework/.settings/
+pano-framework/.classpath
+pano-framework/.project
+pano-framework/.checkstyle
+
+# 忽略pano-framework工程的编译后文件
+pano-framework/bin/
+pano-framework/build/
+
+# 忽略pano-web工程的eclipse配置信息
+pano-web/.settings/
+pano-web/.classpath
+pano-web/.project
+pano-web/.checkstyle
+
+# 忽略pano-web工程的编译后文件
+pano-web/bin/
+pano-web/build/
+
+# 忽略pano-web工程的日志文件
+pano-web/panoLogs-dev/
+
+# 忽略pano-web工程上传的文件
+pano-web/storage-webapp/
+pano-web/src/main/webapp/session_temp
+/panoLogs-dev
