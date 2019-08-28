@@ -54,7 +54,5 @@ pano-web/build/
 # 忽略pano-web工程的日志文件
 pano-web/panoLogs-dev/
 
-# 忽略pano-web工程上传的文件
-pano-web/storage-webapp/
-pano-web/src/main/webapp/session_temp
-/panoLogs-dev
+# 忽略pano-web工程的临时文件
+pano-web/src/main/webapp/session_temp/
