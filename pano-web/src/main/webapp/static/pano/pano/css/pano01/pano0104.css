@@ -1,0 +1,42 @@
+.header {
+    height: 64px;
+    width: 100%;
+    background-color: #F3F3F3;
+    padding: 8px;
+    box-shadow: 8px 0 10px #AAA;
+    box-sizing: border-box;
+    line-height: 2;
+    font: normal normal normal 14px/1.5;
+}
+
+.logo {
+    display: inline-block;
+    width: 150px;
+    float: left;
+    margin-left: 10px;
+    margin-top: -8px;
+}
+
+.logo .brand {
+    font-family: STLiti;
+/*     font-size: 1.1em; */
+    color: #9f4324;
+}
+
+.logo .desc {
+    display: inline-block;
+    font-family: STXingkai;
+    color: #777;
+    /* transform: skew(8deg); */
+/*     font-size: .6rem; */
+    transform: skew(2deg) rotate(-3deg);
+    margin-top: -8px;
+}
+
+.option-icon {
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    font-size: .9rem !important;
+    color: #999;
+}

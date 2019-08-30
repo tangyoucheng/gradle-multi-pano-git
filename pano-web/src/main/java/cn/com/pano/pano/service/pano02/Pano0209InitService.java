@@ -208,6 +208,11 @@ public class Pano0209InitService extends BaseService {
               "lookat(" + inForm.positionAthForEdit + "," + inForm.positionAtvForEdit + ");");
         }
 
+        // 调试相关设定
+        root.setAttribute("showerrors", "true");
+        root.setAttribute("debugmode", "true");
+        root.setAttribute("logkey", "true");
+
         // 引入外部ＸＭＬ文件
         Element newElement = xmldoc.createElement("include");
         root.appendChild(newElement);

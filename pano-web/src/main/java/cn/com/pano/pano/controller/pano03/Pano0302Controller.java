@@ -44,25 +44,18 @@ public class Pano0302Controller extends BaseController {
   @RequestMapping("/")
   public String index(Pano0302Form inForm) throws Exception {
     pano0302InitService.doInit(inForm);
-    inForm.pageStartRowNo = 0;
-    pano0302SearchService.searchMaterial(inForm);
     return viewJsp("/pano/pano/pano03/pano0302");
   }
 
   /**
-   * 检索素材信息
+   * 检索素材信息。
    * 
    * @return
-   * @throws Exception
    */
   @ResponseBody
   @RequestMapping("/doSearch")
   public EasyJson<Object> doSearch(Pano0302Form inForm) throws Exception {
-    inForm.pageStartRowNo = 0;
-    String result = pano0302SearchService.searchMaterial(inForm);
-    EasyJson<Object> easyJson = new EasyJson<Object>();
-    easyJson.setObj(result);
-    return easyJson;
+    return pano0302SearchService.searchMaterial(inForm);
   }
 
   /**
@@ -77,19 +70,5 @@ public class Pano0302Controller extends BaseController {
     return viewJsp("/pano/pano/pano03/pano0302");
   }
 
-  /**
-   * 分页处理
-   * 
-   * @return
-   * @throws Exception
-   */
-  @ResponseBody
-  @RequestMapping("/doPage")
-  public EasyJson<Object> doPage(Pano0302Form inForm) throws Exception {
-    String result = pano0302SearchService.searchMaterial(inForm);
-    EasyJson<Object> easyJson = new EasyJson<Object>();
-    easyJson.setObj(result);
-    return easyJson;
-  }
 
 }

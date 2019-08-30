@@ -7,7 +7,7 @@
 <head>
 <pano:head></pano:head>
 <script src="static/pano/pano/js/pano02/pano0208.js"></script>
-<script src="static/pano/pano/js/pano02/pano0208_old.js"></script>
+<!-- <script src="static/pano/pano/js/pano02/pano0208_old.js"></script> -->
 </head>
 <body>
     <div class="card-body">

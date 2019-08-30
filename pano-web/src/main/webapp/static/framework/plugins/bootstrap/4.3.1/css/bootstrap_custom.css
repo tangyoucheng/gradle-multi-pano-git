@@ -34,6 +34,38 @@
     box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
 }
 
+.pano-btn-outline-danger {
+  color: #FF5722;
+/*   border-color: #FF5722; */
+}
+
+.pano-btn-outline-danger:hover {
+  color: #fff;
+  background-color: #FF5722;
+  border-color: #FF5722;
+}
+
+.pano-btn-outline-danger:focus, .pano-btn-outline-info.focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
+.pano-btn-outline-danger.disabled, .pano-btn-outline-info:disabled {
+  color: #FF5722;
+  background-color: transparent;
+}
+
+.pano-btn-outline-danger:not(:disabled):not(.disabled):active, .pano-btn-outline-info:not(:disabled):not(.disabled).active,
+.show > .pano-btn-outline-info.dropdown-toggle {
+  color: #fff;
+  background-color: #FF5722;
+  border-color: #FF5722;
+}
+
+.pano-btn-outline-danger:not(:disabled):not(.disabled):active:focus, .pano-btn-outline-info:not(:disabled):not(.disabled).active:focus,
+.show > .pano-btn-outline-info.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
 .pano-btn-pink {
     color: #fff;
     background-color: #F16B80;

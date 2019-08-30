@@ -26,6 +26,9 @@
     var newOrderList;// 待保存的排序数据
     var pano0104CurrentForm;// 当前表单的最新数据
 </script>
+
+<link href="static/pano/pano/css/pano01/pano0104.css" rel="stylesheet" type="text/css" />
+
 <script src="static/pano/pano/js/pano01/pano0104.js"></script>
 <!-- <script src="static/pano/pano/js/pano01/pano0104_old.js"></script> -->
 <script src="static/pano/pano/js/pano01/pano0104_panoOnloadcomplete.js"></script>
@@ -36,56 +39,50 @@
 
 </head>
 <body>
+
+    <header class="header">
+        <div class="logo">
+            <p class="brand">SceneDesigner</p>
+            <p class="desc">场景编辑</p>
+        </div>
+        <button id="btn_add_pano" class="btn pano-btn-outline-danger option-icon">
+            <span class="glyphicon glyphicon-plus"></span>
+            <div>新增</div>
+        </button>
+        <div class="option-icon" style="width: 40px;">&nbsp;|</div>
+        <button id="btn_edit_pano" class="btn pano-btn-outline-danger option-icon">
+            <span class="glyphicon glyphicon-pencil"></span>
+            <div>编辑</div>
+        </button>
+        <button id="btn_delete_pano" class="btn pano-btn-outline-danger option-icon">
+            <span class="glyphicon glyphicon-minus"></span>
+            <div>删除</div>
+        </button>
+        <div class="option-icon" style="width: 40px;">&nbsp;|</div>
+        <button id="btn_update_panoOrder" type="button" class="btn pano-btn-outline-danger option-icon"
+            style="width: 100px;">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            <div>保存排序</div>
+        </button>
+        <div class="option-icon" style="width: 40px;">&nbsp;|</div>
+        <button id="btn_material_list" class="btn pano-btn-outline-danger option-icon" style="width: 100px;">
+            <span class="fa fa-arrows-h"></span>
+            <div>素材一览</div>
+        </button>
+        <button id="btn_close" class="btn pano-btn-outline-danger option-icon float-right">
+            <span class="glyphicon glyphicon-remove"></span>
+            <div>关闭</div>
+        </button>
+    </header>
+
     <div class="card">
-        <div class="card-body pt-0">
+        <div class="card-body">
             <form:form id="pano0104Form" class="form-horizontal" modelAttribute="pano0104Form">
                 <input type="hidden" name="expositionId" value='${pano0104Form.expositionId}' />
                 <input type="hidden" name="expositionName" value='${pano0104Form.expositionName}' />
                 <input type="hidden" name="miniMapCheck" id="miniMapCheck" value="${pano0104Form.miniMapCheck}" />
                 <div class="form-group form-row">
-                    <label class="col-form-label col-sm-1 text-left">场景编辑</label>
-                    <div class="col-sm-10">
-                        <div id="table-toolbar" class="btn-group mt-2 mb-2">
-                            <button id="btn_add_pano" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                <c:out value="新增"></c:out>
-                            </button>
-                            <button id="btn_edit_pano" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                <c:out value="编辑"></c:out>
-                            </button>
-                            <button id="btn_update_panoOrder" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                <c:out value="保存排序"></c:out>
-                            </button>
-                            <button id="btn_delete_pano" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                                <c:out value="删除"></c:out>
-                            </button>
-                        </div>
-                        <div class="btn-group mt-2 mb-2">
-                            <button id="btn_add" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                <c:out value="新增素材"></c:out>
-                            </button>
-                            <button id="btn_delete" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                                <c:out value="素材一览"></c:out>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-sm-1 text-right">
-                        <div class="btn-group mt-2 mb-2">
-                            <!-- 关闭 -->
-                            <button type="button" id="btn_close" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-remove"></span>
-                                <c:out value="关闭"></c:out>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group form-row">
-                    <div class="col-sm-1">
+                    <div class="col-sm-1" style="min-width: 150px !important; max-width: 150px !important;">
                         <table id="table-panorama-info" data-use-row-attr-func="true" data-reorderable-rows="true">
                             <thead>
                                 <tr>
@@ -101,29 +98,30 @@
                             </thead>
                         </table>
                     </div>
-                    <div class="col-sm-9">
-                        <div id="pano0104Pano" style="width: 100%; height: calc(100vh - 85px);"></div>
+                    <div class="col-sm-10" style="max-width: calc(100vw - 370px) !important;">
+                        <div id="pano0104Pano" style="width: 100%; height: calc(100vh - 150px);"></div>
                     </div>
-                    <div id="operating-area-right" class="col-sm-2">
-                        <div class="btn-group mt-2 mb-2">
+                    <div id="operating-area-right" class="col-sm-1"
+                        style="min-width: 170px !important; max-width: 170px !important;">
+                        <div class="btn-group">
                             <button id="btn_set_lookat" type="button" class="btn pano-btn-danger">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 <c:out value="设定第一视角"></c:out>
                             </button>
                         </div>
-                        <div class="btn-group mt-2 mb-2">
+                        <div class="btn-group mt-2">
                             <button id="btn_edit_hotspot" type="button" class="btn pano-btn-danger">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 <c:out value="编辑单点热点"></c:out>
                             </button>
                         </div>
-                        <div class="btn-group mt-2 mb-2">
+                        <div class="btn-group mt-2">
                             <button id="btn_edit_hotspot_polygon" type="button" class="btn pano-btn-danger">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 <c:out value="编辑多边形热点"></c:out>
                             </button>
                         </div>
-                        <div class="btn-group mt-2 mb-2">
+                        <div class="btn-group mt-2">
                             <button id="btn-edit-exposition-layer" type="button" class="btn pano-btn-danger">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 <c:out value="整体效果"></c:out>

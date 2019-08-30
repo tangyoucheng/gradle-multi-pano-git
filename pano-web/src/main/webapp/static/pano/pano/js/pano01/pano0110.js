@@ -283,6 +283,7 @@ function doEdit(tableRowInfo) {
     // 引继变量
     var urlParam = {};
     urlParam['expositionId'] = tableRowInfo.expositionId
+    urlParam['expositionName'] = tableRowInfo.expositionName
     // 请求的URL
     var targetUrl = 'pano0104/';
     if (PlatformConstants.flagStatus_Enable === tableRowInfo.vrFlag) {

@@ -22,7 +22,7 @@ function searchData() {
     $('#table-panorama-info').bootstrapTable({
         url : getMemberContextPath('pano0104/doSearchPano'), // 请求后台的URL（*）
         method : 'get', // 请求方式（*）
-        toolbar : '#toolbar', // 工具按钮用哪个容器
+        toolbar : undefined, // 工具按钮用哪个容器
         pagination : false, // 是否显示分页（*）
         sortable : true, // 是否启用排序
         sortName : 'panoramaName',// 初始化的时候排序的字段
@@ -42,7 +42,8 @@ function searchData() {
             field : 'panoramaSortKey'
         }, {
             field : 'panoramaName',
-            sortable : true
+            sortable : true,
+            width : 100,
         }, {
             field : 'expositionId'
         }, {
@@ -105,6 +106,7 @@ function searchData() {
         // 当拖拽结束后，整个表格的数据
         onReorderRow : function(newData) {
             newOrderList = newData;
+            $('#btn_update_panoOrder').prop('disabled', !newOrderList);
             return false;
         }
     });

@@ -1,242 +1,202 @@
-//================================================
-//为热点添加素材图片加载时的处理
-//【入力】
-//【返却】
-//【作成】
-//【更新】
-//【概要】
-//================================================
-$(document).ready(function(){
-    $('#move-material-button').hide();
-    $('#ic0302Div li').hide();
+// ================================================
+// 素材一览页面的处理
+// 【入力】
+// 【返却】
+// 【作成】
+// 【更新】
+// 【概要】
+// ================================================
+$(document).ready(function() {
+    // bootstrapTable初始化
+    $("#table-material-info").bootstrapTable({
+    // locale : window.top.getCurrentLocal()
+    // height : 500
+    });
+    // toolbar的制御
+    var selectionsLength = $('#table-material-info').bootstrapTable('getSelections').length;
+    $('#btn_delete').prop('disabled', selectionsLength == 0);
+    $('#btn_edit').prop('disabled', selectionsLength != 1);
+    $('#btn_move').prop('disabled', selectionsLength == 0);
 
-   var _materialTypeId=$("#materialTypeId").val();
-    if(_materialTypeId!=PanoConstants.VAL_MATERIAL_TYPE_SOUND){
-        $("sounds").hide();
-    }else{
-        $("notSounds").hide();
-    }
+    var jqueryEvent = 'check.bs.table uncheck.bs.table load-success.bs.table ';
+    jqueryEvent = jqueryEvent + 'check-all.bs.table uncheck-all.bs.table';
+    $('#table-material-info').on(jqueryEvent, function() {
+        var selectionsLength = $('#table-material-info').bootstrapTable('getSelections').length;
+        $('#btn_delete').prop('disabled', selectionsLength == 0);
+        $('#btn_edit').prop('disabled', selectionsLength != 1);
+        $('#btn_move').prop('disabled', selectionsLength == 0);
+    });
+
     // 检索处理
-    $("#search-button").click(function() {
-          $('#move-material-button').hide();
-          var _ajaxUrl = getMemberContextPath('pano0302/doSearch');
-          var param = $("#ic0302Form").serialize();
-          jQuery.post(_ajaxUrl, param,function(data){
-              if(CommonUtilJs.processAjaxSuccessAfter(data)){
-                  createListDataTable(data);              
-               }          
-          });
+    $("#btn_query").click(function() {
+        // 检索处理
+        searchData();
     });
- 
-    
-    // 确定处理
-    $("#ic0302-confirm-button").click(function() { 
-      $("#editMaterial").imuiPageDialog('close');
+
+    // 添加处理
+    $("#btn_add").click(function() {
+        var targetUrl = 'pano0301/';
+        var urlParam = form2js($("#pano0302FormSearch")[0]);
+        // 做成FormData对象
+        // var ajaxFormData = new
+        // FormData(document.getElementById("pano0102FormAdd"));
+        targetUrl = targetUrl + '?' + $.param(urlParam);
+        window.top.layer.open({
+            title : '添加素材',
+            type : 2,
+            closeBtn : 1, // 不显示关闭按钮
+            area : [ '90%', '100%' ], // 宽高
+            content : [ getMemberContextPath(targetUrl), 'yes' ],
+            end : function() {
+                searchData();
+            }
+        });
     });
-    
-    //返回处理
-    $('#ic0302-back-button').click(function(){
-        if($('#openFromIc0104').val() == 'yes'){
-           
-           var _ajaxUrl = getMemberContextPath('pano0110/doVrFlag');
-		   var param = '';
-		   param = param + '&selectedExpositionId='+$('#expositionId').val();
-		   jQuery.post(_ajaxUrl, param, function(data){
-		       if(CommonUtilJs.processAjaxSuccessAfter(data)){
-		           if(data=="0"){
-			           $('#backToIc0104PanoramaId').val($('#ic0302PanoramaId').val());
-		        	   $("#back-to-ic0104").submit();
-		           }else{
-			           $('#backToVr0104PanoramaId').val($('#ic0302PanoramaId').val());
-		               $("#back-to-vr0104").submit();
-		           }
-		       }
-		   });
-           
-        }else{
-           $("#back-form").submit();
+
+    // 转移处理
+    $("#btn_move").click(function() {
+
+        // 定义转移素材时的提示信息
+        var confirmMsg;
+        if ($('#materialBelongType').val() == PanoConstants.VAL_MATERIAL_BELONGTYPE_EXPOSITION) {
+            confirmMsg = "正在将选中素材转移为公共素材，是否继续？";
+        } else {
+            confirmMsg = "正在将选中素材转移为所在展览素材，是否继续？";
         }
+
+        // 询问框
+        var currentConfirmIndex = window.top.layer.confirm(confirmMsg, {
+            icon : 3,
+            title : '提示信息',
+            btn : [ '确认', '取消' ]
+        // 按钮
+        }, function() {
+            window.top.layer.close(currentConfirmIndex);
+
+            // 确认操作
+            var ajaxFormData = {};
+            ajaxFormData = $.extend({}, ajaxFormData, form2js($("#pano0302FormSearch")[0]));
+
+            $.ajax({
+                url : getMemberContextPath('pano0302/doMoveMaterials'),
+                type : "post",
+                dataType : "json",
+                data : ajaxFormData,
+                success : function(result) {
+                    if (CommonUtilJs.processAjaxSuccessAfter(result)) {
+                        location.reload(true);
+                    }
+                }
+            // ,
+            // error : function(result) {
+            // window.top.layuiRemoveLoading();
+            // window.top.layer.alert(result.status);
+            // }
+            });
+        }, function() {
+            // 取消操作
+        });
+
     });
-    
-    //素材转移操作
-    $('#move-material-button').click(function(){
-        moveMaterials();
-    });
-    
-    //素材转移成功
-    $('#button-move-finished-confirm').click(function(){
-        doAjaxPage();
-        eval("$('#ic0302MoveMaterialFinish').imuiDialog('close')");
-    });
-    
+
+    // 检索处理
+    searchData();
+
 });
 
-// 全选，全解除操作
-function selectAllChkbox(){
-    $('#ic0302ListDataTable').find('input[type="checkbox"]').each(function(){
-        $(this)[0].checked=true;
-        $('#'+$(this)[0].id).val("true");
-    });
-    $('#move-material-button').show();
-}
-
-function cancelAllChkbox(){
-    $('#ic0302ListDataTable').find('input[type="checkbox"]').each(function(){
-        $(this)[0].checked=false;
-        $('#'+$(this)[0].id).val("false");
-    });
-    $('#move-material-button').hide();
-}
-
-//素材栏勾选框选中事件
-function doSelect(_chkboxId){
-    $('#move-material-button').hide();
-    if($('#'+_chkboxId).attr("checked")){
-        $('#'+_chkboxId).val("true");
-    }else{
-        $('#'+_chkboxId).val("false");
-    }
-    $('#ic0302ListDataTable').find('input[type="checkbox"]').each(function(){
-        if($(this)[0].checked){
-            $('#move-material-button').show();
-            return;
-        }
-    });
-}
-
-//素材转移操作
-function moveMaterials(){
-    //定义转移素材时的提示信息
-    var confirmMsg;
-    if($("input[name='materialBelongType']:checked").val() == PanoConstants.VAL_MATERIAL_BELONGTYPE_EXPOSITION){
-        confirmMsg = "是否将选中素材转移为公共素材?";
-    }else{
-        confirmMsg = "是否将选中素材转移为所在展览素材?";
-    }
-    imuiConfirm(confirmMsg, '确认', function() {
-        $(".imui-validation-error").remove();
-        $('#move-material-button').hide();
-        var _ajaxUrl = getMemberContextPath('pano0302/doMoveMaterials');
-        var param = $("#ic0302Form").serialize();
-        jQuery.post(_ajaxUrl, param, function(data){     
-            if(CommonUtilJs.processAjaxSuccessAfter(data)){
-                eval("$('#ic0302MoveMaterialFinish').imuiDialog('open')");
-            }
-        });
-    });
-}
-
-
-// 素材编辑按钮按下时的处理
-function editMaterial(_materialId,_materialName) {
-    var _materiaIdForSearch = $("#materialIdtextbox").val();
-    var _materialNameForSearch = $("#materialNametextbox").val();
-    var _materialNameTypeForSearch = $("#materialTypeId").val();
-    
-    $("#editMaterials").imuiPageDialog({
-        url: getMemberContextPath('pano0303'),
-        title: '编辑素材',
-        modal: true,
-        width: 880,
-        height: 850,
-        stack:false,
-        parameter: {
-            hiddenExpositionName:$('#expositionName').val(),
-            hiddenExpositionId:$('#expositionId').val(),
-            hiddenPanoramaId:$('#ic0302PanoramaId').val(),
-            materiaIdForSearch: _materiaIdForSearch,
-            materialNameForSearch: _materialNameForSearch,  
-            materialNameTypeForSearch: _materialNameTypeForSearch,
-            expositionId: $("#expositionId").val(),
-            expositionName: $("#expositionName").val(),
-            materialId: _materialId,
-            materialName:_materialName
+function searchData() {
+    // 先销毁表格
+    $('#table-material-info').bootstrapTable('destroy');
+    // 初始化表格,动态从服务器加载数据
+    $('#table-material-info').bootstrapTable({
+        url : getMemberContextPath('pano0302/doSearch'), // 请求后台的URL（*）
+        method : 'get', // 请求方式（*）
+        toolbar : '#toolbar', // 工具按钮用哪个容器
+        sortable : true, // 是否启用排序
+        sortName : 'materialName',// 初始化的时候排序的字段
+        sortOrder : "asc", // 排序方式
+        queryParamsType : "undefined",
+        queryParams : function queryParams(params) { // 设置查询参数
+            // 表单数据转换成JS对象
+            var ajaxFormData = form2js($("#pano0302FormSearch")[0]);
+            ajaxFormData["pageNumber"] = params.pageNumber;
+            ajaxFormData["pageSize"] = params.pageSize;
+            ajaxFormData["sortName"] = params.sortName;
+            ajaxFormData["sortOrder"] = params.sortOrder;
+            return ajaxFormData;
         },
-            close: function(event, ui) {
-            //关闭画面时，停止0303音乐和视频
-            var ic0303krpano_1 = document.getElementById("oldSoundPanorama");
-            if (ic0303krpano_1 != null && undefined != ic0303krpano_1.get){
-                ic0303krpano_1.call('stopallsounds();');
-                ic0303krpano_1.call('closevideo();');
+        uniqueId : "materialId", // 每一行的唯一标识，一般为主键列
+        columns : [ {
+            checkbox : true
+        }, {
+            field : 'rowNumber',
+            width : 50,
+            formatter : function(value, tableRowInfo, index) {
+                var options = $('#table-material-info').bootstrapTable("getOptions");
+                return (options.pageNumber - 1) * (options.pageSize) + index + 1;
             }
-            var ic0303krpano_2 = document.getElementById("newSoundPanorama");
-            if (ic0303krpano_2 != null && undefined != ic0303krpano_2.get){
-                ic0303krpano_2.call('stopallsounds();');
-                ic0303krpano_2.call('closevideo();');
+        }, {
+            field : 'materialId',
+            sortable : true
+        }, {
+            field : 'materialName',
+            sortable : true
+        }, {
+            field : 'notes'
+        }, {
+            field : 'materialTypeId'
+        }, {
+            field : 'materialPath'
+        }, {
+            field : 'gifWidth'
+        }, {
+            field : 'gifHeight'
+        }, {
+            field : 'gifFrameCount'
+        }, {
+            field : 'gifDelayTime'
+        }, {
+            field : 'hasPngImage'
+        }, {
+            field : 'flowTextInfo'
+        }, {
+            field : 'rowOperate',
+            events : {
+                'click .row-edit' : function(e, value, tableRowInfo, index) {
+                    doEdit(tableRowInfo);
+                },
+            },
+            formatter : function(value, tableRowInfo, index) {
+                var showData = '';
+                // 编辑按钮
+                showData = showData + '<a href="javascript:void(0);" ';
+                showData = showData + ' class="btn pano-btn-danger font-12 p-1 row-edit"';
+                showData = showData + '>';
+                showData = showData + '<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑';
+                showData = showData + '</a>';
+                return showData;
             }
+        }, ],
+        onLoadSuccess : function(result) {
         }
-    }); 
-    return false;
-}
+    });
+};
 
-
-//通过素材Id检索预览图
-function doPreview(_materialPath){
- 
-if (_materialPath != null && _materialPath != '') {
-         $("#imagePreview").attr('src',_materialPath + '?temp=' + Math.random());
-         $("#imagePreview").css('display','block');
-         eval("$('#ic0302imagePreview').imuiDialog('open')");
-     }
-}
-
-
-//Ajax分页处理
-function doAjaxPage(){
-    var _ajaxUrl = getMemberContextPath('pano0302/doPage');
-    var param = $("#ic0302Form").serialize();
-    jQuery.post(_ajaxUrl, param, function(data){
-        if(CommonUtilJs.processAjaxSuccessAfter(data)){
-            createListDataTable(data);}
-   });
-}
-
-// 刷新一览数据
-function createListDataTable(data) {
-
-    if(CommonUtilJs.processAjaxSuccessAfter(data)){
-        var isjson = typeof(data) == "object" && Object.prototype.toString.call(data).toLowerCase() == "[object object]" && !data.length;
-        if(data.indexOf("指定条件的数据不存在。请改变索条件后再检索。") != -1){
-            imuiAlert('指定条件的数据不存在。请改变索条件后再检索。');
-            $("#ic0302ListDataTable tbody").html('');
-            $('#pageShowInfo').hide();
-            $('#ic0302pageDiv').hide();
-            $('#ic0302Div li').hide();
-            return false;
+// 编辑
+function doEdit(tableRowInfo) {
+    var openUrl = '/pano03/pano0303';
+    openUrl = openUrl + '?expositionId=' + tableRowInfo.expositionId;
+    openUrl = openUrl + '&outletsCode=' + tableRowInfo.outletsCode;
+    openUrl = openUrl + '&bankAccountCode=' + tableRowInfo.bankAccountCode;
+    openUrl = getMemberContextPath(openUrl);
+    window.top.layer.open({
+        title : '编辑素材',
+        type : 2,
+        area : [ '80%', '100%' ], // 宽高
+        content : [ openUrl, 'yes' ],// iframe层出现滚动条
+        end : function() {
+            // location.reload(true);
+            searchData();
         }
-        
-        var ic0302JsForm = JSON.parse(data);
-        //分页信息设定
-        $('#ic0302Form_pageShowInfo').show();
-        $('#ic0302Form_pageShowInfo').each(function(id, item) {
-            $(this).prop('outerHTML', ic0302JsForm.pageShowInfos[0])
-        });
-        $('#ic0302Form_pageHiddenInfo').each(function(id, item) {
-            $(this).prop('outerHTML', ic0302JsForm.pageShowInfos[1])
-        
-        });
-     
-        // 刷新一览数据
-        var tbodyHtml = "";
-        $(ic0302JsForm.materialInfo).each(function(index, item) {
-            tbodyHtml += '<tr id="ic0302Tr_' +index +'" style="height:10px;cursor: pointer;" >';   
-            tbodyHtml += '<td class="align-C valign-M" style="width:40px; cursor: pointer;" onclick="editMaterial('+"'" +item.materialId +"','" +item.materialName +"'" +')"><span class="im-ui-icon-common-16-settings"/></td>';
-            tbodyHtml += '<td title=' +item.materialId +' class="align-L valign-M selected" style="width:20%;">' +item.materialId +'</td>';
-            tbodyHtml += '<td title=' +item.materialName +' class="align-L valign-M selected" style="width:20%;">' +item.materialName +'</td>';
-            tbodyHtml += '<td title=' +item.materialTypeId +' class="align-L valign-M selected" style="width:20%;">' +item.materialTypeId+'</td>';
-            tbodyHtml += '<td title=' +item.notes +' class="align-L valign-M selected" style="width:20%;">' +item.notes +'</td>';  
-            if($('#openFromIc0104').val() != null && $('#openFromIc0104').val() != ''){
-                tbodyHtml += '<td class="align-C valign-M">';
-                tbodyHtml += '<input id="'+item.materialId+'_chkbox" type="checkbox" name="materialInfo['+index+'].isSelected" value="' +item.isSelected +'" onclick="doSelect('+"'"+item.materialId+"_chkbox'"+');">';
-                tbodyHtml += '<input type="hidden" name="materialInfo['+index+'].materialId" value="'+item.materialId +'">';
-                tbodyHtml += '<input type="hidden" name="materialInfo['+index+'].materialTypeId" value="'+item.materialTypeId +'">';
-                tbodyHtml += '</td>';
-            }
-            tbodyHtml += "</tr>";
-        });
-        $("#ic0302ListDataTable tbody").html(tbodyHtml);
-        $('#ic0302pageDiv').show();
-    }
+    });
 }
-
-

@@ -1,5 +1,3 @@
-// 自定义播放音乐用的计时器
-var ic208Interval;
 // ================================================
 // 为热点添加素材图片加载时的处理
 // 【入力】
@@ -177,7 +175,7 @@ function doEdit(tableRowInfo) {
     openUrl = openUrl + '?expositionId=' + tableRowInfo.expositionId;
     openUrl = openUrl + '&outletsCode=' + tableRowInfo.outletsCode;
     openUrl = openUrl + '&bankAccountCode=' + tableRowInfo.bankAccountCode;
-    openUrl = getContextPath(openUrl);
+    openUrl = getMemberContextPath(openUrl);
     window.top.layer.open({
         title : '编辑素材',
         type : 2,

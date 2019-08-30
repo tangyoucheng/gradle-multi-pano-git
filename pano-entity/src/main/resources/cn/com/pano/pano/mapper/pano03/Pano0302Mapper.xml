@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.pano.pano.mapper.pano02.Pano0208Mapper">
+<mapper namespace="cn.com.pano.pano.mapper.pano03.Pano0302Mapper">
     <resultMap id="BaseResultMap" type="cn.com.pano.pano.model.common01.PanoMaterial01Model"
         extends="cn.com.pano.pano.mapper.common.PanoMaterialMapper.BaseResultMap">
         <result column="public_flg" jdbcType="VARCHAR" property="publicFlg" />

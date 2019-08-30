@@ -15,7 +15,7 @@ public interface Pano0208Mapper {
   /**
    * 从数据库中检索素材信息。
    * 
-   * @param conditions
+   * @param conditions 检索条件
    * @return
    */
   public long selectMaterialInfoCount(HashMap<?, ?> conditions);
@@ -23,7 +23,7 @@ public interface Pano0208Mapper {
   /**
    * 从数据库中查找素材信息。
    * 
-   * @param condition
+   * @param condition 检索条件
    * @return
    */
   public List<PanoMaterial01Model> selectMaterialInfo(HashMap<?, ?> condition);
