@@ -34,7 +34,7 @@
                         <div class="col-sm-4 input-group">
                             <input class="form-control rounded" id="txt_panoramaSoundName" name="panoramaSoundName"
                                 type="text" value="${panoramaSoundName }" readonly="readonly" />
-                            <div class="input-group-append btn-group-sm">
+                            <div class="input-group-append" style="height: calc(1.5em + .75rem + 2px);">
                                 <button type="button" id="btn_panoramaSound_search" class="btn pano-btn-danger">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
@@ -93,7 +93,7 @@
 
                     <div class="form-row">
                         <label class="col-form-label col-sm-1">&nbsp;</label>
-                        <div class="col-sm-1">
+                        <div class="col-sm-5">
                             <button type="button" id="btn_entry" class="btn pano-btn-danger">
                                 <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
                                 <c:out value="登录"></c:out>
