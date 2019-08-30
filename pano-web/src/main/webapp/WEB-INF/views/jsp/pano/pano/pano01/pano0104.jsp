@@ -105,25 +105,25 @@
                         style="min-width: 170px !important; max-width: 170px !important;">
                         <div class="btn-group">
                             <button id="btn_set_lookat" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 <c:out value="设定第一视角"></c:out>
                             </button>
                         </div>
                         <div class="btn-group mt-2">
                             <button id="btn_edit_hotspot" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 <c:out value="编辑单点热点"></c:out>
                             </button>
                         </div>
                         <div class="btn-group mt-2">
                             <button id="btn_edit_hotspot_polygon" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 <c:out value="编辑多边形热点"></c:out>
                             </button>
                         </div>
                         <div class="btn-group mt-2">
                             <button id="btn-edit-exposition-layer" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 <c:out value="整体效果"></c:out>
                             </button>
                         </div>
