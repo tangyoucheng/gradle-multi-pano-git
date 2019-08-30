@@ -34,7 +34,7 @@
                         <div class="col-sm-4 input-group">
                             <input class="form-control rounded" id="txt_panoramaSoundName" name="panoramaSoundName"
                                 type="text" value="${panoramaSoundName }" readonly="readonly" />
-                            <div class="input-group-append" style="height: calc(1.5em + .75rem + 2px);">
+                            <div class="input-group-append input-group-append-height-sm">
                                 <button type="button" id="btn_panoramaSound_search" class="btn pano-btn-danger">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>

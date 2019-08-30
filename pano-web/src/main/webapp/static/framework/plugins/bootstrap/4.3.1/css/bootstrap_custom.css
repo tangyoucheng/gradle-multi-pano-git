@@ -300,3 +300,12 @@
 .select-pink .bootstrap-select .dropdown-item.active, .dropdown-item:active {
     background-color : #E64966 !important;
 }
+/* 组合框高度设定 START */
+.input-group-append-height-sm {
+  height: calc(1.5em + .75rem + 2px);
+}
+
+.input-group-append-height-lg {
+  height: calc(1.5em + 1rem + 2px);
+}
+/* 组合框高度设定 END */
