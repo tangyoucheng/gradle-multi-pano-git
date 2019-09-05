@@ -51,23 +51,22 @@
         </button>
         <div class="option-icon" style="width: 40px;">&nbsp;|</div>
         <button id="btn_edit_pano" class="btn pano-btn-outline-danger option-icon">
-            <span class="glyphicon glyphicon-pencil"></span>
+            <span class="fas fa-edit"></span>
             <div>编辑</div>
         </button>
         <button id="btn_delete_pano" class="btn pano-btn-outline-danger option-icon">
-            <span class="glyphicon glyphicon-minus"></span>
+            <span class="glyphicon glyphicon-trash"></span>
             <div>删除</div>
         </button>
         <div class="option-icon" style="width: 40px;">&nbsp;|</div>
-        <button id="btn_update_panoOrder" type="button" class="btn pano-btn-outline-danger option-icon"
-            style="width: 100px;">
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-            <div>保存排序</div>
+        <button id="btn_update_panoOrder" type="button" class="btn pano-btn-outline-danger option-icon">
+            <span class="fas fa-sort" aria-hidden="true"></span>
+            <div>排序</div>
         </button>
         <div class="option-icon" style="width: 40px;">&nbsp;|</div>
-        <button id="btn_material_list" class="btn pano-btn-outline-danger option-icon" style="width: 100px;">
-            <span class="fa fa-arrows-h"></span>
-            <div>素材一览</div>
+        <button id="btn_material_list" class="btn pano-btn-outline-danger option-icon">
+            <span class="fas fa-coins"></span>
+            <div>素材</div>
         </button>
         <button id="btn_close" class="btn pano-btn-outline-danger option-icon float-right">
             <span class="glyphicon glyphicon-remove"></span>
@@ -105,7 +104,7 @@
                         style="min-width: 170px !important; max-width: 170px !important;">
                         <div class="btn-group">
                             <button id="btn_set_lookat" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                <span class="far fa-save" aria-hidden="true"></span>
                                 <c:out value="设定第一视角"></c:out>
                             </button>
                         </div>
