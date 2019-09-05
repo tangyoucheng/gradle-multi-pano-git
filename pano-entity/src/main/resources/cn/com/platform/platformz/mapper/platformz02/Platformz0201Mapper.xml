@@ -59,20 +59,20 @@
     </select>
     <!--检索会员信息（session用） -->
     <select id="selectMemberSessionInfo" parameterType="map" resultMap="BaseResultMap">
-        SELECT member.*
+        SELECT membersInfo.*
         , department.DEPARTMENT_ID
         , department.DEPARTMENT_NAME
         , company.COMPANY_ID
         , company.COMPANY_NAME
-        FROM platform_member member
+        FROM platform_member membersInfo
         LEFT JOIN platform_department_user departmentUser
-        ON member.MEMBER_ID = departmentUser.MEMBER_ID
+        ON membersInfo.MEMBER_ID = departmentUser.MEMBER_ID
         LEFT JOIN platform_department department
         ON departmentUser.DEPARTMENT_ID = department.DEPARTMENT_ID
         LEFT JOIN platform_company company
         ON department.COMPANY_ID = company.COMPANY_ID
         <where>
-            member.MEMBER_LOGIN_ID = #{memberLoginId}
+            membersInfo.MEMBER_LOGIN_ID = #{memberLoginId}
         </where>
     </select>
 </mapper>

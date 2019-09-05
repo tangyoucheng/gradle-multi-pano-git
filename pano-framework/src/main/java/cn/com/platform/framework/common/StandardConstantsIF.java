@@ -26,13 +26,6 @@ public class StandardConstantsIF {
   /** 共通：密码有効日数。 */
   public static final Integer KYOTU_PASSWORD_EFFECTIVE_DATE_SU = 180;
 
-  /** 処理結果：正常終了。 */
-  public static final String SHORI_KEKKA_NORMAL_END = "0";
-  /** 処理結果：異常終了。 */
-  public static final String SHORI_KEKKA_IJO_END = "1";
-  /** 処理結果：その他。 */
-  public static final String SHORI_KEKKA_SONOTA = "9";
-
   /** 区分（共通）：有。 */
   public static final String FLAG_STATUS_ENABLE = "1";
   /** 区分（共通）：無。 */
@@ -104,6 +97,8 @@ public class StandardConstantsIF {
   public static final String URI_BASE_MEMBER = "member";
   /** 后台管理员URI。 */
   public static final String URI_BASE_ADMIN = "admin";
+  /** API用的URI。 */
+  public static final String URI_BASE_API = "api";
 
   /** activiti流程变量 start。 */
   /** 任务状态。 */

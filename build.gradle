@@ -91,6 +91,7 @@ project(':pano-framework') {
         // spring-boot的Spring Security的jar包
         compile ('org.springframework.boot:spring-boot-starter-security')
         compile ('org.springframework.security:spring-security-taglibs')
+        compile ("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:$springBootVersion")
         
         // 解析客户端操作系统、浏览器等
         compile ("eu.bitwalker:UserAgentUtils:$UserAgentUtilsVersion")
