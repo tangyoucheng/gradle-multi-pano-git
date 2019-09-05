@@ -110,19 +110,19 @@
                         </div>
                         <div class="btn-group mt-2">
                             <button id="btn_edit_hotspot" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                <c:out value="编辑单点热点"></c:out>
+                                <span class="fas fa-edit" aria-hidden="true"></span>
+                                <c:out value="单点热点"></c:out>
                             </button>
                         </div>
                         <div class="btn-group mt-2">
                             <button id="btn_edit_hotspot_polygon" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                <c:out value="编辑多边形热点"></c:out>
+                                <span class="fas fa-edit" aria-hidden="true"></span>
+                                <c:out value="多边形热点"></c:out>
                             </button>
                         </div>
                         <div class="btn-group mt-2">
                             <button id="btn-edit-exposition-layer" type="button" class="btn pano-btn-danger">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                <span class="fas fa-edit" aria-hidden="true"></span>
                                 <c:out value="整体效果"></c:out>
                             </button>
                         </div>
