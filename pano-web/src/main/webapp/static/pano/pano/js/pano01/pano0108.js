@@ -55,7 +55,8 @@ $(document).ready(function() {
 
 // 初始化场景信息
 function doInitPanoInfo() {
-    window.top.krpanoMaskLoading();
+    // 如果flash插件没有启用的场合，遮盖层不能消失。所以暂时注释掉此处理。
+    // window.top.krpanoMaskLoading();
     var ajaxSubmitFormData = form2js($("#pano0108FormAjaxSubmit")[0]);
     // 引擎配置文件路径
     var xmlfilePath = "pano0108/";

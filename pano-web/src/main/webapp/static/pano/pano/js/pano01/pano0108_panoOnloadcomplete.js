@@ -8,8 +8,8 @@ $(document).ready(function() {
 function doPano0108KrpanoOnloadcomplete() {
     loadHotspotInfo();
 
-    // 移除遮盖层
-    window.top.removekrpanoMask();
+    // 移除遮盖层 如果flash插件没有启用的场合，遮盖层不能消失。所以暂时注释掉此处理。
+    // window.top.removekrpanoMask();
 }
 
 // 图上加载热点处理
