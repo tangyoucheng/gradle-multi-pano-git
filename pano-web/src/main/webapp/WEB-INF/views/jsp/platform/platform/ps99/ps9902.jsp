@@ -104,9 +104,10 @@
         <div class="header-right">
             <!-- 左上角图标 -->
             <div class="brand-logo platform-brand-logo">
-                <a href="javascript:void(0);" class="position-relative ">
+                <a href="javascript:void(0);" class="position-relative pl-3">
                     <!--<img src="vendors/images/logo.png" alt="" class="mobile-logo"> -->
-                    <img src="<c:url value='/static/platform/platform/images/ps99/main_logo.png'/>" alt="">
+                    <%--<img src="<c:url value='/static/platform/platform/images/ps99/main_logo.png'/>" alt=""> --%>
+                    <c:out value="全景展览管理系统"></c:out>
                 </a>
             </div>
             <!-- 顶部菜单 -->

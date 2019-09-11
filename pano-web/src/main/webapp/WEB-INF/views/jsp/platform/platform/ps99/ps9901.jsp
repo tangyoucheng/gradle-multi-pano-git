@@ -80,7 +80,8 @@
             <div class="brand-logo">
                 <a href="javascript:void(0);">
                     <!--<img src="vendors/images/logo.png" alt="" class="mobile-logo"> -->
-                    <img src="<c:url value='/static/platform/platform/images/ps99/member_logo.jpg'/>" alt="">
+<%--                     <img src="<c:url value='/static/platform/platform/images/ps99/member_logo.jpg'/>" alt=""> --%>
+后台管理系统
                 </a>
             </div>
             <!-- 顶部菜单 -->

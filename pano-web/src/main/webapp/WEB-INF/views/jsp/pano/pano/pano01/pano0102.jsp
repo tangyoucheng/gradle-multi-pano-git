@@ -56,7 +56,7 @@
 
                     <div class="form-row">
                         <label class="col-form-label col-sm-1">&nbsp;</label>
-                        <div class="col-sm-1">
+                        <div class="col-sm-5">
                             <button type="button" id="btn_query" class="btn pano-btn-danger">
                                 <span class="glyphicon glyphicon-search"></span>
                                 &nbsp;查询

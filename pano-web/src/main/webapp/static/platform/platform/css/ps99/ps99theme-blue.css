@@ -11,7 +11,7 @@
 
 .brand-logo a {
     line-height: 70px;
-    padding: 0 !important;
+    /*     padding: 0 !important; */
 }
 
 /*===============================
@@ -75,13 +75,19 @@
 
 /* 右边个人信息样式 */
 .header-right {
-    
+    /*     background: #1f1f1f; */
+    background: #ffffff;
+    -webkit-box-shadow: 0px 0px 2px #1296db;
+    -moz-box-shadow: 0px 0px 2px #1296db;
+    box-shadow: 0px 0px 2px #1296db;
 }
 
-}
 .user-info-dropdown {
-    /*     background-color: #1f1f1f; */
-    
+    background-color: #ffffff;
+}
+
+.user-info-dropdown ul li a {
+    color: #333333;
 }
 
 .user-info-dropdown .dropdown-toggle {
@@ -189,8 +195,7 @@
  ==============================================================*/
 .dropdown-menu {
     border-color: #cccccc;
-    border-color: blue;
-    background-color: #white;
+    background-color: white;
     -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
     -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
@@ -237,8 +242,6 @@
     color: #1296db;
 }
 
-
-
 /*==============================================================
 	dropdown-menu End //右侧定位选项卡
  ==============================================================*/
@@ -268,8 +271,9 @@
 }
 
 .sidebar-menu .dropdown-toggle {
-	color: #333333;
+    color: #333333;
 }
+
 .sidebar-menu .dropdown-toggle:after {
     color: #999999;
 }
@@ -297,10 +301,10 @@
     background: #1296db;
 }
 
-
 .sidebar-menu .submenu li a {
-	color: #000000;
+    color: #000000;
 }
+
 .sidebar-menu .submenu li a:hover, .sidebar-menu .submenu li a.active {
     /*  color: #0099ff; */
     color: #1296db;
@@ -347,11 +351,11 @@
 }
 
 .sidebar-menu .dropdown-toggle .fa {
-	color: #333333;
+    color: #333333;
 }
 
 .sidebar-menu .dropdown-toggle .fa {
-	color: #1296db;
+    color: #1296db;
 }
 
 .sidebar-menu .dropdown-toggle:hover .fa, .sidebar-menu .show>.dropdown-toggle .fa
@@ -376,7 +380,6 @@
     color: #1296db;
 }
 /* 图标色彩 END */
-
 .form-control:focus {
-    box-shadow: 0 0 0 0.1rem rgba(0,123,255,.25);
+    box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, .25);
 }
