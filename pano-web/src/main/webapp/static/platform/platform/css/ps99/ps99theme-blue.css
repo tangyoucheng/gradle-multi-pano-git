@@ -19,7 +19,7 @@
 =================================*/
 
 /*===============================
-   okayNav  Start    �����˵���
+   okayNav  Start    顶部菜单栏
 =================================*/
 .okayNav-header {
     background-color: #ffffff;
@@ -70,10 +70,10 @@
 }
 
 /*===============================
-   okayNav  End    �����˵���
+   okayNav  End   顶部菜单栏
 =================================*/
 
-/* �ұ߸�����Ϣ��ʽ */
+/* 右边个人信息样式 */
 .header-right {
     
 }
@@ -98,7 +98,7 @@
 }
 
 .user-info-dropdown .show .dropdown-toggle {
-    color: #333333;
+    color: #1296db;
 }
 
 .user-info-dropdown .show .dropdown-toggle .user-icon {
@@ -107,11 +107,11 @@
 }
 
 .user-info-dropdown .show .dropdown-toggle .user-name {
-    color: #333333;
+    color: #1296db;
 }
 
 .user-info-dropdown .show a.dropdown-toggle {
-    background-color: #ffffff;
+    background-color: #bfe4ff;
 }
 
 .dropdown-menu-right .dropdown-item:before {
@@ -127,7 +127,7 @@
 ==============================================================*/
 
 /*==============================================================
- 	content Start  //��ǩ��
+ 	content Start  //标签栏
  ==============================================================*/
 .content-tabs {
     border-bottom: solid 1px #dddddd;
@@ -139,6 +139,7 @@
 
 .content-tabs .roll-nav:hover, .page-tabs a:hover {
     color: #1296db;
+    background: #bfe4ff !important;
 }
 
 .content-tabs .roll-left {
@@ -164,6 +165,7 @@
 
 .page-tabs a.active {
     color: #1296db;
+    background: #bfe4ff;
 }
 
 .page-tabs a.active i:hover, .page-tabs a.active:hover {
@@ -175,6 +177,7 @@
 }
 
 .page-tabs a:hover {
+    color: #333333;
     color: #1296db;
 }
 
@@ -182,10 +185,11 @@
 	content End
  ==============================================================*/
 /*==============================================================
-	dropdown-menu Start //�Ҳඨλѡ�
+	dropdown-menu Start //右侧定位选项卡
  ==============================================================*/
 .dropdown-menu {
     border-color: #cccccc;
+    border-color: blue;
     background-color: #white;
     -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
     -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
@@ -197,17 +201,17 @@
 }
 
 .dropdown .dropdown-toggle.J_tabClose:hover {
-    background-color: #ffffff;
-    color: #1296db;
+    background-color: #bfe4ff;
+    color: #333333;
 }
 
 .dropdown.show .dropdown-toggle.J_tabClose {
-    background-color: #ffffff;
-    color: #1296db;
+    background-color: #1296db;
+    color: #333333;
 }
 
 .dropdown-item.active, .dropdown-item:active {
-    color: #fff;
+    color: #333333;
     text-decoration: none;
     background-color: #1296db;
 }
@@ -229,25 +233,18 @@
 }
 
 .dropdown-item:hover, .dropdown-item:focus {
-    background: #1296db;
-    color: #ffffff;
+    background: #bfe4ff;
+    color: #1296db;
 }
 
-.select-pink .bootstrap-select .dropdown-item.active, .dropdown-item:active
-    {
-    background: #1296db !important;
-}
 
-.dropdown-item:hover a, .dropdown-item:focus a {
-    color: #ffffff;
-}
 
 /*==============================================================
-	dropdown-menu End //�Ҳඨλѡ�
+	dropdown-menu End //右侧定位选项卡
  ==============================================================*/
 
 /*==============================================================
-	Side Bar Start  //���˵���
+	Side Bar Start  //左侧菜单栏
 ==============================================================*/
 .left-side-bar {
     /*     background: #1f1f1f; */
@@ -270,13 +267,16 @@
     background-color: white;
 }
 
+.sidebar-menu .dropdown-toggle {
+	color: #333333;
+}
 .sidebar-menu .dropdown-toggle:after {
     color: #999999;
 }
 
 .sidebar-menu .dropdown-toggle:hover, .sidebar-menu .show>.dropdown-toggle
     {
-    background: #ffffff;
+    background: #bfe4ff;
     color: #1296db;
 }
 
@@ -297,10 +297,13 @@
     background: #1296db;
 }
 
+
+.sidebar-menu .submenu li a {
+	color: #000000;
+}
 .sidebar-menu .submenu li a:hover, .sidebar-menu .submenu li a.active {
     /*  color: #0099ff; */
-    color: #ffff;
-    background: #1296db;
+    color: #1296db;
 }
 
 .sidebar-menu .submenu li a:hover:before, .sidebar-menu .submenu li a.active:before
@@ -309,11 +312,11 @@
     color: #1296db;
 }
 /*==============================================================
-	Side Bar End  //���˵���
+	Side Bar End  //左侧菜单栏
 ==============================================================*/
 
 /*==============================================================
-	Footer Start  //�ײ�����
+	Footer Start  //底部区域
 ==============================================================*/
 .footer {
     border-top: 1px solid #dddddd;
@@ -321,7 +324,7 @@
 /*==============================================================
 	Footer End
 ==============================================================*/
-/* ps99theme ���� */
+/* ps99theme 主题 */
 .ps99theme-dropdown-toggle {
     background: #1296db;
 }
@@ -330,7 +333,7 @@
     color: #fff;
 }
 
-/* ͼ��ɫ�� SRART */
+/* 图标色彩 SRART */
 .okayNav a span {
     color: #1296db;
 }
@@ -341,6 +344,14 @@
 
 .first-level-menu a span {
     color: #1296db;
+}
+
+.sidebar-menu .dropdown-toggle .fa {
+	color: #333333;
+}
+
+.sidebar-menu .dropdown-toggle .fa {
+	color: #1296db;
 }
 
 .sidebar-menu .dropdown-toggle:hover .fa, .sidebar-menu .show>.dropdown-toggle .fa
@@ -364,7 +375,7 @@
 .sidebar-menu .submenu li:before {
     color: #1296db;
 }
-/* ͼ��ɫ�� END */
+/* 图标色彩 END */
 
 .form-control:focus {
     box-shadow: 0 0 0 0.1rem rgba(0,123,255,.25);
