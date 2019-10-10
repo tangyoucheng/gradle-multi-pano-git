@@ -16,28 +16,9 @@ $(document).ready(function() {
         selectRefresh();
     });
 
-    // 勾选框点击动态预览工具条效果
-    $("input[name='chkBox']").click(function() {
-        reloadButtonsBar_pano0209();
-    });
     if ($('#commandTypeFromPano0105').val() == '' || $('#commandTypeFromPano0105').val() == null) {
         $('#expoGoSceneInfoText').attr("disabled", "true");
     }
-    // 自定义工具条全选和全解除
-    $("#selectAll").click(function() {
-        var options = document.getElementsByName("chkBox");
-        for (var i = 0; i < options.length; i++) {
-            options[i].checked = true;
-        }
-        reloadButtonsBar_pano0209();
-    });
-    $("#cancelAll").click(function() {
-        var options = document.getElementsByName("chkBox");
-        for (var i = 0; i < options.length; i++) {
-            options[i].checked = false;
-        }
-        reloadButtonsBar_pano0209();
-    });
 
     // 保存处理
     $('#button-pano0209-confirm').click(function() {
@@ -212,6 +193,7 @@ $(document).ready(function() {
 
     // 区分浮动层大小调整，工具条自定义和热点大小调整的画面
     // editPage_pano0209();
+    
 
 });
 
@@ -240,10 +222,13 @@ function doPano0209KrpanoOnloadcomplete() {
     // 调整浮动层大小
     if ($('#commandTypeFromPano0105').val() == 'flowInfo') {
         loadLayer();
-        $('#buttonslistDiv').hide();
+        $('#buttons-list').hide();
         $('#buttonsTitleDiv').hide();
         $('#editRecommendTitleDiv').hide();
         // $('#editRecommendInfoTr').hide();
+
+        // 显示检索条件区域
+        $('#divCondition').show();
         return false;
     }
 
@@ -257,6 +242,9 @@ function doPano0209KrpanoOnloadcomplete() {
         // $('#editRecommendInfoTr').hide();
         $('#tooltipTr').hide();
         $('#pano0209Pano').css("height", "100px");
+
+        // 显示检索条件区域
+        $('#divCondition').show();
         return false;
     }
 
@@ -264,19 +252,22 @@ function doPano0209KrpanoOnloadcomplete() {
     if ($('#commandTypeFromPano0105').val() == 'commonInfo') {
         pano0209ShowCurrentButtonsBar()
         $('#sizeTr').hide();
-        $('#buttonslistDiv').hide();
+        $('#buttons-list').hide();
         $('#recommendTr').hide();
         $('#buttonsTitleDiv').hide();
         $('#sizeTitleDiv').hide();
         $('#tooltipTr').hide();
         $('#pano0209Pano').css("height", "280px");
         loadRecommendInfo_pano0209();
+
+        // 显示检索条件区域
+        $('#divCondition').show();
         return false;
     }
 
     // 预览0203音频热点效果
     if ($('#pano0203OperateFlag').val() == 'preview') {
-        $('#buttonslistDiv').hide();
+        $('#buttons-list').hide();
         $('#buttonsTitleDiv').hide();
         // $('#editRecommendInfoTr').hide();
         $('#editRecommendTitleDiv').hide();
@@ -284,6 +275,9 @@ function doPano0209KrpanoOnloadcomplete() {
         $('#sizeTr').hide();
         $("#button-pano0209-confirm").hide();
         loadMusicHotspotFromPano0203();
+
+        // 显示检索条件区域
+        $('#divCondition').show();
         return false;
     }
 
@@ -291,7 +285,7 @@ function doPano0209KrpanoOnloadcomplete() {
     // 分0203和0104操作两种情况
     if ($('#pano0203OperateFlag').val() == 'size') {
         loadHotspotFromPano0203();
-        $('#buttonslistDiv').hide();
+        $('#buttons-list').hide();
         $('#buttonsTitleDiv').hide();
         // $('#editRecommendInfoTr').hide();
         $('#editRecommendTitleDiv').hide();
@@ -300,7 +294,7 @@ function doPano0209KrpanoOnloadcomplete() {
         $("#button-pano0209-confirm").show();
     } else {
         load_pano0209();
-        $('#buttonslistDiv').hide();
+        $('#buttons-list').hide();
         $('#buttonsTitleDiv').hide();
         // $('#editRecommendInfoTr').hide();
         $('#editRecommendTitleDiv').hide();
@@ -309,6 +303,8 @@ function doPano0209KrpanoOnloadcomplete() {
         $("#button-pano0209-confirm").show();
     }
 
+    // 显示检索条件区域
+    $('#divCondition').show();
 }
 
 // 显示现有状态下的工具条样式
@@ -351,9 +347,12 @@ function reloadButtonsBar_pano0209() {
     _selectedButtons = '';
     // 坐标变量
     var _positionX = 0;
-    $('#pano0209ListDataTable').find('input[type="checkbox"]').each(function() {
-        var _chkBoxId = $(this)[0].id;
-        if ($('#' + _chkBoxId)[0].checked) {
+
+    // 还款一览
+    var buttonsListTable = $('#buttons-list');
+    jQuery.each(buttonsListTable.bootstrapTable('getData'), function(i, item) {
+        var _chkBoxId = item.buttonName;
+        if (item.checkbox === true) {
             _krpano.set('layer[' + _chkBoxId + '].x', _positionX);
             _krpano.set('layer[' + _chkBoxId + '].visible', true);
             _positionX += 40;
@@ -363,6 +362,7 @@ function reloadButtonsBar_pano0209() {
             _krpano.set('layer[' + _chkBoxId + '].visible', false);
         }
     });
+    
     _krpano.set('layer[defaultskin_buttons].width', _positionX);
 
 }

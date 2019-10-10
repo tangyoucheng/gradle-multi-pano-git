@@ -70,6 +70,7 @@ public class Pano0209Form extends AbstractForm implements Serializable {
   // 所传数据是否来自Pano0105
   public String commandTypeFromPano0105;
   // 工具条按钮集合
+  public String buttonsInfoJson;
   public List<Pano020901Dto> buttonsInfo;
   // 跳转到此场景时上个场景的导航点ID
   public String pano0209TheLastedSceneHotspotId;

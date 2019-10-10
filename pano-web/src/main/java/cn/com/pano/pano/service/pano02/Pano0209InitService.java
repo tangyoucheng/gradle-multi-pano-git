@@ -111,6 +111,7 @@ public class Pano0209InitService extends BaseService {
       pano0209dto.buttonName = "btn_fs";
       pano0209dto.buttonName_CN = "全屏";
       inForm.buttonsInfo.add(pano0209dto);
+      inForm.buttonsInfoJson = objectMapper.writeValueAsString(inForm.buttonsInfo);
     } else if (!("commonInfo".equals(inForm.commandTypeFromPano0105))) {
       // 初始化大小选择
       inForm.hotspotSizeInfo = new ArrayList<>();
