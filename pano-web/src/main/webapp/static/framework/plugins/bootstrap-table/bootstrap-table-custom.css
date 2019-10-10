@@ -12,3 +12,8 @@
 .table-hover>tbody>tr:hover {
     background-color: #FAFAD2
 }
+
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .loading-text
+    {
+    font-size: 1rem;
+}
