@@ -206,8 +206,8 @@ function doMakePano0209krpano() {
             id : "pano0209PanoId",
             xml : xmlPath,
             target : "pano0209Pano",
-            wmode : "opaque",
-            flash : "only",
+            wmode : "transparent",
+            html5 : "prefer",
             bgcolor : "#f5f5f5",
             passQueryParameters : true
         });
