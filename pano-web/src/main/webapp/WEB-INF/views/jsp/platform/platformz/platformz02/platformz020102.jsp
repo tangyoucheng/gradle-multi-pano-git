@@ -42,13 +42,13 @@
                         <div class="col-sm-1 btn-toolbar flex-column justify-content-between">
                             <div>
                                 <button type="button" id="platformz020102Btn_addRole"
-                                    class="btn cis-btn-blue font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>
                             </div>
                             <div>
                                 <button type="button" id="platformz020102Btn_deleteRole"
-                                    class="btn cis-btn-blue font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-minus"></i>
                                 </button>
                             </div>
@@ -65,14 +65,14 @@
                             <div>
                             <!-- 社区添加 -->
                                 <button type="button" id="platformz020102Btn_addDepartment"
-                                    class="btn ciicsc-btn-danger font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>
                             </div>
                             <div>
                             <!-- 社区删除 -->
                                 <button type="button" id="platformz020102Btn_deleteDepartment"
-                                    class="btn ciicsc-btn-danger font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-minus"></i>
                                 </button>
                             </div>

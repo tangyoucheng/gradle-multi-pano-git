@@ -47,13 +47,13 @@
                         <div class="col-sm-1 btn-toolbar flex-column justify-content-between">
                             <div>
                                 <button type="button" id="platform020101Btn_addRole"
-                                    class="btn platform-btn-blue font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>
                             </div>
                             <div>
                                 <button type="button" id="platform020101Btn_deleteRole"
-                                    class="btn platform-btn-blue font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-minus"></i>
                                 </button>
                             </div>

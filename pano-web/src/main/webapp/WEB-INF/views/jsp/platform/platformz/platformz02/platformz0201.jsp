@@ -31,7 +31,7 @@
                 <div class="form-row">
                     <label class="col-form-label col-sm-1">&nbsp;</label>
                     <div class="col-sm-auto">
-                        <button type="button" id="platformz0201Btn_query" class="btn cis-btn-blue">
+                        <button type="button" id="platformz0201Btn_query" class="btn platform-btn-danger">
                             <span class="glyphicon glyphicon-search"></span>
                             <span>检索</span>
                         </button>

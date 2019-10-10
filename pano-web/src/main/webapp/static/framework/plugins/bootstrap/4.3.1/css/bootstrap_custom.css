@@ -1,3 +1,107 @@
+.platform-btn-danger {
+    color: #fff;
+    background-color: #ed6942;
+    border-color: #ed6942;
+}
+
+.platform-btn-danger:hover {
+    color: #fff;
+    background-color: #FF5722;
+    border-color: #FF5722;
+}
+
+.platform-btn-danger:focus, .platform-btn-danger.focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
+.platform-btn-danger.disabled, .platform-btn-danger:disabled {
+    color: #fff;
+    background-color: #ed6942;
+    border-color: #ed6942;
+}
+
+.platform-btn-danger:not (:disabled ):not (.disabled ):active,
+    .platform-btn-danger:not (:disabled ):not (.disabled ).active, .show>.platform-btn-danger.dropdown-toggle
+    {
+    color: #fff;
+    background-color: #FF5722;
+    border-color: #FF5722;
+}
+
+.platform-btn-danger:not (:disabled ):not (.disabled ):active:focus,
+    .platform-btn-danger:not (:disabled ):not (.disabled ).active:focus,
+    .show>.platform-btn-danger.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
+.platform-btn-outline-danger {
+  color: #FF5722;
+/*   border-color: #FF5722; */
+}
+
+.platform-btn-outline-danger:hover {
+  color: #fff;
+  background-color: #FF5722;
+  border-color: #FF5722;
+}
+
+.platform-btn-outline-danger:focus, .platform-btn-outline-info.focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
+.platform-btn-outline-danger.disabled, .platform-btn-outline-info:disabled {
+  color: #FF5722;
+  background-color: transparent;
+}
+
+.platform-btn-outline-danger:not(:disabled):not(.disabled):active, .platform-btn-outline-info:not(:disabled):not(.disabled).active,
+.show > .platform-btn-outline-info.dropdown-toggle {
+  color: #fff;
+  background-color: #FF5722;
+  border-color: #FF5722;
+}
+
+.platform-btn-outline-danger:not(:disabled):not(.disabled):active:focus, .platform-btn-outline-info:not(:disabled):not(.disabled).active:focus,
+.show > .platform-btn-outline-info.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
+.platform-btn-pink {
+    color: #fff;
+    background-color: #F16B80;
+    border-color: #F16B80;
+}
+
+.platform-btn-pink:hover {
+    color: #fff;
+    background-color: #E64966;
+    border-color: #E64966;
+}
+
+.platform-btn-pink:focus, .platform-btn-pink.focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
+.platform-btn-pink.disabled, .platform-btn-pink:disabled {
+    color: #fff;
+    background-color: #F16B80;
+    border-color: #F16B80;
+}
+
+.platform-btn-pink:not (:disabled ):not (.disabled ):active, .platform-btn-pink:not
+    (:disabled ):not (.disabled ).active, .show>.platform-btn-pink.dropdown-toggle
+    {
+    color: #fff;
+    background-color: #E64966;
+    border-color: #E64966;
+}
+
+.platform-btn-pink:not (:disabled ):not (.disabled ):active:focus,
+    .platform-btn-pink:not (:disabled ):not (.disabled ).active:focus, .show>.platform-btn-pink.dropdown-toggle:focus
+    {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
 .pano-btn-danger {
     color: #fff;
     background-color: #ed6942;

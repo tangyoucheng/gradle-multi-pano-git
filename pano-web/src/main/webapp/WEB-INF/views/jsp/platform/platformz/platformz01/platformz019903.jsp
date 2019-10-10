@@ -17,7 +17,7 @@
             <div class="col-sm-2 input-group">
                 <input type="text" class="form-control" id="txt_value" name="value">
                 <div class="input-group-append btn-group-sm">
-                    <button type="button" id="cis0301Btn_query" class="btn cis-btn-blue badge font-weight-normal">
+                    <button type="button" id="cis0301Btn_query" class="btn platform-btn-danger badge font-weight-normal">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
                 </div>

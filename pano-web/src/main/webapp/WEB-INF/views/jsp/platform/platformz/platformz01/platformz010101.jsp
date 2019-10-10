@@ -47,13 +47,13 @@
                         <div class="col-sm-1 btn-toolbar flex-column justify-content-between">
                             <div>
                                 <button type="button" id="platformz010101Btn_addRole"
-                                    class="btn cis-btn-blue font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>
                             </div>
                             <div>
                                 <button type="button" id="platformz010101Btn_deleteRole"
-                                    class="btn cis-btn-blue font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-minus"></i>
                                 </button>
                             </div>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="form-row">
                         <label class="col-form-label text-right col-sm-1">&nbsp;</label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-auto">
                             <!-- 登录 -->
                             <button type="button" id="btn_entry" class="btn pano-btn-danger">
                                 <span class="glyphicon glyphicon-save" aria-hidden="true"></span>

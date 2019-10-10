@@ -48,14 +48,14 @@
                             <div>
                             <!-- 公司角色添加 -->
                                 <button type="button" id="platformz020101Btn_addRole"
-                                    class="btn ciicsc-btn-danger font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>
                             </div>
                             <div>
                             <!-- 公司角色删除 -->
                                 <button type="button" id="platformz020101Btn_deleteRole"
-                                    class="btn ciicsc-btn-danger font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-minus"></i>
                                 </button>
                             </div>
@@ -72,14 +72,14 @@
                             <div>
                             <!-- 社区添加 -->
                                 <button type="button" id="platformz020101Btn_addDepartment"
-                                    class="btn ciicsc-btn-danger font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>
                             </div>
                             <div>
                             <!-- 社区删除 -->
                                 <button type="button" id="platformz020101Btn_deleteDepartment"
-                                    class="btn ciicsc-btn-danger font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-minus"></i>
                                 </button>
                             </div>
@@ -97,7 +97,7 @@
                         <label class="col-form-label text-right col-sm-1">&nbsp;</label>
                         <div class="col-sm-4">
                             <!-- 登录 -->
-                            <button type="button" id="btn_entry" class="btn ciicsc-btn-danger">
+                            <button type="button" id="btn_entry" class="btn platform-btn-danger">
                                 <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
                                 <c:out value="登录"></c:out>
                             </button>

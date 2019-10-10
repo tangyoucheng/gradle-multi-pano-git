@@ -79,7 +79,7 @@
 
                     <div class="form-row">
                         <label class="col-form-label col-sm-1">&nbsp;</label>
-                        <div class="col-sm-1">
+                        <div class="col-sm-5">
                             <button type="button" id="btn_entry" class="btn pano-btn-danger">
                                 <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
                                 <c:out value="登录"></c:out>

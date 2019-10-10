@@ -14,10 +14,10 @@
         <form:form id="platform019903FormSearch" action="/" modelAttribute="platform019903Form">
             <input type="hidden" id="returnTargetIframe" name="returnTargetIframe" value="${platform019903Form.returnTargetIframe }">
             <label class="col-form-label form-group col-sm-1" for="txt_priority">社区名：</label>
-            <div class="col-sm-2 input-group">
+            <div class="col-sm-auto input-group">
                 <input type="text" class="form-control" id="txt_value" name="value">
                 <div class="input-group-append btn-group-sm">
-                    <button type="button" id="platform0301Btn_query" class="btn platform-btn-blue badge font-weight-normal">
+                    <button type="button" id="platform0301Btn_query" class="btn platform-btn-danger badge font-weight-normal">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
                 </div>

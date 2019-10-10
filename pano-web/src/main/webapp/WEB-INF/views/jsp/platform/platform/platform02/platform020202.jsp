@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-row">
                         <label class="col-form-label text-right col-sm-1">&nbsp;</label>
-                        <div class="col-sm-1">
+                        <div class="col-sm-auto">
                             <!-- 更新 -->
                             <button type="button" id="btn_update" class="btn pano-btn-danger">
                                 <span class="glyphicon glyphicon-save" aria-hidden="true"></span>

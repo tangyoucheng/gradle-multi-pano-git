@@ -37,9 +37,9 @@
                     </div>
                     <div class="form-row">
                         <label class="col-form-label text-right col-sm-1">&nbsp;</label>
-                        <div class="col-sm-1">
+                        <div class="col-sm-auto">
                             <!-- 登录 -->
-                            <button type="button" id="btn_entry" class="btn ciicsc-btn-danger">
+                            <button type="button" id="btn_entry" class="btn platform-btn-danger">
                                 <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
                                 <c:out value="登录"></c:out>
                             </button>

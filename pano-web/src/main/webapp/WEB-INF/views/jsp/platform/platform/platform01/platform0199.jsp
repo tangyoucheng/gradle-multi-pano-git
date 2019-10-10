@@ -29,7 +29,7 @@
                 <div class="form-row">
                     <label class="col-form-label col-sm-1">&nbsp;</label>
                     <div class="col-sm-auto">
-                        <button type="button" id="platform0199Btn_query" class="btn ciicsc-btn-danger">
+                        <button type="button" id="platform0199Btn_query" class="btn platform-btn-danger">
                             <span class="glyphicon glyphicon-search"></span>
                             <span>检索</span>
                         </button>
@@ -42,7 +42,7 @@
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <c:out value="新建"></c:out>
             </button>
-            <button id="platform0199Btn_delete" type="button" class="btn platform-btn-blue">
+            <button id="platform0199Btn_delete" type="button" class="btn platform-btn-danger">
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                 <c:out value="删除"></c:out>
             </button>

@@ -42,13 +42,13 @@
                         <div class="col-sm-1 btn-toolbar flex-column justify-content-between">
                             <div>
                                 <button type="button" id="platform020102Btn_addRole"
-                                    class="btn platform-btn-blue font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>
                             </div>
                             <div>
                                 <button type="button" id="platform020102Btn_deleteRole"
-                                    class="btn platform-btn-blue font-12 p-1 row-edit">
+                                    class="btn platform-btn-danger font-12 p-1 row-edit">
                                     <i class="glyphicon glyphicon-minus"></i>
                                 </button>
                             </div>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="form-row">
                         <label class="col-form-label text-right col-sm-1">&nbsp;</label>
-                        <div class="col-sm-1">
+                        <div class="col-sm-3">
                             <!-- 更新 -->
                             <button type="button" id="btn_update" class="btn pano-btn-danger">
                                 <span class="glyphicon glyphicon-save" aria-hidden="true"></span>

@@ -56,7 +56,7 @@
 
                     <div class="form-row">
                         <label class="col-form-label col-sm-1">&nbsp;</label>
-                        <div class="col-sm-1">
+                        <div class="col-sm-5">
                             <button type="button" id="btn-panovr0201-confirm" class="btn pano-btn-danger">
                                 <span class="glyphicon glyphicon-search"></span>
                                 <c:out value="确定"></c:out>

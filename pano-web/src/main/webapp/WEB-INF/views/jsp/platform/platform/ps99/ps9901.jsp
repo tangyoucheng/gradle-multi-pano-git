@@ -192,7 +192,7 @@
         <div class="footer">
             <div class="pull-right">
                 &copy; 2018
-                <a href="javascript:void(0);" target="_blank">楷码</a>
+                <a href="javascript:void(0);" target="_blank">天涯追梦科技</a>
             </div>
         </div>
     </div>
