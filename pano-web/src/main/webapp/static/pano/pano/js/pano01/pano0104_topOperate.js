@@ -7,7 +7,13 @@ $(document).ready(function() {
     $('#btn_add_pano').click(function() {
         var targetUrl = 'pano0201/';
         var urlParam = {};
-        urlParam['expositionId'] = currentTableRowInfo.expositionId;
+
+        if(currentTableRowInfo && currentTableRowInfo.expositionId){
+            urlParam['expositionId'] = currentTableRowInfo.expositionId;
+        } else {
+            var ajaxSubmitFormData = form2js($("#pano0104FormAjaxSubmit")[0]);
+            urlParam['expositionId'] = ajaxSubmitFormData['expositionId'];
+        }
         targetUrl = targetUrl + '?' + $.param(urlParam);
         window.top.layer.open({
             title : '新增场景',
