@@ -21,7 +21,14 @@ $(document).ready(function() {
 
 // 检索场景信息
 function searchData() {
-    var tableDatas = JSON.parse($('#buttonsInfoJson').val());
+    
+    var tableDatas;
+    if($('#buttonsInfoJson').val().length > 0){
+        tableDatas = JSON.parse($('#buttonsInfoJson').val());
+    } else {
+        return;
+    }
+    
     // 先销毁表格
     $('#buttons-list').bootstrapTable('destroy');
     // 初始化表格,动态从服务器加载数据

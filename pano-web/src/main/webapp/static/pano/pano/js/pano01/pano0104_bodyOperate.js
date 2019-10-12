@@ -4,6 +4,10 @@
 $(document).ready(function() {
     // 设定第一视角处理
     $('#btn_set_lookat').click(function() {
+        // 检查展览ID是否存在
+        if (!currentTableRowInfo.expositionId) {
+            return true;
+        }
 
         // 询问框
         var currentConfirmIndex = window.top.layer.confirm('正在保存当前视角，是否继续？', {
@@ -41,6 +45,11 @@ $(document).ready(function() {
     });
     // 编辑单点热点处理
     $('#btn_edit_hotspot').click(function() {
+        // 检查展览ID是否存在
+        if (!currentTableRowInfo.expositionId) {
+            return true;
+        }
+        
         var targetUrl = 'pano0203/';
         var urlParam = {};
         urlParam['expositionId'] = currentTableRowInfo.expositionId;
@@ -60,6 +69,11 @@ $(document).ready(function() {
     });
     // 编辑多边形热点处理
     $('#btn_edit_hotspot_polygon').click(function() {
+        // 检查展览ID是否存在
+        if (!currentTableRowInfo.expositionId) {
+            return true;
+        }
+        
         var targetUrl = 'pano0108/';
         var urlParam = {};
         urlParam['expositionId'] = currentTableRowInfo.expositionId;
@@ -79,6 +93,11 @@ $(document).ready(function() {
     });
     // 编辑整体效果处理
     $('#btn-edit-exposition-layer').click(function() {
+        // 检查展览ID是否存在
+        if (!currentTableRowInfo.expositionId) {
+            return true;
+        }
+        
         var targetUrl = 'pano0105/';
         var urlParam = {};
         urlParam['expositionId'] = currentTableRowInfo.expositionId;
@@ -97,3 +116,4 @@ $(document).ready(function() {
         });
     });
 });
+

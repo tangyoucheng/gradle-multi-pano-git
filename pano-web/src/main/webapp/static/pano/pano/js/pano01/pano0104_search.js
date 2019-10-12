@@ -78,7 +78,9 @@ function searchData() {
             $('#btn_delete_pano').prop('disabled', true);
 
             if (result.rows.length == 0) {
+                // 清空数据
                 removepano("pano0104KrpanoNewObject");
+                currentTableRowInfo = {};
                 return;
             }
 
