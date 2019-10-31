@@ -93,6 +93,9 @@ project(':pano-framework') {
         compile ('org.springframework.security:spring-security-taglibs')
         compile ("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:$springBootVersion")
         
+        //jpa的jar包 ，操作数据库的，类似hibernate 
+        compile ("org.springframework.boot:spring-boot-starter-data-jpa")
+        
         // 解析客户端操作系统、浏览器等
         compile ("eu.bitwalker:UserAgentUtils:$UserAgentUtilsVersion")
         
@@ -200,9 +203,6 @@ project(':pano-web') {
         compile ('org.springframework.boot:spring-boot-starter-websocket')
         // Spring-context的扩展
         compile ('org.springframework:spring-context-support')
-        
-        //jpa的jar包 ，操作数据库的，类似hibernate 
-        compile ("org.springframework.boot:spring-boot-starter-data-jpa")
         
         // SpringBoot集成JDBC
         //compile ("org.springframework.boot:spring-boot-starter-jdbc")

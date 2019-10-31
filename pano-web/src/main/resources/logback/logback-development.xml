@@ -120,12 +120,12 @@
         <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
             <!-- 默认为 ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
             <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
-                <expression>return message.startsWith("SELECT 1 FROM DUAL")
-                    || event.getThreadName().startsWith("activiti-")
+                <expression>return event.getThreadName().startsWith("activiti-")
                     || event.getThreadName().contains("QuartzScheduler")
                     || event.getLoggerName().contains("org.mybatis.spring.SqlSessionUtils")
                     || event.getLoggerName().contains("org.mybatis.spring.transaction.SpringManagedTransaction")
                     || event.getLoggerName().contains("com.alibaba.druid.pool.PreparedStatementPool")
+                    || message.contains("DataSourceValidationQuery")
                     || message.contains("WorkerThread is shut down")
                     || message.contains("Initializing Thymeleaf Template engine configuration")
                     || message.contains("select RES.* form ACT_RU_JOB")
@@ -159,11 +159,11 @@
         <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
             <!-- 默认为 ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
             <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
-                <expression>return message.startsWith("SELECT 1 FROM DUAL")
-                    || event.getThreadName().contains("QuartzScheduler")
+                <expression>return event.getThreadName().contains("QuartzScheduler")
                     || event.getLoggerName().contains("org.mybatis.spring.SqlSessionUtils")
                     || event.getLoggerName().contains("org.mybatis.spring.transaction.SpringManagedTransaction")
                     || event.getLoggerName().contains("com.alibaba.druid.pool.PreparedStatementPool")
+                    || message.contains("DataSourceValidationQuery")
                     || message.contains("WorkerThread is shut down")
                     || message.contains("Initializing Thymeleaf Template engine configuration")
                     || message.contains("select RES.* form ACT_RU_JOB")
