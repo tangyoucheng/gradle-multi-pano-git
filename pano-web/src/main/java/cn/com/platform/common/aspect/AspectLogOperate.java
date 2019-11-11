@@ -1,5 +1,6 @@
 package cn.com.platform.common.aspect;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
@@ -77,7 +78,7 @@ public class AspectLogOperate {
   protected void handleLog(final JoinPoint joinPoint, final Exception e) {
     try {
       // 获得注解
-      LogOperate controllerLog = getAnnotationLogOperate(joinPoint);
+      LogOperate controllerLog = getAnnotationLogOperate(joinPoint, LogOperate.class);
       if (controllerLog == null) {
         return;
       }
@@ -187,7 +188,7 @@ public class AspectLogOperate {
         Field[] allFields = targetClass.getDeclaredFields();
         // 得到所有需要打印日志的项目
         for (Field field : allFields) {
-          LogLabel fieldLogLabel = getAnnotationLogLabel(field);
+          LogLabel fieldLogLabel = getFieldAnnotation(field, LogLabel.class);
           if (fieldLogLabel != null) {
             ReflectionUtils.makeAccessible(field);
             Object fieldValue = ReflectionUtils.getField(field, arg);
@@ -214,19 +215,20 @@ public class AspectLogOperate {
   }
 
   /**
-   * 是否存在LogOperate注解，如果存在就获取。
+   * 是否存在指定的注解，如果存在就获取。
    * 
    * @param joinPoint JoinPoint
    * @return LogOperate
    * @throws Exception 异常的场合
    */
-  private LogOperate getAnnotationLogOperate(JoinPoint joinPoint) throws Exception {
+  private <T extends Annotation> T getAnnotationLogOperate(JoinPoint joinPoint,
+      Class<T> customAnnotation) throws Exception {
     Signature signature = joinPoint.getSignature();
     MethodSignature methodSignature = (MethodSignature) signature;
     Method method = methodSignature.getMethod();
 
     if (method != null) {
-      return method.getAnnotation(LogOperate.class);
+      return method.getAnnotation(customAnnotation);
     }
     return null;
   }
@@ -238,10 +240,11 @@ public class AspectLogOperate {
    * @return LogLabel
    * @throws Exception 异常的场合
    */
-  private LogLabel getAnnotationLogLabel(Field field) throws Exception {
+  private <T extends Annotation> T getFieldAnnotation(Field field, Class<T> customAnnotation)
+      throws Exception {
 
-    if (field.isAnnotationPresent(LogLabel.class)) {
-      return field.getAnnotation(LogLabel.class);
+    if (field.isAnnotationPresent(customAnnotation)) {
+      return field.getAnnotation(customAnnotation);
     }
     return null;
   }
