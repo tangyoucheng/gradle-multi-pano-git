@@ -36,8 +36,8 @@
                     <div class="form-group form-row">
                         <label class="col-form-label text-right col-sm-1" for="txt_bankCode">角色</label>
                         <div class="col-sm-2">
-                            <cis:select name="rolesId" id="select_role" list="${platformz020102Form.rolesInfo }"
-                                style="height:100px;" className="form-control" multiple="true" blank="false"></cis:select>
+                            <platform:select name="rolesId" id="select_role" list="${platformz020102Form.rolesInfo }"
+                                style="height:100px;" className="form-control" multiple="true" blank="false"></platform:select>
                         </div>
                         <div class="col-sm-1 btn-toolbar flex-column justify-content-between">
                             <div>
@@ -58,8 +58,8 @@
                     <div class="form-group form-row">
                         <label class="col-form-label text-right col-sm-1" for="txt_bankCode">社区选择</label>
                         <div class="col-sm-2">
-                            <cis:select name="departmentsId" id="select_department" list="${platformz020102Form.departmentsInfo }" style="height:100px;"
-                                className="form-control" multiple="true" blank="false"></cis:select>
+                            <platform:select name="departmentsId" id="select_department" list="${platformz020102Form.departmentsInfo }" style="height:100px;"
+                                className="form-control" multiple="true" blank="false"></platform:select>
                         </div>
                         <div class="col-sm-1 btn-toolbar flex-column justify-content-between">
                             <div>

@@ -135,9 +135,9 @@ function searchData() {
                 var showData = '';
                 // 编辑按钮
                 showData = showData + '<a href="javascript:void(0);" ';
-                showData = showData + ' class="btn cis-btn-blue font-12 p-1 row-edit"';
+                showData = showData + ' class="btn pano-btn-danger font-12 p-1 row-edit"';
                 showData = showData + '>';
-                showData = showData + '<span class="glyphicon glyphicon-search"></span>&nbsp;编辑';
+                showData = showData + '<span class="glyphicon glyphicon-pencil"></span>&nbsp;编辑';
                 showData = showData + '</a>';
                 return showData;
             }

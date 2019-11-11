@@ -41,8 +41,8 @@
                     <div class="form-group form-row">
                         <label class="col-form-label text-right col-sm-1" for="txt_bankCode">角色</label>
                         <div class="col-sm-2">
-                            <cis:select name="rolesId" id="select_member_role" style="height:100px;"
-                                className="form-control" multiple="true" blank="false"></cis:select>
+                            <platform:select name="rolesId" id="select_member_role" style="height:100px;"
+                                className="form-control" multiple="true" blank="false"></platform:select>
                         </div>
                         <div class="col-sm-1 btn-toolbar flex-column justify-content-between">
                             <div>

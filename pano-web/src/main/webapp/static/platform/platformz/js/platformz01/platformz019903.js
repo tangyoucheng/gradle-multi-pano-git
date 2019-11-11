@@ -82,7 +82,7 @@ function searchData() {
                 var showData = '';
                 // 选择按钮
                 showData = showData + '<a href="javascript:void(0);" ';
-                showData = showData + ' class="btn cis-btn-blue font-12 p-1 row-choose"';
+                showData = showData + ' class="btn pano-btn-danger font-12 p-1 row-choose"';
                 showData = showData + '>';
                 showData = showData + '<span class="glyphicon glyphicon-edit"></span>&nbsp;选择';
                 showData = showData + '</a>';
