@@ -210,8 +210,6 @@
  
     <hotspot ath="-164" atv="4" distorted="true" name="v_5it1nz5aght9o" onclick="stopsound(hotspotsnd);set(layer[V_5it1q9bnqt4fc].zorder,2);set(layer[V_5it1q9bnqxlfd].zorder,3);set(layer[V_5it1qa7ef2pp9].zorder,3);activatespot(V_5it1q9bnqt4fc,0);set(layer[radar].heading,-70);set(layer[tooltip].visible,false);playBefore(v_5it1lns36n3w6,null,null);skin_getBoder('v_5it1lns36n3w6');set(hotspot[recommedInfoHotspot].visible,false);" scale="0.4" style="tooltip" tooltip="点击前往" url="com_mats/images/5it1n1lke0dhc/5it1n1lke0dhc.jpg" zoom="true" zorder="1"/>
  
-    <hotspot ath="" atv="" distorted="true" handcursor="false" name="v_5it1nzcbovka0" scale="0.3" style="tooltip|normalhs" tooltip="" url="com_mats/images/5it1nzbcqn69u/5it1nzbcqn69u.jpg" zoom="true" zorder="1"/>
- 
     <hotspot ath="130" atv="-6" distorted="true" galleryname="v_5it1ovjvf01cj_gallery" name="v_5it1ovjvf01cj" onclick="show_gallery(get(galleryname))" scale="0.7" style="tooltip|normalhs" tooltip="" url="com_mats/images/5it1ny6nbauva/5it1ny6nbauva.png" zoom="true" zorder="1"/>
  
     <gallery name="v_5it1ovjvf01cj_gallery">
@@ -222,7 +220,7 @@
  
     <hotspot ath="11" atv="-20" distorted="true" name="v_5it1rn5pi5gqf" onclick="js(doOpenTextImgPage('5it1rn5pi5gqf'))" scale="1" style="tooltip|normalhs" tooltip="" url="com_mats/images/5it1ny6nbauva/5it1ny6nbauva.png" zoom="true" zorder="1"/>
  
-    <hotspot borderalpha="0.1" distorted="true" fillalpha="0.1" fillcolor="0xf039e1" galleryname="v_5it1s3o82aoag_gallery" name="v_5it1s3o82aoag" onclick="show_gallery(get(galleryname))" onhover="set('hotspot[v_5it1s3o82aoag].fillcolor',0xf039e1);set('hotspot[v_5it1s3o82aoag].fillalpha',0.57);set('hotspot[v_5it1s3o82aoag].borderwidth',0);" onloaded="set(hotspot[v_5it1s3o82aoag].onout,callToolTipOutEvent();set(hotspot[v_5it1s3o82aoag].fillalpha,0.1);set(hotspot[v_5it1s3o82aoag].borderalpha,0.1););" style="tooltip|normalhs" tooltip="" zoom="true" zorder="0">
+    <hotspot borderalpha="0.1" distorted="true" fillalpha="0.1" fillcolor="0xf0161d" galleryname="v_5it1s3o82aoag_gallery" name="v_5it1s3o82aoag" onclick="show_gallery(get(galleryname))" onhover="set('hotspot[v_5it1s3o82aoag].fillcolor',0xf0161d);set('hotspot[v_5it1s3o82aoag].fillalpha',0.57);set('hotspot[v_5it1s3o82aoag].borderwidth',0);" onloaded="set(hotspot[v_5it1s3o82aoag].onout,callToolTipOutEvent();set(hotspot[v_5it1s3o82aoag].fillalpha,0.1);set(hotspot[v_5it1s3o82aoag].borderalpha,0.1););" style="tooltip|normalhs" tooltip="" zoom="true" zorder="0">
  
       <point ath="47" atv="-17"/>
  

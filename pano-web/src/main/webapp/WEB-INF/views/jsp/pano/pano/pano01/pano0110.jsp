@@ -7,6 +7,8 @@
 <head>
 <pano:head></pano:head>
 <script src="static/pano/pano/js/pano01/pano0110.js"></script>
+<!-- 剪切板处理插件clipboard -->
+<script src="webjars/clipboard/2.0.4/dist/clipboard.min.js"></script>
 </head>
 <body>
     <div class="card-body">

@@ -246,6 +246,8 @@ project(':pano-web') {
             compile ("org.webjars.npm:cropperjs:$cropperVersion"),
             // bootstrap-select
             compile ("org.webjars:bootstrap-select:$bootstrapSelectVersion"),
+            // 拷贝处理插件Clipboard
+            compile ("org.webjars.bower:clipboard:$clipboardVersion"),
             
         )       
         // 表单验证插件 jquery-validation

@@ -36,6 +36,9 @@ ext {
     jqueryUiVersion = "1.12.1"
     // fullCalendarバージョン
     fullCalendarVersion = "3.9.0"
+    // clipboardバージョン
+    clipboardVersion = "2.0.4"
+	
     // commons-lang3バージョン
     commonsLang3Version = "3.9"
     // guavaバージョン

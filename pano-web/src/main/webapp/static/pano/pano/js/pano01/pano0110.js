@@ -1,48 +1,12 @@
-var i = 0;
 // ================================================
 // 展览一览画面检索
 // ================================================
 $(document).ready(function() {
 
-    // 复制url
-    $('#button-copy-confirm').click(function() {
-        // var url=$('#ic0110SelectedShortCutUrl').text();
-        // window.clipboardData.setData('text', url);
-        // if(window.clipboardData.getData('text')==''){
-        // imuiAlert("复制失败，请刷新页面后重新复制！");
-        // }else{
-        // $("<div>复制成功！</div>").imuiMessageDialog({
-        // iconType: 'im-ui-icon-common-24-confirmation',
-        // verticalAlign: 'middle'
-        // });
-        // }
-        //        
-        $('#ic0110SelectedShortCutUrl').select();
-        document.execCommand('Copy');
-        $("<div>复制成功！</div>").imuiMessageDialog({
-            iconType : 'im-ui-icon-common-24-confirmation',
-            verticalAlign : 'middle'
-        });
-    });
-
     // 检索处理
     $("#btn_query").click(function() {
         // 检索处理
         searchData();
-    });
-
-    // 发布成功后确定处理
-    $('#button-releaseFinish-copy-confirm').click(function() {
-        var url = $('#selectedShortCutUrl').text();
-        window.clipboardData.setData('text', url);
-        if (window.clipboardData.getData('text') == '') {
-            imuiAlert("复制失败，请刷新页面后重新复制！");
-        } else {
-            $("<div>复制成功！</div>").imuiMessageDialog({
-                iconType : 'im-ui-icon-common-24-confirmation',
-                verticalAlign : 'middle'
-            });
-        }
     });
 
     // bootstrapTable初始化
@@ -55,111 +19,6 @@ $(document).ready(function() {
     searchData();
 
 });
-
-// 关闭提示框操作
-function closeDialogAndRefresh() {
-    $("#search-form").attr("action", 'pano0110/doRefreshByself');
-    $("#search-form").submit();
-}
-
-// 下载展览
-function doDownloadExposition(_expositionId) {
-    $("#ic0101SelectedExpId").val(_expositionId);
-    $("#downloadExpositionForm").submit();
-}
-
-// 下载VR展览
-function doDownloadExposition_vr(_expositionId) {
-    $("#ic0101SelectedExpId_vr").val(_expositionId);
-    $("#downloadExpositionForm_vr").submit();
-}
-
-// 全景图编辑按钮
-function editPanorama(_expositionId) {
-    $("#thisFlagIsFromIc0110").val('yes');
-    $("#hidpExpositionId").val(_expositionId);
-    $("#hidepExpositionId").val(_expositionId);
-
-    var _ajaxUrl = getMemberContextPath('pano0110/doVrFlag');
-    var param = '';
-    param = param + '&selectedExpositionId=' + _expositionId;
-    jQuery.post(_ajaxUrl, param, function(data) {
-        if (CommonUtilJs.processAjaxSuccessAfter(data)) {
-            if (data == "0") {
-                $("#goto-ic0104-form").submit();
-            } else {
-                $("#goto-vr0104-form").submit();
-            }
-        }
-
-    });
-
-}
-
-// 展览发布
-function doRealeaseExpro(_tenantId, _expositionId) {
-    imuiConfirm('是否发布该展览?', '确认', function() {
-        $(".imui-validation-error").remove();
-        // 打开loading图
-        eval("$('#ic0110Releasing').imuiDialog('open')");
-        var _ajaxUrl = getMemberContextPath('pano0110/doRelease');
-        var param = '';
-        param = param + '&selectedExpositionId=' + _expositionId;
-        jQuery.post(_ajaxUrl, param, function(data) {
-            if (CommonUtilJs.processAjaxSuccessAfter(data)) {
-                var _link = window.location.protocol;
-                _link = _link + '//' + window.location.host;
-                _link = _link + getMemberContextPath("statictour/" + _tenantId + '/' + _expositionId + "/index.html");
-                $("#selectedShortCutUrl").text(_link);
-                eval("$('#ic0110Releasing').imuiDialog('close')");
-                eval("$('#ic0110ReleaseFinish').imuiDialog('open')");
-            }
-
-        });
-    });
-}
-
-// VR展览发布
-function doRealeaseExpro_vr(_tenantId, _expositionId) {
-    imuiConfirm('是否发布该展览?', '确认', function() {
-        $(".imui-validation-error").remove();
-        // 打开loading图
-        eval("$('#ic0110Releasing').imuiDialog('open')");
-        var _ajaxUrl = getMemberContextPath('pano0110/doRelease_vr');
-        var param = '';
-        param = param + '&selectedExpositionId=' + _expositionId;
-        jQuery.post(_ajaxUrl, param, function(data) {
-            if (CommonUtilJs.processAjaxSuccessAfter(data)) {
-                var _link = window.location.protocol;
-                _link = _link + '//' + window.location.host;
-                _link = _link
-                        + getMemberContextPath("statictour/" + _tenantId + '/' + _expositionId + "_vr/index.html");
-                $("#selectedShortCutUrl").text(_link);
-                eval("$('#ic0110Releasing').imuiDialog('close')");
-                eval("$('#ic0110ReleaseFinish').imuiDialog('open')");
-            }
-
-        });
-    });
-}
-
-// 全景图查看按钮
-function doCreateShortCutUrl(_tenantId, _expositionId) {
-    var _link = window.location.protocol;
-    _link = _link + '//' + window.location.host;
-    _link = _link + getMemberContextPath('statictour/' + _tenantId + '/' + _expositionId + '/index.html');
-    $("#ic0110SelectedShortCutUrl").val(_link);
-    eval("$('#ic0110ShowShortCutUrl').imuiDialog('open')");
-}
-
-// VR全景图查看按钮
-function doCreateShortCutUrl_vr(_tenantId, _expositionId) {
-    var _link = window.location.protocol;
-    _link = _link + '//' + window.location.host;
-    _link = _link + getMemberContextPath('statictour/' + _tenantId + '/' + _expositionId + '_vr/index.html');
-    $("#ic0110SelectedShortCutUrl").val(_link);
-    eval("$('#ic0110ShowShortCutUrl').imuiDialog('open')");
-}
 
 function searchData() {
     // 先销毁表格
@@ -347,30 +206,41 @@ function doDownload(tableRowInfo) {
 
 // 拷贝URL
 function doCopyUrl(tableRowInfo) {
-    var targetUrl = 'pano01003/';
-    targetUrl = targetUrl + '?departmentId=' + tableRowInfo.departmentId;
-    window.top.layer.open({
-        title : '编辑社区',
-        type : 2,
-        closeBtn : 1, // 显示关闭按钮
-        area : [ '90%', '90%' ], // 宽高
-        content : [ getMemberContextPath(targetUrl), 'yes' ],
-        end : function() {
-            searchData();
-        }
+    var _link = window.location.protocol;
+    _link = _link + '//' + window.location.host;
+    _link = _link + getContextPath("statictour_app/" + tableRowInfo.expositionId + "_vr/index.html");
+
+    // 做成一个临时按钮
+    var tempBtnShare = document.createElement("button");
+    tempBtnShare.setAttribute('data-clipboard-text', _link);
+    // 实例化ClipboardJS对象
+    var clipboard = new ClipboardJS(tempBtnShare);
+
+    clipboard.on('success', function(e) {
+        window.top.showSuccessMessage("链接复制成功", false, 3);
     });
+
+    clipboard.on('error', function(e) {
+        var errorMsgList = [];
+        errorMsgList.push("链接复制失败，请刷新页面后重新复制！");
+        window.top.showErrorMessage(errorMsgList, false, 3);
+    });
+
+    // 触发ClipboardJS处理
+    tempBtnShare.click();
+
 };
 
 // 预览
 function doPreview(tableRowInfo) {
-    var targetUrl = 'pano01003/';
-    targetUrl = targetUrl + '?departmentId=' + tableRowInfo.departmentId;
+    var targetUrl = 'statictour_app/';
+    targetUrl = targetUrl + tableRowInfo.expositionId+ '_vr/index.html' ;
     window.top.layer.open({
-        title : '编辑社区',
+        title : tableRowInfo.expositionName + '预览',
         type : 2,
         closeBtn : 1, // 显示关闭按钮
-        area : [ '90%', '90%' ], // 宽高
-        content : [ getMemberContextPath(targetUrl), 'yes' ],
+        area : [ '90%', '100%' ], // 宽高
+        content : [ getContextPath(targetUrl), 'yes' ],
         end : function() {
             searchData();
         }
