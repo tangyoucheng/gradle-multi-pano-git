@@ -258,7 +258,7 @@
         UPDATE ic_w_m_panorama_hotspot
         SET hotspot_url_type=''
         WHERE (hotspot_url_type = '2' OR hotspot_url_type = '4')
-              AND hotspot_id NOT IN (SELECT hotspot_id
+              AND hotspot_id NOT IN (SELECT hotspot_id  
                                     FROM ic_w_m_hotspot_url)
     </select>
 
