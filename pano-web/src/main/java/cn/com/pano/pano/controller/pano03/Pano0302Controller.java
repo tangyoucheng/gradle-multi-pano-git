@@ -1,6 +1,5 @@
 package cn.com.pano.pano.controller.pano03;
 
-import org.apache.tomcat.util.http.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -56,6 +55,17 @@ public class Pano0302Controller extends BaseController {
   @RequestMapping("/doSearch")
   public EasyJson<Object> doSearch(Pano0302Form inForm) throws Exception {
     return pano0302SearchService.searchMaterial(inForm);
+  }
+
+  /**
+   * 删除处理。
+   * 
+   * @param inForm Pano0306Form
+   */
+  @ResponseBody
+  @RequestMapping("/doDelete")
+  public EasyJson<Object> doDelete(Pano0302Form inForm) throws Exception {
+    return pano0302UpdateService.doDeleteMaterial(inForm);
   }
 
   /**

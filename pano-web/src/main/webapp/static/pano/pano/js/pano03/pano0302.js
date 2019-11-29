@@ -53,6 +53,49 @@ $(document).ready(function() {
         });
     });
 
+    // 删除
+    $("#btn_delete").click(function() {
+
+        // 询问框
+        var currentConfirmIndex = window.top.layer.confirm('本操作会删除选中的数据，是否继续？', {
+            icon : 3,
+            title : '提示信息',
+            btn : [ '确认', '取消' ]
+        // 按钮
+        }, function() { // 确认操作
+            // 表单数据转换成JS对象
+            var ajaxSubmitFormData = form2js($("#pano0302FormAjaxSubmit")[0]);
+            var uniqueKeyArray = new Array();
+            uniqueKeyArray = $.map($('#table-material-info').bootstrapTable('getSelections'), function(row) {
+                // materialId前台传入后台的数据
+                return row.materialId;
+            });
+            ajaxSubmitFormData['uniqueKeyList'] = uniqueKeyArray;
+
+            window.top.layer.close(currentConfirmIndex);
+
+            $.ajax({
+                type : 'post',
+                traditional : true,
+                data : ajaxSubmitFormData,
+                dataType : 'json',
+                url : getMemberContextPath('pano0302/doDelete'),
+                success : function(result) {
+                    if (CommonUtilJs.processAjaxSuccessAfter(result)) {
+                        // 重新检索画面
+                        searchData();
+                    }
+                }
+            // ,
+            // error : function() {
+            // }
+            });
+        }, function() {
+            // 取消操作
+        });
+
+    });
+
     // 转移处理
     $("#btn_move").click(function() {
 

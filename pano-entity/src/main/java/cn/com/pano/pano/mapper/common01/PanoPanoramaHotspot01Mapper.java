@@ -59,6 +59,16 @@ public interface PanoPanoramaHotspot01Mapper extends PanoPanoramaHotspotMapper {
       HashMap<?, ?> conditions);
 
   /**
+   * 以热点URL种类和热点ID为条件，更新对应图上热点URL种类。
+   * 
+   * @param _conditions
+   * @return
+   * @return
+   * @throws Exception
+   */
+  public void updateHotspotUrlType(HashMap<?, ?> conditions);
+
+  /**
    * 全景图热点坐标检索
    * 
    * @param _conditions
@@ -131,15 +141,5 @@ public interface PanoPanoramaHotspot01Mapper extends PanoPanoramaHotspotMapper {
    * @throws Exception
    */
   public void deleteHotSpotByMaterial(HashMap<?, ?> conditions);
-
-  /**
-   * 以热点URL种类和热点ID为条件，更新对应图上热点URL种类。
-   * 
-   * @param _conditions
-   * @return
-   * @return
-   * @throws Exception
-   */
-  public void updateHotspotUrlType(HashMap<?, ?> conditions);
 
 }

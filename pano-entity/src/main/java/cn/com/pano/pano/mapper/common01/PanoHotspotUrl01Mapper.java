@@ -38,6 +38,15 @@ public interface PanoHotspotUrl01Mapper extends PanoHotspotUrlMapper {
   public List<PanoHotspotUrl> selectHotspotUrlByExpositionId(HashMap<?, ?> conditions);
 
   /**
+   * 以素材为条件，删除对应的热点URL信息。
+   * 
+   * @param _conditions
+   * @return
+   */
+  public void deleteUrlInfoByMaterial(HashMap<?, ?> _conditions);
+  
+
+  /**
    * 根据全景图ID 查询
    * 
    * @param _conditions
@@ -68,14 +77,6 @@ public interface PanoHotspotUrl01Mapper extends PanoHotspotUrlMapper {
    * @return
    */
   public void clearHotspotMaterialImage(HashMap<?, ?> _conditions);
-
-  /**
-   * 以素材为条件，删除对应的热点URL信息。
-   * 
-   * @param _conditions
-   * @return
-   */
-  public void deleteUrlInfoByMaterial(HashMap<?, ?> _conditions);
 
   /**
    * 音乐热点情况，删除音乐热点下除sortKey等于0的所有Hotspoturl信息

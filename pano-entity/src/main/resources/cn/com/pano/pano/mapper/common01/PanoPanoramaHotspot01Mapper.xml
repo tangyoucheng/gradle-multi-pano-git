@@ -253,5 +253,13 @@
         WHERE
             w_expo.exposition_id= #{expositionId}
     </select>
+    <!-- 以热点URL种类和热点ID为条件，更新对应图上热点URL种类。 -->
+    <select id="selectPanoramaHostSpotByExpositionId" parameterType="map" resultMap="BaseResultMap">
+        UPDATE ic_w_m_panorama_hotspot
+        SET hotspot_url_type=''
+        WHERE (hotspot_url_type = '2' OR hotspot_url_type = '4')
+              AND hotspot_id NOT IN (SELECT hotspot_id
+                                    FROM ic_w_m_hotspot_url)
+    </select>
 
 </mapper>
