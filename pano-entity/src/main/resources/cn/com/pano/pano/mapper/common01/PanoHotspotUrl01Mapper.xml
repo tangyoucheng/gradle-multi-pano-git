@@ -81,24 +81,28 @@
     <!-- 以素材为条件，删除对应的热点URL信息。 -->
     <select id="deleteUrlInfoByMaterial" parameterType="map" resultMap="BaseResultMap">
         DELETE 
-        FROM ic_w_m_hotspot_url
-        WHERE hotspot_id || hotspot_url_object_id IN 
+        FROM pano_hotspot_url
+        WHERE CONCAT(hotspot_id , hotspot_url_object_id) IN 
                                                     (
-                                                    SELECT hotspot_url.hotspot_id || hotspot_url.hotspot_url_object_id
+                                                    SELECT *
                                                     FROM
-                                                        ic_w_m_hotspot_url hotspot_url
-                                                        INNER JOIN (
-                                                                    SELECT hotspot_url.hotspot_id,hotspot_url.hotspot_url_object_id
-                                                                    FROM ic_w_m_hotspot_url hotspot_url
-                                                                    WHERE
-                                                                        hotspot_url.hotspot_url_object_id = #{materialId}
-                                                                    UNION 
-                                                                    SELECT hotspot_url.hotspot_id,hotspot_url.hotspot_url_object_id
-                                                                    FROM ic_w_m_hotspot_url hotspot_url
-                                                                        INNER JOIN ic_w_m_panorama_hotspot panorama_hotspot ON (panorama_hotspot.hotspot_id = hotspot_url.hotspot_id
-                                                                                                                                AND panorama_hotspot.hotspot_image_id = #{materialId})
-                                                                   ) hotspot_urls ON  (hotspot_urls.hotspot_id = hotspot_url.hotspot_id
-                                                                                       AND hotspot_urls.hotspot_url_object_id = hotspot_url.hotspot_url_object_id)
+                                                        (
+                                                            SELECT CONCAT(hotspot_url.hotspot_id , hotspot_url.hotspot_url_object_id)
+                                                            FROM
+                                                                pano_hotspot_url hotspot_url
+                                                                INNER JOIN (
+                                                                            SELECT hotspot_url.hotspot_id,hotspot_url.hotspot_url_object_id
+                                                                            FROM pano_hotspot_url hotspot_url
+                                                                            WHERE
+                                                                                hotspot_url.hotspot_url_object_id = #{materialId}
+                                                                            UNION 
+                                                                            SELECT hotspot_url.hotspot_id,hotspot_url.hotspot_url_object_id
+                                                                            FROM pano_hotspot_url hotspot_url
+                                                                                INNER JOIN pano_panorama_hotspot panorama_hotspot ON (panorama_hotspot.hotspot_id = hotspot_url.hotspot_id
+                                                                                                                                        AND panorama_hotspot.hotspot_image_id = #{materialId})
+                                                                           ) hotspot_urls ON  (hotspot_urls.hotspot_id = hotspot_url.hotspot_id
+                                                                                               AND hotspot_urls.hotspot_url_object_id = hotspot_url.hotspot_url_object_id)
+                                                        ) deleteTable
                                                     )
     </select>
 </mapper>

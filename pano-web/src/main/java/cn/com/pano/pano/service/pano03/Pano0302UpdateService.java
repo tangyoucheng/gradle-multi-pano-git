@@ -1,8 +1,11 @@
 package cn.com.pano.pano.service.pano03;
 
+import java.io.File;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,7 @@ import cn.com.pano.pano.mapper.common01.PanoPanoramaHotspot01Mapper;
 import cn.com.pano.pano.model.common.PanoHotspotUrl;
 import cn.com.pano.pano.model.common.PanoMaterial;
 import cn.com.pano.pano.model.common.PanoPanoramaHotspot;
+import cn.com.pano.pano.model.common.PanoPanoramaHotspotQuery;
 import cn.com.pano.pano.model.common01.PanoMaterial01Model;
 import cn.com.platform.util.EasyJson;
 import cn.com.platform.web.BaseService;
@@ -213,7 +217,9 @@ public class Pano0302UpdateService extends BaseService {
           // 通过素材更新对应的全景图上热点URL种类信息
           panoPanoramaHotspot01Mapper.updateHotspotUrlType(_condition);
           // 通过素材删除对应的全景图上热点信息
-          panoPanoramaHotspot01Mapper.deleteHotSpotByMaterial(_condition);
+          PanoPanoramaHotspotQuery conditions = new PanoPanoramaHotspotQuery();
+          conditions.createCriteria().andHotspotImageIdEqualTo(panoMaterial.materialId);
+          panoPanoramaHotspot01Mapper.deleteByBaseModel(conditions);
         }
         // 删除该素材
         panoMaterial01Mapper.deleteByPrimaryKey(panoMaterial.materialId);
@@ -247,18 +253,20 @@ public class Pano0302UpdateService extends BaseService {
       if (!PanoConstantsIF.MATERIAL_TYPE_FLOW_INFO_TEXT.equals(panoMaterial.materialTypeId)) {
         if (PanoConstantsIF.MATERIAL_TYPE_SOUND.equals(panoMaterial.materialTypeId)) {
           // 声音素材
-          srcPath = "file_w/material/common_material/sounds/" + panoMaterial.materialId;
+          srcPath = "material/common_material/sounds/" + panoMaterial.materialId;
         } else if (PanoConstantsIF.MATERIAL_TYPE_VIDEO.equals(panoMaterial.materialTypeId)) {
           // 视频
-          srcPath = "file_w/material/common_material/videos/" + panoMaterial.materialId;
+          srcPath = "material/common_material/videos/" + panoMaterial.materialId;
         } else {
           // 其他素材
-          srcPath = "file_w/material/common_material/images/" + panoMaterial.materialId;
+          srcPath = "material/common_material/images/" + panoMaterial.materialId;
         }
       }
       if (!PanoConstantsIF.MATERIAL_TYPE_FLOW_INFO_TEXT.equals(panoMaterial.materialTypeId)) {
         // 旧文件删除
-        FileServiceUtil.deletePublicStorageFolder(srcPath);
+        String destPublicPath =
+            MessageFormat.format(PanoConstantsIF.VAL_PUBLIC_DIRECTORY_W, srcPath);
+        FileUtils.deleteDirectory(new File(destPublicPath).getAbsoluteFile());
       }
 
     } else { // 展览素材转的场合
@@ -268,20 +276,22 @@ public class Pano0302UpdateService extends BaseService {
         if (PanoConstantsIF.MATERIAL_TYPE_SOUND.equals(panoMaterial.materialTypeId)) {
           // 声音素材
           srcPath =
-              "file_w/material/" + panoMaterial.expositionId + "/sounds/" + panoMaterial.materialId;
+              "material/" + panoMaterial.expositionId + "/sounds/" + panoMaterial.materialId;
         } else if (PanoConstantsIF.MATERIAL_TYPE_VIDEO.equals(panoMaterial.materialTypeId)) {
           // 视频
           srcPath =
-              "file_w/material/" + panoMaterial.expositionId + "/videos/" + panoMaterial.materialId;
+              "material/" + panoMaterial.expositionId + "/videos/" + panoMaterial.materialId;
         } else {
           // 其他素材
           srcPath =
-              "file_w/material/" + panoMaterial.expositionId + "/images/" + panoMaterial.materialId;
+              "material/" + panoMaterial.expositionId + "/images/" + panoMaterial.materialId;
         }
       }
       if (!PanoConstantsIF.MATERIAL_TYPE_FLOW_INFO_TEXT.equals(panoMaterial.materialTypeId)) {
         // 旧文件删除
-        FileServiceUtil.deletePublicStorageFolder(srcPath);
+        String destPublicPath =
+            MessageFormat.format(PanoConstantsIF.VAL_PUBLIC_DIRECTORY_W, srcPath);
+        FileUtils.deleteDirectory(new File(destPublicPath).getAbsoluteFile());
       }
 
     }

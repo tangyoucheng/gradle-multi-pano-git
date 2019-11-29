@@ -65,6 +65,16 @@ public class Pano0208SearchService extends BaseService {
 
     // 素材信息详细
     inForm.materialInfo = pano0208Mapper.selectMaterialInfo(condition);
+    if (inForm.materialInfo != null) {
+      for (PanoMaterial01Model panoMaterial01Model : inForm.materialInfo) {
+        // 判断该素材是否是gif图并是否有生产对应的png图
+        panoMaterial01Model.hasPngImage = "false";
+        if (!ObjectUtils.isEmpty(panoMaterial01Model.gifDelayTime)) {
+          panoMaterial01Model.hasPngImage = "true";
+        }
+      }
+    }
+    
     // if (inForm.materialInfo != null) {
     // for (PanoMaterial01Model pano0208Dto : inForm.materialInfo) {
     // String _srcPath;

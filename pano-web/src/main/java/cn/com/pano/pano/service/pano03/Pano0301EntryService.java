@@ -135,12 +135,16 @@ public class Pano0301EntryService extends BaseService {
             PanoConstantsIF.MATERIAL_FOLDER_NAME + materialFolderPath,
             inForm.materialId + "/" + srcAppFileName);
 
+        File gifFile = new File(gifPath);
+
         srcAppFileName = srcAppFileName.substring(0, srcAppFileName.lastIndexOf(".")) + ".png";
         String gifDestPath = MessageFormat.format(PanoConstantsIF.VAL_PUBLIC_DIRECTORY_W_IMAGE,
             PanoConstantsIF.MATERIAL_FOLDER_NAME + materialFolderPath,
             inForm.materialId + "/" + srcAppFileName);
         // 返回生成小png图片的宽，高，帧数，延迟时间
-        String[] result = FileServiceUtil.splitAndSaveGif(gifPath, gifDestPath);
+        File gifDestFile = new File(gifDestPath);
+        String[] result = FileServiceUtil.splitAndSaveGif(gifFile.getAbsolutePath(),
+            gifDestFile.getAbsolutePath());
         if (result.length == 4) {
           panoMaterial.gifWidth = result[0];
           panoMaterial.gifHeight = result[1];

@@ -168,7 +168,7 @@ function loadPano0104HotspotInfo() {
             krpano.call('addstyle(' + gifstyle + ')');
             krpano.set('style[' + gifstyle + '].name', gifstyle);
             var hotspotImagePathForGif = hotspotImagePath.substring(0, hotspotImagePath.lastIndexOf(".")) + ".png";
-            krpano.set('style[' + gifstyle + '].url', hotspotImagePath);
+            krpano.set('style[' + gifstyle + '].url', hotspotImagePathForGif);
             krpano.set('style[' + gifstyle + '].crop', '0|0|' + recordData.gifWidth + '|' + recordData.gifHeight);
             krpano.set('style[' + gifstyle + '].framewidth', recordData.gifWidth);
             krpano.set('style[' + gifstyle + '].frameheight', recordData.gifHeight);
