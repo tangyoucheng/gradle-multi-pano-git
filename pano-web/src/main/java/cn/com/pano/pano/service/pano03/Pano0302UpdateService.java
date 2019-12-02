@@ -19,9 +19,11 @@ import cn.com.pano.pano.mapper.common01.PanoHotspotUrl01Mapper;
 import cn.com.pano.pano.mapper.common01.PanoMaterial01Mapper;
 import cn.com.pano.pano.mapper.common01.PanoPanoramaHotspot01Mapper;
 import cn.com.pano.pano.model.common.PanoHotspotUrl;
+import cn.com.pano.pano.model.common.PanoHotspotUrlQuery;
 import cn.com.pano.pano.model.common.PanoMaterial;
 import cn.com.pano.pano.model.common.PanoPanoramaHotspot;
 import cn.com.pano.pano.model.common.PanoPanoramaHotspotQuery;
+import cn.com.pano.pano.model.common01.PanoHotspotUrl01Model;
 import cn.com.pano.pano.model.common01.PanoMaterial01Model;
 import cn.com.platform.util.EasyJson;
 import cn.com.platform.web.BaseService;
@@ -181,11 +183,12 @@ public class Pano0302UpdateService extends BaseService {
         } else {
           // 该素材为图片
           if (PanoConstantsIF.MATERIAL_TYPE_HOTSPOT_IMAGE.equals(panoMaterial.materialTypeId)) {
-
-            List<PanoHotspotUrl> result = panoHotspotUrl01Mapper.findByMaterialId(_condition);
+            PanoHotspotUrlQuery hotspotUrlQuery = new PanoHotspotUrlQuery();
+            hotspotUrlQuery.createCriteria().andHotspotUrlObjectIdEqualTo(materialId);
+            List<PanoHotspotUrl01Model> result = panoHotspotUrl01Mapper.selectByBaseModel(hotspotUrlQuery);
             if (result != null && result.size() > 0) {
               // 该素材为音乐热点的某一图片
-              for (PanoHotspotUrl hotspotUrl : result) {
+              for (PanoHotspotUrl01Model hotspotUrl : result) {
                 HashMap<String, Object> condition = Maps.newHashMap();
                 condition.put("hotspotId", hotspotUrl.hotspotId);
                 List<PanoHotspotUrl> hotspotUrls =
