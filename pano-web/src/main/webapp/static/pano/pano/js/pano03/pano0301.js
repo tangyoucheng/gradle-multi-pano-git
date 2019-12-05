@@ -349,9 +349,14 @@ function hideEdit() {
     } else {
         $('#material_file_upload_div').show();
         $('#div_previewMateria').show();
-        if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_CHANGE_SCENE) {
+        
+        // 普通热点，场景切换热点，logo热点的场合，可以上传帧动画图片。
+        if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_CHANGE_SCENE
+                || materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_IMAGE
+                || materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_LOGO) {
             $("#div_sprite_info").show(); // 数值排列帧动画信息
         }
+        
         if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_IMAGE_TEXT) {
             $("#div_text_info").show(); // 图文文字信息
         }
