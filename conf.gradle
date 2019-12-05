@@ -62,7 +62,7 @@ ext {
     // quartzバージョン
     quartzVersion = "2.3.1"
     // druid-springバージョン
-    DruidSpringVersion = "1.1.18"
+    DruidSpringVersion = "1.1.20"
     // oshi-coreバージョン
     oshiCoreVersion = "3.13.2"
     // jnaバージョン

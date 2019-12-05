@@ -116,8 +116,8 @@ project(':pano-framework') {
         // 调用开源office jodconverter 
         compile ("org.jodconverter:jodconverter-local:$jodconverterVersion")
         
-        // 打印SQL文 log4jdbc 
-        compile ("com.googlecode.log4jdbc:log4jdbc:$log4jdbcVersion")
+		// 打印SQL文 log4jdbc 在源码的基础上追加了对jdk8的支持
+        //compile ("com.googlecode.log4jdbc:log4jdbc:$log4jdbcVersion")
         
         // 单元测试模块
         //testCompile 'junit:junit:4.12'    
