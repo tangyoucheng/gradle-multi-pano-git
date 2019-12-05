@@ -127,6 +127,12 @@ public class Pano0301EntryService extends BaseService {
         FileUtils.copyDirectory(srcAppDirectory, new File(destPublicPath), true);
       }
 
+      // 帧动画信息保存
+      panoMaterial.gifWidth = inForm.gifWidth;
+      panoMaterial.gifHeight = inForm.gifHeight;
+      panoMaterial.gifFrameCount = inForm.gifFrameCount;
+      panoMaterial.gifDelayTime = inForm.gifDelayTime;
+
       // 判断是否是gif图，如果是则再做拆分拼接操作
       File srcAppFile = srcAppDirectory.listFiles()[0];
       String srcAppFileName = srcAppFile.getName();

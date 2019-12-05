@@ -15,40 +15,11 @@ $(document).ready(
         // 隐藏编辑区域
         hideEdit();
 
-        $("#materialTypeId").change(
-            function() {
-                // 隐藏编辑区域
-                hideEdit();
-                var krpano = document.getElementById("pano0301KrpanoSWFObject");
-
-                var materialTypeId = $("#materialTypeId").val();
-                // 不等于 文字浮动信息层 清空
-                if (materialTypeId != PanoConstants.VAL_MATERIAL_TYPE_FLOW_INFO_TEXT) {
-                    $('#textflowInfoTexbox').val('');
-                    $('#textDiv').text('');
-                }
-                // 图文以外的场合
-                if (materialTypeId != PanoConstants.VAL_MATERIAL_TYPE_IMAGE_TEXT) {
-                    $('#textInfo').val('');
-                }
-                // 等于 视频 或 音频
-                if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_SOUND
-                        || materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_VIDEO) {
-                    $("#div_sounds").show();
-                    $('#material_file_upload_div').show();
-                    // 文字浮动信息层
-                } else if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_FLOW_INFO_TEXT) {
-                    $('#div_text_flow_info').show();
-                    $("#textDiv").show();
-                    $('#div_previewText').show();
-                } else {
-                    $('#material_file_upload_div').show();
-                    $('#div_previewMateria').show();
-                    if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_IMAGE_TEXT) {
-                        $("#div_text_info").show(); // 图文文字信息
-                    }
-                }
-            });
+        $("#materialTypeId").change(function() {
+            // 隐藏编辑区域
+            hideEdit();
+            var krpano = document.getElementById("pano0301KrpanoSWFObject");
+        });
 
         // 登录处理
         $("#btn_entry").click(function() {
@@ -353,4 +324,55 @@ function hideEdit() {
     $('#div_previewText').hide(); // 预览文字
     $("#div_sounds").hide(); // 音频预览
     $("#div_text_info").hide(); // 图文文字信息
+    $("#div_sprite_info").hide(); // 竖直排列帧动画信息
+
+    var materialTypeId = $("#materialTypeId").val();
+    // 不等于 文字浮动信息层 清空
+    if (materialTypeId != PanoConstants.VAL_MATERIAL_TYPE_FLOW_INFO_TEXT) {
+        $('#textflowInfoTexbox').val('');
+        $('#textDiv').text('');
+    }
+    // 图文以外的场合
+    if (materialTypeId != PanoConstants.VAL_MATERIAL_TYPE_IMAGE_TEXT) {
+        $('#textInfo').val('');
+    }
+    // 等于 视频 或 音频
+    if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_SOUND
+            || materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_VIDEO) {
+        $("#div_sounds").show();
+        $('#material_file_upload_div').show();
+        // 文字浮动信息层
+    } else if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_FLOW_INFO_TEXT) {
+        $('#div_text_flow_info').show();
+        $("#textDiv").show();
+        $('#div_previewText').show();
+    } else {
+        $('#material_file_upload_div').show();
+        $('#div_previewMateria').show();
+        if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_CHANGE_SCENE) {
+            $("#div_sprite_info").show(); // 数值排列帧动画信息
+        }
+        if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_IMAGE_TEXT) {
+            $("#div_text_info").show(); // 图文文字信息
+        }
+    }
+}
+
+// 数字格式化 20191205追加
+function numFormat(inputObject) {
+    var inputValue = accounting.formatNumber($(inputObject).val(), 0, ',')
+    if (inputValue == 0.00) {
+        $(inputObject).val(null);
+    } else {
+        $(inputObject).val(inputValue);
+    }
+}
+// 数字格式化，保持2位小数 20191205追加
+function numFormatDecimal2(inputObject) {
+    var inputValue = accounting.formatNumber($(inputObject).val(), 2, ',')
+    if (inputValue == 0.00) {
+        $(inputObject).val(null);
+    } else {
+        $(inputObject).val(inputValue);
+    }
 }

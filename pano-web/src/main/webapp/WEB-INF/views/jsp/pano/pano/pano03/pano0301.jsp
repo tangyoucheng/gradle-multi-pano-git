@@ -133,6 +133,49 @@
                                 maxlength="2000" rows="3" placeholder="" style="overflow: auto;" />
                         </div>
                     </div>
+                    <div class="form-group form-row" id="div_sprite_info" style="display: none;">
+                        <label class="col-form-label text-left col-sm-1">竖直帧动画:</label>
+                        <div class="col-sm-2 input-group input-group-sm">
+                            <div class="input-group-prepend d-inline">
+                                <span class="input-group-text">帧宽</span>
+                            </div>
+                            <input class="form-control" type="text" id="txt_deposit" name="gifWidth" maxlength="3"
+                                value="${pano0301Form.gifWidth}" onblur="numFormat(this);" />
+                            <div class="input-group-append d-inline">
+                                <span class="input-group-text">像素</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 input-group input-group-sm">
+                            <div class="input-group-prepend d-inline">
+                                <span class="input-group-text">帧高</span>
+                            </div>
+                            <input class="form-control" type="text" id="txt_deposit" name="gifHeight" maxlength="3"
+                                value="${pano0301Form.gifHeight}" onblur="numFormat(this);" />
+                            <div class="input-group-append d-inline">
+                                <span class="input-group-text">像素</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 input-group input-group-sm">
+                            <div class="input-group-prepend d-inline">
+                                <span class="input-group-text">张数</span>
+                            </div>
+                            <input class="form-control" type="text" id="txt_deposit" name="gifFrameCount" maxlength="2"
+                                value="${pano0301Form.gifFrameCount}" onblur="numFormat(this);" />
+                            <div class="input-group-append d-inline">
+                                <span class="input-group-text">张</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 input-group input-group-sm">
+                            <div class="input-group-prepend d-inline">
+                                <span class="input-group-text">延迟</span>
+                            </div>
+                            <input class="form-control" type="text" id="txt_deposit" name="gifDelayTime" maxlength="5"
+                                value="${pano0301Form.gifDelayTime}" onblur="numFormatDecimal2(this);" />
+                            <div class="input-group-append d-inline">
+                                <span class="input-group-text">秒</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group form-row">
                         <label class="col-form-label col-sm-1 text-left" for="txt_notes">说明</label>
                         <div class="col-sm-5">

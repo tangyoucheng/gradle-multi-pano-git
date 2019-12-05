@@ -54,6 +54,15 @@ public class Pano0301Form extends AbstractForm {
   public String openFromPano0104;
   // 图文的文字信息
   public String textInfo;
+  
+  // gif宽
+  public String gifWidth;
+  // gif高
+  public String gifHeight;
+  // gif帧数
+  public String gifFrameCount;
+  // gif间隔
+  public String gifDelayTime;
 
   /** 图片(前台传后台用)。 */
   public MultipartFile[] uploadFile;
