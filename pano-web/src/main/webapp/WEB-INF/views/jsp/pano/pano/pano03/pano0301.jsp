@@ -89,9 +89,8 @@
                         <div class="col-sm-5 input-group">
                             <input type="text" class="form-control" id="txt_textflowInfo" name="textflowInfo"
                                 value="${pano0301Form.textflowInfo}" required>
-                            <div class="input-group-append btn-group-sm">
-                                <button type="button" id="pano0301Btn_searchBankAccount"
-                                    class="btn pano-btn-danger badge font-weight-normal">
+                            <div class="input-group-append input-group-append-height-sm">
+                                <button type="button" id="pano0301Btn_searchBankAccount" class="btn pano-btn-danger">
                                     <i class="glyphicon glyphicon-eye-open"></i>
                                 </button>
                             </div>

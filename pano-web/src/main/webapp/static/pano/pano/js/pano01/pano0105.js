@@ -627,7 +627,9 @@ function setLookAtForEdit() {
 function callPano0209() {
     var krpano = document.getElementById("pano0105KrpanoNewObject");
 
-    var layerScale = krpano.get('layer[flowInfoLayer].scale').toString();
+    // 保留一位效数
+    var panoFlowInfoLayerScale = krpano.get('layer[flowInfoLayer].scale');
+    var layerScale = accounting.formatNumber(panoFlowInfoLayerScale, 1, '').toString();
     var layerX = krpano.get('layer[flowInfoLayer].x').toString();
     var layerY = krpano.get('layer[flowInfoLayer].y').toString();
 

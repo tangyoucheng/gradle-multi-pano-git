@@ -64,7 +64,8 @@ $(document).ready(function() {
         urlParam['pano0203HotspotName'] = selectedHotspotInfo['hotspotName'];
         urlParam['pano0203HotspotAth'] = selectedHotspotInfo['hotspotAth'];
         urlParam['pano0203HotspotAtv'] = selectedHotspotInfo['hotspotAtv'];
-        urlParam['hotspotScale'] = selectedHotspotInfo['hotspotScale'];
+        // 保留一位效数
+        urlParam['hotspotScale'] = accounting.formatNumber(selectedHotspotInfo['hotspotScale'], 1, '').toString();
         urlParam['pano0209hotspotId'] = selectedHotspotInfo['hotspotImageId'];
         urlParam['expositionIdForPano0209'] = urlParam['expositionId'];
         urlParam['panoramaIdForPano0209'] = urlParam['panoramaId'];
