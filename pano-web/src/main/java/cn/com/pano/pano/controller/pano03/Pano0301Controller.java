@@ -1,9 +1,12 @@
 package cn.com.pano.pano.controller.pano03;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Objects;
+import javax.imageio.ImageIO;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -140,7 +143,7 @@ public class Pano0301Controller extends BaseController {
         newThumbFileRelativePath = srcAppRelativePath + newThumbFile;
         FileUtils.copyFile(commonFileIconFile,
             new File(FwFileUtils.getAbsolutePath(newThumbFileRelativePath)));
-        
+
         pano0301Dto.uploadFile = srcAppRelativePath + materialFileName;
         pano0301Dto.thumbFile = newThumbFileRelativePath;
       } else if (MaterialType.VIDEO.toString().equals(inForm.materialTypeId)) {
@@ -157,7 +160,7 @@ public class Pano0301Controller extends BaseController {
         newThumbFileRelativePath = srcAppRelativePath + newThumbFile;
         FileUtils.copyFile(commonFileIconFile,
             new File(FwFileUtils.getAbsolutePath(newThumbFileRelativePath)));
-        
+
         pano0301Dto.uploadFile = srcAppRelativePath + materialFileName;
         pano0301Dto.thumbFile = newThumbFileRelativePath;
       } else if (MaterialType.FLOW_INFO_TEXT.toString().equals(inForm.materialTypeId)) {
@@ -178,9 +181,27 @@ public class Pano0301Controller extends BaseController {
         newThumbFileRelativePath = srcAppRelativePath + newThumbFile;
         FileUtils.copyFile(commonFileIconFile,
             new File(FwFileUtils.getAbsolutePath(newThumbFileRelativePath)));
-        
+
         pano0301Dto.uploadFile = srcAppRelativePath + materialFileName;
         pano0301Dto.thumbFile = newThumbFileRelativePath;
+
+
+        // 普通热点，场景切换热点，logo热点的场合，可以上传帧动画图片。
+        if (MaterialType.HOTSPOT_CHANGE_SCENE.toString().equals(inForm.materialTypeId)
+            || MaterialType.HOTSPOT_IMAGE.toString().equals(inForm.materialTypeId)
+            || MaterialType.HOTSPOT_LOGO.toString().equals(inForm.materialTypeId)) {
+          // 取得图片的分辨率
+          BufferedImage sourceImage = ImageIO.read(files[i].getInputStream());
+          int width = sourceImage.getWidth();
+          int height = sourceImage.getHeight();
+          int frameCount = height / width;
+          if (frameCount > 1 && height % width == 0) {
+            // 宽，高设定一样，保持正方形
+            pano0301Dto.gifWidth = Objects.toString(width, "");
+            pano0301Dto.gifHeight = Objects.toString(width, "");
+            pano0301Dto.gifFrameCount = Objects.toString(frameCount, "");
+          }
+        }
       }
 
       imagesPath.add(pano0301Dto);

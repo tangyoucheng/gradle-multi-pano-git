@@ -32,6 +32,17 @@ $(document).ready(
             // 移除验证规则
             $("#filesInput").rules("remove", 'accept');
             $("#filesInput").rules('remove', 'required');
+            
+            // 延迟入力值制御
+            $("#txt_gifDelayTime").attr('required', false);
+            $("#txt_gifDelayTime").rules('remove', 'required');
+            if ($('#txt_gifFrameCount').val() != null && $('#txt_gifFrameCount').val().length > 0) {
+                // 红色边框样式所需的设定
+                $("#txt_gifDelayTime").attr('required', '');
+                $("#txt_gifDelayTime").rules('add', {
+                    required : true
+                });
+            }
 
             if (!$("#pano0301FormAdd").valid()) {
                 return;
@@ -104,6 +115,8 @@ $(document).ready(
 
                 // 做成FormData对象
                 var ajaxFormData = new FormData($("#pano0301FormAjaxSubmit")[0]);
+                // 素材类型ID
+                ajaxFormData.append('materialTypeId', materialTypeId);
                 var checkErrors = [];
                 // 从选中的文件中过滤满足条件的图片
                 if (filelength > 0) {
@@ -217,6 +230,15 @@ $(document).ready(
                                     $('#div_previewMateria').show();
                                     $('#pictureCheck').val('true');
                                     $("#div_sounds").hide();
+
+                                    // 普通热点，场景切换热点，logo热点的场合，可以上传帧动画图片。
+                                    if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_CHANGE_SCENE
+                                            || materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_IMAGE
+                                            || materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_LOGO) {
+                                        $('#txt_gifWidth').val(result.rows[0].gifWidth);
+                                        $('#txt_gifHeight').val(result.rows[0].gifHeight);
+                                        $('#txt_gifFrameCount').val(result.rows[0].gifFrameCount);
+                                    }
                                 }
                             }
                         }
@@ -349,14 +371,14 @@ function hideEdit() {
     } else {
         $('#material_file_upload_div').show();
         $('#div_previewMateria').show();
-        
+
         // 普通热点，场景切换热点，logo热点的场合，可以上传帧动画图片。
         if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_CHANGE_SCENE
                 || materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_IMAGE
                 || materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_LOGO) {
             $("#div_sprite_info").show(); // 数值排列帧动画信息
         }
-        
+
         if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_IMAGE_TEXT) {
             $("#div_text_info").show(); // 图文文字信息
         }

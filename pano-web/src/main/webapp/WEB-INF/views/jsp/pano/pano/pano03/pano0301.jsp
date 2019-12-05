@@ -139,7 +139,7 @@
                             <div class="input-group-prepend d-inline">
                                 <span class="input-group-text">帧宽</span>
                             </div>
-                            <input class="form-control" type="text" id="txt_deposit" name="gifWidth" maxlength="3"
+                            <input class="form-control" type="text" id="txt_gifWidth" name="gifWidth" maxlength="3"
                                 value="${pano0301Form.gifWidth}" onblur="numFormat(this);" />
                             <div class="input-group-append d-inline">
                                 <span class="input-group-text">像素</span>
@@ -149,7 +149,7 @@
                             <div class="input-group-prepend d-inline">
                                 <span class="input-group-text">帧高</span>
                             </div>
-                            <input class="form-control" type="text" id="txt_deposit" name="gifHeight" maxlength="3"
+                            <input class="form-control" type="text" id="txt_gifHeight" name="gifHeight" maxlength="3"
                                 value="${pano0301Form.gifHeight}" onblur="numFormat(this);" />
                             <div class="input-group-append d-inline">
                                 <span class="input-group-text">像素</span>
@@ -159,7 +159,7 @@
                             <div class="input-group-prepend d-inline">
                                 <span class="input-group-text">张数</span>
                             </div>
-                            <input class="form-control" type="text" id="txt_deposit" name="gifFrameCount" maxlength="2"
+                            <input class="form-control" type="text" id="txt_gifFrameCount" name="gifFrameCount" maxlength="2"
                                 value="${pano0301Form.gifFrameCount}" onblur="numFormat(this);" />
                             <div class="input-group-append d-inline">
                                 <span class="input-group-text">张</span>
@@ -169,7 +169,7 @@
                             <div class="input-group-prepend d-inline">
                                 <span class="input-group-text">延迟</span>
                             </div>
-                            <input class="form-control" type="text" id="txt_deposit" name="gifDelayTime" maxlength="5"
+                            <input class="form-control" type="text" id="txt_gifDelayTime" name="gifDelayTime" maxlength="5"
                                 value="${pano0301Form.gifDelayTime}" onblur="numFormatDecimal2(this);" />
                             <div class="input-group-append d-inline">
                                 <span class="input-group-text">秒</span>
