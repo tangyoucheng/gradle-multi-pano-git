@@ -53,13 +53,65 @@ $(document).ready(function() {
         });
     });
 
+    // 删除
+    $("#btn_delete").click(function() {
+
+        // 询问框
+        var currentConfirmIndex = window.top.layer.confirm('本操作会删除选中的数据，是否继续？', {
+            icon : 3,
+            title : '提示信息',
+            btn : [ '确认', '取消' ]
+        // 按钮
+        }, function() { // 确认操作
+            // 表单数据转换成JS对象
+            var ajaxSubmitFormData = form2js($("#pano0208FormAjaxSubmit")[0]);
+            var uniqueKeyArray = new Array();
+            uniqueKeyArray = $.map($('#table-material-info').bootstrapTable('getSelections'), function(row) {
+                // materialId前台传入后台的数据
+                return row.materialId;
+            });
+            ajaxSubmitFormData['uniqueKeyList'] = uniqueKeyArray;
+
+            window.top.layer.close(currentConfirmIndex);
+
+            $.ajax({
+                type : 'post',
+                traditional : true,
+                data : ajaxSubmitFormData,
+                dataType : 'json',
+                url : getMemberContextPath('pano0208/doDelete'),
+                success : function(result) {
+                    if (CommonUtilJs.processAjaxSuccessAfter(result)) {
+                        // 重新检索画面
+                        searchData();
+                    }
+                }
+            // ,
+            // error : function() {
+            // }
+            });
+        }, function() {
+            // 取消操作
+        });
+
+    });
+
     // 选择处理
     $("#btn_choose").click(function() {
         var hotspotTypeChoice = $('#hotspotTypeChoice').val();
         var tableRowsInfo = $('#table-material-info').bootstrapTable('getSelections');
+
+        var checkErrors = [];
         if (hotspotTypeChoice == PanoConstants.VAL_MATERIAL_TYPE_SOUND && tableRowsInfo.length != 2) {
             var errorMessage = '音频热点必须选择两张图！';
             checkErrors.push(errorMessage);
+        } else if (tableRowsInfo.length != 1) {
+            var errorMessage = '必须选择一张图！';
+            checkErrors.push(errorMessage);
+        }
+        if (checkErrors.length > 0) {
+            window.top.showErrorMessage(checkErrors, false, 0);
+            return;
         }
 
         var returnObjects = [];
@@ -171,10 +223,12 @@ function searchData() {
 
 // 编辑
 function doEdit(tableRowInfo) {
-    var openUrl = '/pano03/pano0303';
-    openUrl = openUrl + '?expositionId=' + tableRowInfo.expositionId;
-    openUrl = openUrl + '&outletsCode=' + tableRowInfo.outletsCode;
-    openUrl = openUrl + '&bankAccountCode=' + tableRowInfo.bankAccountCode;
+    var openUrl = 'pano0303/';
+    var urlParam = {};
+    urlParam['materialId'] = tableRowInfo.materialId;
+    urlParam['materialName'] = tableRowInfo.materialName;
+    urlParam['materialTypeId'] = tableRowInfo.materialTypeId;
+    openUrl = openUrl + '?' + $.param(urlParam);
     openUrl = getMemberContextPath(openUrl);
     window.top.layer.open({
         title : '编辑素材',

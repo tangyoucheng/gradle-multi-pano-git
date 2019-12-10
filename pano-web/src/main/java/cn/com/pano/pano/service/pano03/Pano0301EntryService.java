@@ -125,62 +125,62 @@ public class Pano0301EntryService extends BaseService {
       if (srcAppDirectory.exists() && srcAppDirectory.listFiles().length > 0) {
         // 拷贝文件到publicStorage服务器
         FileUtils.copyDirectory(srcAppDirectory, new File(destPublicPath), true);
-      }
-
-      // 普通热点，场景切换热点，logo热点的场合，可以上传帧动画图片。
-      if (MaterialType.HOTSPOT_CHANGE_SCENE.toString().equals(inForm.materialTypeId)
-          || MaterialType.HOTSPOT_IMAGE.toString().equals(inForm.materialTypeId)
-          || MaterialType.HOTSPOT_LOGO.toString().equals(inForm.materialTypeId)) {
-        // 帧动画信息保存
-        panoMaterial.gifWidth = inForm.gifWidth;
-        panoMaterial.gifHeight = inForm.gifHeight;
-        panoMaterial.gifFrameCount = inForm.gifFrameCount;
-        panoMaterial.gifDelayTime = inForm.gifDelayTime;
-      }
-
-      // 判断是否是gif图，如果是则再做拆分拼接操作
-      File srcAppFile = srcAppDirectory.listFiles()[0];
-      String srcAppFileName = srcAppFile.getName();
-      if (srcAppFileName.endsWith(".gif")) {
-        String gifPath = MessageFormat.format(PanoConstantsIF.VAL_PUBLIC_DIRECTORY_W_IMAGE,
-            PanoConstantsIF.MATERIAL_FOLDER_NAME + materialFolderPath,
-            inForm.materialId + "/" + srcAppFileName);
-
-        File gifFile = new File(gifPath);
-
-        srcAppFileName = srcAppFileName.substring(0, srcAppFileName.lastIndexOf(".")) + ".png";
-        String gifDestPath = MessageFormat.format(PanoConstantsIF.VAL_PUBLIC_DIRECTORY_W_IMAGE,
-            PanoConstantsIF.MATERIAL_FOLDER_NAME + materialFolderPath,
-            inForm.materialId + "/" + srcAppFileName);
-        // 返回生成小png图片的宽，高，帧数，延迟时间
-        File gifDestFile = new File(gifDestPath);
-        String[] result = FileServiceUtil.splitAndSaveGif(gifFile.getAbsolutePath(),
-            gifDestFile.getAbsolutePath());
-        if (result.length == 4) {
-          panoMaterial.gifWidth = result[0];
-          panoMaterial.gifHeight = result[1];
-          panoMaterial.gifFrameCount = result[2];
-          panoMaterial.gifDelayTime = result[3];
+        
+        // 普通热点，场景切换热点，logo热点的场合，可以上传帧动画图片。
+        if (MaterialType.HOTSPOT_CHANGE_SCENE.toString().equals(inForm.materialTypeId)
+            || MaterialType.HOTSPOT_IMAGE.toString().equals(inForm.materialTypeId)
+            || MaterialType.HOTSPOT_LOGO.toString().equals(inForm.materialTypeId)) {
+          // 帧动画信息保存
+          panoMaterial.gifWidth = inForm.gifWidth;
+          panoMaterial.gifHeight = inForm.gifHeight;
+          panoMaterial.gifFrameCount = inForm.gifFrameCount;
+          panoMaterial.gifDelayTime = inForm.gifDelayTime;
         }
-      }
-
-      // 素材路径
-      panoMaterial.materialPath = PanoConstantsIF.MATERIAL_FOLDER_NAME + materialFolderPath
-          + "/images/" + inForm.materialId + "/" + inForm.materialId + "."
-          + FilenameUtils.getExtension(srcAppDirectory.list()[0]);
-
-
-      // 获取APP服务器侧文件目录。
-      String destAppRelativePath = MessageFormat.format(PanoConstantsIF.VAL_APP_SERVER_W_IMAGE,
-          UserSessionUtils.getSessionId(),
-          PanoConstantsIF.MATERIAL_FOLDER_NAME + materialFolderPath, inForm.materialId + "/");
-      // 拷贝素材到APP服务器
-      FileUtils.copyDirectory(new File(destPublicPath),
-          new File(FwFileUtils.getAbsolutePath(destAppRelativePath)), true);
-
-      // 图文的时候,保存文字信息
-      if (PanoConstantsIF.MATERIAL_TYPE_IMAGE_TEXT.equals(inForm.materialTypeId)) {
-        panoMaterial.textInfo = inForm.textInfo;
+        
+        // 判断是否是gif图，如果是则再做拆分拼接操作
+        File srcAppFile = srcAppDirectory.listFiles()[0];
+        String srcAppFileName = srcAppFile.getName();
+        if (srcAppFileName.endsWith(".gif")) {
+          String gifPath = MessageFormat.format(PanoConstantsIF.VAL_PUBLIC_DIRECTORY_W_IMAGE,
+              PanoConstantsIF.MATERIAL_FOLDER_NAME + materialFolderPath,
+              inForm.materialId + "/" + srcAppFileName);
+          
+          File gifFile = new File(gifPath);
+          
+          srcAppFileName = srcAppFileName.substring(0, srcAppFileName.lastIndexOf(".")) + ".png";
+          String gifDestPath = MessageFormat.format(PanoConstantsIF.VAL_PUBLIC_DIRECTORY_W_IMAGE,
+              PanoConstantsIF.MATERIAL_FOLDER_NAME + materialFolderPath,
+              inForm.materialId + "/" + srcAppFileName);
+          // 返回生成小png图片的宽，高，帧数，延迟时间
+          File gifDestFile = new File(gifDestPath);
+          String[] result = FileServiceUtil.splitAndSaveGif(gifFile.getAbsolutePath(),
+              gifDestFile.getAbsolutePath());
+          if (result.length == 4) {
+            panoMaterial.gifWidth = result[0];
+            panoMaterial.gifHeight = result[1];
+            panoMaterial.gifFrameCount = result[2];
+            panoMaterial.gifDelayTime = result[3];
+          }
+        }
+        
+        // 素材路径
+        panoMaterial.materialPath = PanoConstantsIF.MATERIAL_FOLDER_NAME + materialFolderPath
+            + "/images/" + inForm.materialId + "/" + inForm.materialId + "."
+            + FilenameUtils.getExtension(srcAppDirectory.list()[0]);
+        
+        
+        // 获取APP服务器侧文件目录。
+        String destAppRelativePath = MessageFormat.format(PanoConstantsIF.VAL_APP_SERVER_W_IMAGE,
+            UserSessionUtils.getSessionId(),
+            PanoConstantsIF.MATERIAL_FOLDER_NAME + materialFolderPath, inForm.materialId + "/");
+        // 拷贝素材到APP服务器
+        FileUtils.copyDirectory(new File(destPublicPath),
+            new File(FwFileUtils.getAbsolutePath(destAppRelativePath)), true);
+        
+        // 图文的时候,保存文字信息
+        if (PanoConstantsIF.MATERIAL_TYPE_IMAGE_TEXT.equals(inForm.materialTypeId)) {
+          panoMaterial.textInfo = inForm.textInfo;
+        }
       }
     }
 

@@ -28,7 +28,11 @@ function setPano0208ReturnObject(returnObject) {
         var hotspotImageUrl = window.top.getSessionFileEditPath(hotspotInfo.materialPath);
         // 判断当前热点显示图片是否是gif并有对应的png图片
         if (hotspotInfo.hasPngImage == 'true') {
+            
             var hotspotImageUrlForGif = hotspotImageUrl.substring(0, hotspotImageUrl.lastIndexOf(".")) + ".png";
+            // 添加随机数，防止因为缓存，不显示最新图片
+            hotspotImageUrlForGif = hotspotImageUrlForGif + '?temp=';
+            hotspotImageUrlForGif = hotspotImageUrlForGif + Math.random();
             krpano.set('style[' + gifstyle + '].url', hotspotImageUrlForGif);
 
             krpano.set('style[' + gifstyle + '].crop', '0|0|' + hotspotInfo.gifWidth + '|' + hotspotInfo.gifHeight);

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import cn.com.pano.pano.common.PanoConstantsIF;
 import cn.com.pano.pano.form.pano02.Pano0208Form;
+import cn.com.pano.pano.service.pano02.Pano0208DeleteService;
 import cn.com.pano.pano.service.pano02.Pano0208EntryService;
 import cn.com.pano.pano.service.pano02.Pano0208InitService;
 import cn.com.pano.pano.service.pano02.Pano0208SearchService;
@@ -27,6 +28,8 @@ public class Pano0208Controller extends BaseController {
   public Pano0208InitService pano0208InitService;
   @Autowired
   public Pano0208SearchService pano0208SearchService;
+  @Autowired
+  public Pano0208DeleteService pano0208DeleteService;
   @Autowired
   public Pano0208EntryService pano0208EntryService;
 
@@ -55,6 +58,17 @@ public class Pano0208Controller extends BaseController {
   @RequestMapping("/doSearch")
   public EasyJson<Object> doSearch(Pano0208Form inForm) throws Exception {
     return pano0208SearchService.searchMaterial(inForm);
+  }
+
+  /**
+   * 删除处理。
+   * 
+   * @param inForm Pano0306Form
+   */
+  @ResponseBody
+  @RequestMapping("/doDelete")
+  public EasyJson<Object> doDelete(Pano0208Form inForm) throws Exception {
+    return pano0208DeleteService.doDeleteMaterial(inForm);
   }
 
   /**

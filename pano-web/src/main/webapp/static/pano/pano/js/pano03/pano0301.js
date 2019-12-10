@@ -30,8 +30,11 @@ $(document).ready(
             $("#pano0301FormAdd").validate();
 
             // 移除验证规则
-            $("#filesInput").rules("remove", 'accept');
-            $("#filesInput").rules('remove', 'required');
+            $("#imageFilesInput").rules("remove", 'accept');
+            $("#imageFilesInput").rules('remove', 'required');
+            
+            $("#imageFilesInput").rules("remove", 'accept');
+            $("#imageFilesInput").rules('remove', 'required');
             
             // 延迟入力值制御
             $("#txt_gifDelayTime").attr('required', false);
@@ -376,7 +379,7 @@ function hideEdit() {
         if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_CHANGE_SCENE
                 || materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_IMAGE
                 || materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_HOTSPOT_LOGO) {
-            $("#div_sprite_info").show(); // 数值排列帧动画信息
+            $("#div_sprite_info").show(); // 竖直排列帧动画信息
         }
 
         if (materialTypeId == PanoConstants.VAL_MATERIAL_TYPE_IMAGE_TEXT) {

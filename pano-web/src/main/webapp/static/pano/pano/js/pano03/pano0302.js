@@ -227,15 +227,20 @@ function searchData() {
 
 // 编辑
 function doEdit(tableRowInfo) {
-    var openUrl = '/pano03/pano0303';
-    openUrl = openUrl + '?expositionId=' + tableRowInfo.expositionId;
-    openUrl = openUrl + '&outletsCode=' + tableRowInfo.outletsCode;
-    openUrl = openUrl + '&bankAccountCode=' + tableRowInfo.bankAccountCode;
+    var openUrl = 'pano0303/';
+    var urlParam = form2js($("#pano0302FormSearch")[0]);
+    urlParam['materialId'] = tableRowInfo.materialId;
+    urlParam['materialName'] = tableRowInfo.materialName;
+    urlParam['materialTypeId'] = tableRowInfo.materialTypeId;
+    // 做成FormData对象
+    // var ajaxFormData = new
+    // FormData(document.getElementById("pano0102FormAdd"));
+    openUrl = openUrl + '?' + $.param(urlParam);
     openUrl = getMemberContextPath(openUrl);
     window.top.layer.open({
         title : '编辑素材',
         type : 2,
-        area : [ '80%', '100%' ], // 宽高
+        area : [ '90%', '100%' ], // 宽高
         content : [ openUrl, 'yes' ],// iframe层出现滚动条
         end : function() {
             // location.reload(true);
