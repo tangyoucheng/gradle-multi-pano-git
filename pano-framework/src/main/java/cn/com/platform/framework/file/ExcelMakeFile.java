@@ -125,6 +125,50 @@ public class ExcelMakeFile extends ExcelFile {
   }
 
   /**
+   * ExcelMakeFile を構築する。
+   * <p>
+   * フォーマットファイルを読み込みExcelのインスタンスを生成する
+   * </p>
+   *
+   * @param inputStream インプットストリーム
+   * @throws IOException 読み込みでエラーが発生した場合スロー
+ * @throws InvalidFormatException 
+   */
+  public ExcelMakeFile(File file) throws IOException, InvalidFormatException {
+    super();
+
+    // 初期化を行う
+    workbook = null;
+
+
+    // ブックを生成する
+    workbook = new XSSFWorkbook(file);
+
+  }
+
+  /**
+   * ExcelMakeFile を構築する。
+   * <p>
+   * フォーマットファイルを読み込みExcelのインスタンスを生成する
+   * </p>
+   *
+   * @param inputStream インプットストリーム
+   * @throws IOException 読み込みでエラーが発生した場合スロー
+ * @throws InvalidFormatException 
+   */
+  public ExcelMakeFile(String path) throws IOException, InvalidFormatException {
+    super();
+
+    // 初期化を行う
+    workbook = null;
+
+
+    // ブックを生成する
+    workbook = new XSSFWorkbook(path);
+
+  }
+
+  /**
    * Excelファイルのバイト配列を返却する。
    *
    * @return byte[] ファイルのバイト配列
