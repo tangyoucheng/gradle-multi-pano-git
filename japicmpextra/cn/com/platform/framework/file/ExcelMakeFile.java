@@ -1890,6 +1890,7 @@ public class ExcelMakeFile extends ExcelFile {
    */
   public void setBorder(String strSheetName, String range, BorderStyle borderStyle) {
     CellStyle cellStyle = getCreateStyle();
+    cellStyle.cloneStyleFrom(getCellStyle(strSheetName,range));//复制单元格原来的样式之后在修改。因为CellStyle是共享的
     cellStyle.setBorderTop(borderStyle);
     cellStyle.setBorderBottom(borderStyle);
     cellStyle.setBorderLeft(borderStyle);
