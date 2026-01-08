@@ -2,6 +2,7 @@ package cn.com.platform.framework.file;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.TypeUtils;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -2019,6 +2021,9 @@ public class ExcelMakeFile extends ExcelFile {
     XSSFSheet currentSheet = workbook.getSheet(strSheetName);
     XSSFRow currentRow = currentSheet.getRow(row);
     XSSFCell currentCell = currentRow.getCell(col);
+    if (currentCell == null) {
+        currentCell = currentRow.createCell(col);
+    }
     currentCell.setCellStyle(cellStyle);
   }
 
