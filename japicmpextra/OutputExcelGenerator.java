@@ -1,4 +1,3 @@
-
 package japicmpextra;
 
 import static japicmp.util.StringHelper.*;
@@ -12,6 +11,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import japicmp.config.Options;
@@ -140,15 +141,26 @@ public class OutputExcelGenerator extends OutputGenerator<HtmlOutput> {
 
 	public static String methodTBody(JApiMethod method,JApiChangeStatus jApiChangeStatus) {
 //		JApiChangeStatus type = method.getChangeStatus();
+        
 		switch (jApiChangeStatus) {
 		case REMOVED:
+	        String parametersContent = parameters(method);
+	        parametersContent = parametersContent.replace("Old:【", "");
+	        parametersContent = parametersContent.replace("】", "");
+			return 
+					modifiers(method) +
+					returnType(method) +
+					" " + method.getName() + "(" + parametersContent + ")" + annotations(method.getAnnotations()) + 
+					exceptions(method) 
+				;
+		case MODIFIED:
 			return 
 					modifiers(method) +
 					returnType(method) +
 					" " + method.getName() + "(" + parameters(method) + ")" + annotations(method.getAnnotations()) + 
 					exceptions(method) 
 				;
-		case MODIFIED:
+		case NEW:
 			return 
 					modifiers(method) +
 					returnType(method) +
