@@ -12,6 +12,7 @@ import japicmp.model.JApiCompatibilityChangeType;
 import japicmp.model.JApiConstructor;
 import japicmp.model.JApiField;
 import japicmp.model.JApiMethod;
+import japicmp.model.JApiModifier;
 import japicmp.model.JApiParameter;
 import japicmp.output.OutputFilter;
 import japicmp.output.html.HtmlOutput;
@@ -44,21 +45,39 @@ public class SpringApiCompareMultiFile {
     public static void main(String[] args) throws Exception {
         String oldDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springframework4.1.6";
         String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springframework5.3.31";
-        String reportDir = "spring4to5reports"; // 存放报告的目录
+        String reportDir = "spring4to5reports"; // 存放HTML报告的目录
+        String outputDir = "outputspring4to5files"; // 存放EXCEL报告的目录
 //        String oldDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springframework5.3.31";
 //        String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springframework6.2.15";
 //        String reportDir = "spring5to6reports"; // 存放报告的目录
+//        String outputDir = "outputspring5to6files"; // 存放EXCEL报告的目录
 
 //      String oldDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springboot1.1.9";
-//      String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springboot2.7.8";
-//      String reportDir = "springboot1to2reports"; // 存放报告的目录
-//      String oldDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springboot2.7.8";
+//      String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springboot2.7.18";
+//      String reportDir = "springboot1to2reports"; // 存放HTML报告的目录
+//      String outputDir = "outputspringboot1to2files"; // 存放EXCEL报告的目录
+//      String oldDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springboot2.7.18";
 //      String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springboot3.5.9";
-//      String reportDir = "springboot2to3reports"; // 存放报告的目录
+//      String reportDir = "springboot2to3reports"; // 存放HTML报告的目录
+//      String outputDir = "outputspringboot2to3files"; // 存放EXCEL报告的目录
 
+//      String oldDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\spring4other";
+//      String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\spring5other";
+//      String reportDir = "spring4to5otherreports"; // 存放HTML报告的目录
+//      String outputDir = "outputspring4to5otherfiles"; // 存放EXCEL报告的目录
+//      String oldDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\spring5other";
+//      String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\spring6other";
+//      String reportDir = "spring5to6otherreports"; // 存放HTML报告的目录
+//      String outputDir = "outputspring5to6otherfiles"; // 存放EXCEL报告的目录
+
+        // 指定的不存在的场合就做成。
         File reportFolder = new File(reportDir);
         if (!reportFolder.exists()) {
             reportFolder.mkdirs();
+        }
+        File outputFolder = new File(outputDir);
+        if (!outputFolder.exists()) {
+        	outputFolder.mkdirs();
         }
 
         List<File> oldJarFiles = listJarFiles(oldDir);
@@ -117,8 +136,13 @@ public class SpringApiCompareMultiFile {
             String newName = newJar.getName().replace(".jar", "");
 //            String reportFile = reportDir + File.separator + oldName + "_vs_" + newName + ".html";
             
-            String sheetNewName = oldName.replaceFirst("-\\d.*", "");
-            analyzeApis(jApiClasses,oldName + "_vs_" + newName,sheetNewName);
+            // excel的sheet名称长度不能超过31。所以把去掉小版本信息
+            String sheetNewName = newName.replace(".7.18", "");//2.7.18
+            sheetNewName = sheetNewName.replace(".5.9", "");//3.5.9
+            sheetNewName = sheetNewName.replace(".3.31", "");//5.3.31
+            sheetNewName = sheetNewName.replace(".2.15", "");//6.2.15
+            // 生成excel
+            analyzeApis(jApiClasses,oldName + "_vs_" + newName,sheetNewName,outputDir);
 //            ModifiedBreakingAnalyzer.analyzeBreakingModified(jApiClasses);
 
             // 5. 写入单独报告
@@ -145,9 +169,8 @@ public class SpringApiCompareMultiFile {
         return jars;
     }
     
-    public static void analyzeApis(List<JApiClass> jApiClasses, String reportFile, String sheetNewName) throws Exception {
-        String projectPath = Paths.get("").toAbsolutePath().toString();
-//      URL url = Main.class.getClassLoader().getResource(projectPath+"/src/main/webapp/templates/excel/demo.xlsx");
+    public static void analyzeApis(List<JApiClass> jApiClasses, String reportFile, String sheetNewName, String outputDir) throws Exception {
+      String projectPath = Paths.get("").toAbsolutePath().toString();
       ExcelMakeFile excelMakeFile = new ExcelMakeFile(new File(projectPath+"/resources/template.xlsx"));
       excelMakeFile.setSheetName(1, sheetNewName);
       XSSFSheet outputSheet =  excelMakeFile.workbook.getSheetAt(1);
@@ -156,7 +179,6 @@ public class SpringApiCompareMultiFile {
       excelMakeFile.setCellValue(sheetName, "B" + 2, "モジュール：" + reportFile);
       
         for (JApiClass cls : jApiClasses) {
-//        	boolean clsOutputFlag = true;
             String className = cls.getFullyQualifiedName();
             String classModifiers = OutputExcelGenerator.modifiers(cls);
             String classClassType = OutputExcelGenerator.classType(cls);
@@ -165,13 +187,6 @@ public class SpringApiCompareMultiFile {
             if (className.contains("$")) {
 				continue;
 			}
-
-//            printCompatibilityChanges(
-//                    "[CLASS]",
-//                    className,
-//                    cls.getCompatibilityChanges()
-//            );
-
 
             /* =========================
              * 1. 类级别，整个类都被删除
@@ -261,11 +276,6 @@ public class SpringApiCompareMultiFile {
 	                setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
                 }
 
-//                printCompatibilityChanges(
-//                        "[FIELD]",
-//                        fieldName,
-//                        field.getCompatibilityChanges()
-//                );
             }
 
             /* =========================
@@ -315,11 +325,6 @@ public class SpringApiCompareMultiFile {
 	                setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
                 }
 
-//                printCompatibilityChanges(
-//                        "[CONSTRUCTOR]",
-//                        ctorName,
-//                        constructor.getCompatibilityChanges()
-//                );
             }
 
             /* =========================
@@ -345,7 +350,7 @@ public class SpringApiCompareMultiFile {
                     excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "メソッド");
                     excelMakeFile.setCellValue(sheetName, "E" + sheetLastRowNum, methodName);
                     excelMakeFile.setCellValue(sheetName, "F" + sheetLastRowNum, "削除");
-	                
+                    
 	                setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
                 }
             	
@@ -375,12 +380,19 @@ public class SpringApiCompareMultiFile {
 	                
 	                setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
                 }
+                // 只考虑新增方法
+                if (method.getChangeStatus() == JApiChangeStatus.NEW) {
+                	// //TODO 没有必须实现的新增方法
+                	boolean isInterface = classClassType.equals("interface")?true:false;
+                    methodName = OutputExcelGenerator.methodTBody(method,JApiChangeStatus.NEW);
+                    // 不是接口的缺省方法或抽象类的抽象方法
+                    if (isInterface && !methodName.contains("default ") || methodName.contains("abstract ")) {
+                    	System.out.println(methodName);
+                    }
 
-//                printCompatibilityChanges(
-//                        "[METHOD]",
-//                        methodName,
-//                        method.getCompatibilityChanges()
-//                );
+                }
+
+
             }
         }
 
@@ -389,11 +401,7 @@ public class SpringApiCompareMultiFile {
 //        String fileName = "demo".concat(df.format(LocalDateTime.now()));
 //        fileName = fileName.concat(".xlsx");
         String fileName = reportFile.concat(".xlsx");
-        Files.write(Paths.get(projectPath+"/outputspring4to5files/" +fileName), excelMakeFile.getBytes());
-//        Files.write(Paths.get(projectPath+"/outputspring5to6files/" +fileName), excelMakeFile.getBytes());
-//        Files.write(Paths.get(projectPath+"/outputspringboot1to2files/" +fileName), excelMakeFile.getBytes());
-//      Files.write(Paths.get(projectPath+"/outputspringboot2to3files/" +fileName), excelMakeFile.getBytes());
-        
+		Files.write(Paths.get(projectPath + "/" + outputDir + "/" + fileName), excelMakeFile.getBytes());
     }
     
     private static boolean hasDeprecatedAdded(
@@ -417,4 +425,3 @@ public class SpringApiCompareMultiFile {
         }
     }
 }
-
