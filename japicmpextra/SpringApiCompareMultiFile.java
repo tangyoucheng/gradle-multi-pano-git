@@ -43,10 +43,10 @@ import cn.com.platform.framework.file.ExcelMakeFile;
 public class SpringApiCompareMultiFile {
 
     public static void main(String[] args) throws Exception {
-        String oldDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springframework4.1.6";
-        String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springframework5.3.31";
-        String reportDir = "spring4to5reports"; // 存放HTML报告的目录
-        String outputDir = "outputspring4to5files"; // 存放EXCEL报告的目录
+//        String oldDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springframework4.1.6";
+//        String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springframework5.3.31";
+//        String reportDir = "spring4to5reports"; // 存放HTML报告的目录
+//        String outputDir = "outputspring4to5files"; // 存放EXCEL报告的目录
 //        String oldDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springframework5.3.31";
 //        String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\springframework6.2.15";
 //        String reportDir = "spring5to6reports"; // 存放报告的目录
@@ -65,10 +65,10 @@ public class SpringApiCompareMultiFile {
 //      String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\spring5other";
 //      String reportDir = "spring4to5otherreports"; // 存放HTML报告的目录
 //      String outputDir = "outputspring4to5otherfiles"; // 存放EXCEL报告的目录
-//      String oldDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\spring5other";
-//      String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\spring6other";
-//      String reportDir = "spring5to6otherreports"; // 存放HTML报告的目录
-//      String outputDir = "outputspring5to6otherfiles"; // 存放EXCEL报告的目录
+      String oldDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\spring5other";
+      String newDir = "C:\\Users\\yusei.to\\Desktop\\担当部分\\migrate\\spring6other";
+      String reportDir = "spring5to6otherreports"; // 存放HTML报告的目录
+      String outputDir = "outputspring5to6otherfiles"; // 存放EXCEL报告的目录
 
         // 指定的不存在的场合就做成。
         File reportFolder = new File(reportDir);
@@ -96,7 +96,8 @@ public class SpringApiCompareMultiFile {
         // 1. 创建 Options
         Options options = Options.newDefault();
         options.setIgnoreMissingClasses(true);
-        options.setOutputOnlyBinaryIncompatibleModifications(true);
+        options.setOutputOnlyBinaryIncompatibleModifications(false); // 只输出二进制不兼容变化
+//        options.setNoAnnotations(false); // 一定要启用，否则注解变化会被忽略
 
         // 遍历每对 JAR
 //        for (int i = 0; i < 1; i++) {
@@ -137,10 +138,13 @@ public class SpringApiCompareMultiFile {
 //            String reportFile = reportDir + File.separator + oldName + "_vs_" + newName + ".html";
             
             // excel的sheet名称长度不能超过31。所以把去掉小版本信息
-            String sheetNewName = newName.replace(".7.18", "");//2.7.18
-            sheetNewName = sheetNewName.replace(".5.9", "");//3.5.9
-            sheetNewName = sheetNewName.replace(".3.31", "");//5.3.31
-            sheetNewName = sheetNewName.replace(".2.15", "");//6.2.15
+//            String sheetNewName = newName.replace(".7.18", "");//2.7.18
+//            sheetNewName = sheetNewName.replace(".5.9", "");//3.5.9
+//            sheetNewName = sheetNewName.replace(".3.31", "");//5.3.31
+//            sheetNewName = sheetNewName.replace(".2.15", "");//6.2.15
+            
+            String sheetNewName = getDiffJarName(oldJar.getName(), newJar.getName());
+            
             // 生成excel
             analyzeApis(jApiClasses,oldName + "_vs_" + newName,sheetNewName,outputDir);
 //            ModifiedBreakingAnalyzer.analyzeBreakingModified(jApiClasses);
@@ -180,6 +184,11 @@ public class SpringApiCompareMultiFile {
       
         for (JApiClass cls : jApiClasses) {
             String className = cls.getFullyQualifiedName();
+
+//            if (className.contains("StringUtils")) {
+//				System.out.println(1);
+//			}
+            
             String classModifiers = OutputExcelGenerator.modifiers(cls);
             String classClassType = OutputExcelGenerator.classType(cls);
             className = classModifiers + classClassType + " " + className;
@@ -209,27 +218,57 @@ public class SpringApiCompareMultiFile {
 //                continue;
             }
 
-            if (cls.getChangeStatus() == JApiChangeStatus.MODIFIED) {
-            	boolean deprecatedAdded =   hasDeprecatedAdded(cls.getCompatibilityChanges());
-            	if (deprecatedAdded) {
-            		System.out.println("[CLASS MODIFIED] " + className);
-	                int sheetLastRowNum =  outputSheet.getLastRowNum()+2;
-	                excelMakeFile.setCellValue(sheetName, "B" + sheetLastRowNum, sheetLastRowNum-3);
-	                excelMakeFile.setCellValue(sheetName, "C" + sheetLastRowNum, className);
-	                if (classClassType.equals("annotation")) {
-	                    excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "アノテーション");
-					} else if (classClassType.equals("interface")) {
-		                    excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "インターフェース");
-						} else {
-		                excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "クラス");
-					}
-	                excelMakeFile.setCellValue(sheetName, "F" + sheetLastRowNum, "変更");
-	                excelMakeFile.setCellValue(sheetName, "G" + sheetLastRowNum, "有");
-	                
-	                setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
+			if (cls.getChangeStatus() == JApiChangeStatus.MODIFIED) {
+				System.out.println("[CLASS MODIFIED] " + className);
+				int sheetLastRowNum = outputSheet.getLastRowNum() + 2;
+				excelMakeFile.setCellValue(sheetName, "B" + sheetLastRowNum, sheetLastRowNum - 3);
+				excelMakeFile.setCellValue(sheetName, "C" + sheetLastRowNum, className);
+				if (classClassType.equals("annotation")) {
+					excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "アノテーション");
+				} else if (classClassType.equals("interface")) {
+					excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "インターフェース");
+				} else {
+					excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "クラス");
 				}
-                
-            }
+				excelMakeFile.setCellValue(sheetName, "F" + sheetLastRowNum, "変更");
+
+				boolean deprecatedAdded = hasDeprecatedAdded(cls.getCompatibilityChanges());
+				if (deprecatedAdded) {
+					excelMakeFile.setCellValue(sheetName, "G" + sheetLastRowNum, "有");
+				} else {
+					excelMakeFile.setCellValue(sheetName, "G" + sheetLastRowNum, "無");
+				}
+
+				setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
+
+			}
+            
+            // 只检测是否是被弃用的构造函数，也就是是否有Deprecated注解
+            if (cls.getChangeStatus() == JApiChangeStatus.UNCHANGED
+					&& hasDeprecatedAdded(cls.getCompatibilityChanges())) {
+
+				System.out.println("[CLASS MODIFIED] " + className);
+				//                      clsOutputFlag = false;
+				int sheetLastRowNum = outputSheet.getLastRowNum() + 2;
+				excelMakeFile.setCellValue(sheetName, "B" + sheetLastRowNum, sheetLastRowNum - 3);
+				excelMakeFile.setCellValue(sheetName, "C" + sheetLastRowNum, className);
+				if (classClassType.equals("annotation")) {
+					excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "アノテーション");
+				} else if (classClassType.equals("interface")) {
+					excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "インターフェース");
+				} else {
+					excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "クラス");
+				}
+				excelMakeFile.setCellValue(sheetName, "F" + sheetLastRowNum, "廃止予定");
+				//                  	boolean deprecatedAdded =   hasDeprecatedAdded(method.getCompatibilityChanges());
+				//                      if (deprecatedAdded) {
+				excelMakeFile.setCellValue(sheetName, "G" + sheetLastRowNum, "有");
+				//      				} else {
+				//      					excelMakeFile.setCellValue(sheetName, "G" + sheetLastRowNum, "無");
+				//      				}
+
+				setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
+			}
 
             /* =========================
              * 2. 字段
@@ -275,6 +314,31 @@ public class SpringApiCompareMultiFile {
 	                
 	                setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
                 }
+                
+                // 只检测是否是被弃用的构造函数，也就是是否有Deprecated注解
+                if (field.getChangeStatus() == JApiChangeStatus.UNCHANGED
+						&& hasDeprecatedAdded(field.getCompatibilityChanges())) {
+
+					// 签名不变的场合
+					fieldName = OutputExcelGenerator.field(field, JApiChangeStatus.UNCHANGED);
+
+					System.out.println("[FIELD MODIFIED] " + fieldName);
+					//                          clsOutputFlag = false;
+					int sheetLastRowNum = outputSheet.getLastRowNum() + 2;
+					excelMakeFile.setCellValue(sheetName, "B" + sheetLastRowNum, sheetLastRowNum - 3);
+					excelMakeFile.setCellValue(sheetName, "C" + sheetLastRowNum, className);
+					excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "フィールド");
+					excelMakeFile.setCellValue(sheetName, "E" + sheetLastRowNum, fieldName);
+					excelMakeFile.setCellValue(sheetName, "F" + sheetLastRowNum, "廃止予定");
+					//                      	boolean deprecatedAdded =   hasDeprecatedAdded(method.getCompatibilityChanges());
+					//                          if (deprecatedAdded) {
+					excelMakeFile.setCellValue(sheetName, "G" + sheetLastRowNum, "有");
+					//          				} else {
+					//          					excelMakeFile.setCellValue(sheetName, "G" + sheetLastRowNum, "無");
+					//          				}
+
+					setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
+				}
 
             }
 
@@ -285,6 +349,7 @@ public class SpringApiCompareMultiFile {
 //                String ctorName = className + buildConstructorSignature(constructor);
             	// 删除的场合
                 String ctorName = OutputExcelGenerator.constructor(constructor,JApiChangeStatus.REMOVED);
+
 //                String methodName = MethodSignatureBuilder025.buildFullMethodSignature(method);
 //                String ctorName = className.substring(className.lastIndexOf('.') + 1) + buildConstructorSignature(constructor);
 
@@ -324,6 +389,31 @@ public class SpringApiCompareMultiFile {
 	                
 	                setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
                 }
+                
+                // 只检测是否是被弃用的构造函数，也就是是否有Deprecated注解
+                if (constructor.getChangeStatus() == JApiChangeStatus.UNCHANGED
+						&& hasDeprecatedAdded(constructor.getCompatibilityChanges())) {
+
+					// 签名不变的场合
+					ctorName = OutputExcelGenerator.constructor(constructor, JApiChangeStatus.UNCHANGED);
+
+					System.out.println("[METHOD MODIFIED] " + constructor);
+					//                          clsOutputFlag = false;
+					int sheetLastRowNum = outputSheet.getLastRowNum() + 2;
+					excelMakeFile.setCellValue(sheetName, "B" + sheetLastRowNum, sheetLastRowNum - 3);
+					excelMakeFile.setCellValue(sheetName, "C" + sheetLastRowNum, className);
+					excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "コンストラクタ");
+					excelMakeFile.setCellValue(sheetName, "E" + sheetLastRowNum, ctorName);
+					excelMakeFile.setCellValue(sheetName, "F" + sheetLastRowNum, "廃止予定");
+					//                      	boolean deprecatedAdded =   hasDeprecatedAdded(method.getCompatibilityChanges());
+					//                          if (deprecatedAdded) {
+					excelMakeFile.setCellValue(sheetName, "G" + sheetLastRowNum, "有");
+					//          				} else {
+					//          					excelMakeFile.setCellValue(sheetName, "G" + sheetLastRowNum, "無");
+					//          				}
+
+					setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
+				}
 
             }
 
@@ -363,7 +453,7 @@ public class SpringApiCompareMultiFile {
 				}
 
                 if (method.getChangeStatus() == JApiChangeStatus.MODIFIED) {
-                    System.out.println("[METHOD REMOVED] " + methodName);
+                    System.out.println("[METHOD MODIFIED] " + methodName);
 //                    clsOutputFlag = false;
                     int sheetLastRowNum =  outputSheet.getLastRowNum()+2;
                     excelMakeFile.setCellValue(sheetName, "B" + sheetLastRowNum, sheetLastRowNum-3);
@@ -380,6 +470,42 @@ public class SpringApiCompareMultiFile {
 	                
 	                setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
                 }
+                
+
+            	
+                // 只检测是否是被弃用的方法，也就是是否有Deprecated注解
+                if (method.getChangeStatus() == JApiChangeStatus.UNCHANGED
+						&& hasDeprecatedAdded(method.getCompatibilityChanges())) {
+
+					// 签名不变的场合
+					methodName = OutputExcelGenerator.methodTBody(method, JApiChangeStatus.UNCHANGED);
+					//                    Strig methodName = MethodSignatureBuilder025.buildFullMethodSignature(method);
+					// 排除aspectjs的方法
+					if (methodName.contains("ajc$")) {
+						continue;
+					}
+
+					System.out.println("[METHOD MODIFIED] " + methodName);
+					//                          clsOutputFlag = false;
+					int sheetLastRowNum = outputSheet.getLastRowNum() + 2;
+					excelMakeFile.setCellValue(sheetName, "B" + sheetLastRowNum, sheetLastRowNum - 3);
+					excelMakeFile.setCellValue(sheetName, "C" + sheetLastRowNum, className);
+					excelMakeFile.setCellValue(sheetName, "D" + sheetLastRowNum, "メソッド");
+					excelMakeFile.setCellValue(sheetName, "E" + sheetLastRowNum, methodName);
+					excelMakeFile.setCellValue(sheetName, "F" + sheetLastRowNum, "廃止予定");
+					//                      	boolean deprecatedAdded =   hasDeprecatedAdded(method.getCompatibilityChanges());
+					//                          if (deprecatedAdded) {
+					excelMakeFile.setCellValue(sheetName, "G" + sheetLastRowNum, "有");
+					//          				} else {
+					//          					excelMakeFile.setCellValue(sheetName, "G" + sheetLastRowNum, "無");
+					//          				}
+
+					setBorderStyle(excelMakeFile, sheetName, sheetLastRowNum);
+
+				}
+                
+                
+                
                 // 只考虑新增方法
                 if (method.getChangeStatus() == JApiChangeStatus.NEW) {
                 	// //TODO 没有必须实现的新增方法
@@ -424,4 +550,73 @@ public class SpringApiCompareMultiFile {
             excelMakeFile.setBorder(sheetName, colLetter+sheetLastRowNum, BorderStyle.THIN);
         }
     }
+    
+    
+    // 提取 jar 名称前缀和版本号
+    public static String[] splitJarName(String jarName) {
+        int lastDash = jarName.lastIndexOf('-');
+        int dotJar = jarName.lastIndexOf(".jar");
+        if (lastDash >= 0 && dotJar > lastDash) {
+            String prefix = jarName.substring(0, lastDash);   // spring-boot
+            String version = jarName.substring(lastDash + 1, dotJar); // 1.1.9.RELEASE
+            return new String[]{prefix, version};
+        }
+        return new String[]{jarName, ""}; // 提取失败
+    }
+
+    /*
+     * String oldJar = "spring-boot-1.1.9.RELEASE.jar";
+     * String newJar = "spring-boot-1.7.18.jar";
+     * 输出 "spring-boot-1.7"
+     */
+    public static String getDiffJarName(String oldJar, String newJar) {
+        String[] oldSplit = splitJarName(oldJar);
+        String[] newSplit = splitJarName(newJar);
+
+        String oldVersion = oldSplit[1];
+        String newVersion = newSplit[1];
+        String prefix = newSplit[0];
+
+        String[] oldParts = oldVersion.split("\\.");
+        String[] newParts = newVersion.split("\\.");
+
+        int diffIndex = newParts.length;
+
+        for (int i = 0; i < newParts.length; i++) {
+            int newNum;
+            try {
+                newNum = Integer.parseInt(newParts[i].replaceAll("\\D.*", ""));
+            } catch (NumberFormatException e) {
+                newNum = -1;
+            }
+
+            int oldNum = -1;
+            if (i < oldParts.length) {
+                try {
+                    oldNum = Integer.parseInt(oldParts[i].replaceAll("\\D.*", ""));
+                } catch (NumberFormatException e) {
+                    oldNum = -1;
+                }
+            }
+
+            if (newNum != oldNum) {
+                diffIndex = i + 1;
+                break;
+            }
+        }
+
+        // 拼接前缀 + 版本号部分
+        StringBuilder result = new StringBuilder(prefix);
+        if (diffIndex > 0) {
+            result.append("-"); // 前缀和版本号之间用 -
+            for (int i = 0; i < diffIndex; i++) {
+                if (i > 0) result.append("."); // 版本号段之间用 .
+                result.append(newParts[i]);
+            }
+        }
+
+        return result.toString();
+    }
+
+    
 }
