@@ -5,8 +5,6 @@
     commons-io-2.21.0.jar
     commons-lang3-3.20.0.jar
     ecj-3.44.0.jar
-    error_prone_annotations-2.46.0.jar
-    error_prone_core-2.46.0.jar
     freemarker-2.3.34.jar
     gson-2.13.2.jar
     japicmp-0.25.1-jar-with-dependencies.jar
@@ -14,9 +12,6 @@
     javaparser-core-3.27.1.jar
     log4j-api-2.25.2.jar
     log4j-core-2.25.2.jar
-    org.eclipse.core.runtime_3.34.100.v20251111-1421.jar
-    org.eclipse.jdt.core-3.44.0.jar
-    org.eclipse.jdt.core_3.44.0.v20251118-1842.jar
     poi-5.5.0.jar
     poi-ooxml-5.5.0.jar
     poi-ooxml-full-5.5.0.jar
