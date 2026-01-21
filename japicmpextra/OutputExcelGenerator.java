@@ -150,7 +150,8 @@ public class OutputExcelGenerator extends OutputGenerator<HtmlOutput> {
 			return 
 					modifiers(method) +
 					returnType(method) +
-					" " + method.getName() + "(" + parametersContent + ")" + annotations(method.getAnnotations()) + 
+//					" " + method.getName() + "(" + parametersContent + ")" + annotations(method.getAnnotations()) + 
+					" " + method.getName() + "(" + parametersContent + ")"  + 
 					exceptions(method) 
 				;
 		case MODIFIED:
@@ -161,6 +162,13 @@ public class OutputExcelGenerator extends OutputGenerator<HtmlOutput> {
 					exceptions(method) 
 				;
 		case NEW:
+			return 
+					modifiers(method) +
+					returnType(method) +
+					" " + method.getName() + "(" + parameters(method) + ")" + annotations(method.getAnnotations()) + 
+					exceptions(method) 
+				;
+		case UNCHANGED:
 			return 
 					modifiers(method) +
 					returnType(method) +
@@ -221,7 +229,8 @@ public class OutputExcelGenerator extends OutputGenerator<HtmlOutput> {
 		case REMOVED:
 			return 
 					 modifiers(constructor) + 
-					 constructor.getName() + "(" + parameters(constructor) + ")" + annotations(constructor.getAnnotations()) + 
+//					 constructor.getName() + "(" + parameters(constructor) + ")" + annotations(constructor.getAnnotations()) + 
+					 constructor.getName() + "(" + parameters(constructor) + ")"  + 
 					 exceptions(constructor) 
 //					 compatibilityChanges(constructor, true) + "</td>\n" +
 					
@@ -231,6 +240,18 @@ public class OutputExcelGenerator extends OutputGenerator<HtmlOutput> {
 //					"</tr>\n")
 				;
 		case MODIFIED:
+			return 
+					 modifiers(constructor) + 
+					 constructor.getName() + "(" + parameters(constructor) + ")" + annotations(constructor.getAnnotations()) + 
+					 exceptions(constructor) 
+//					 compatibilityChanges(constructor, true) + "</td>\n" +
+					
+//					templateEngine.loadAndFillTemplate("/html/line-numbers.html", mapOf(
+//						"oldLineNumber", constructor.getOldLineNumberAsString(),
+//						"newLineNumber", constructor.getNewLineNumberAsString())) + "</td>\n" +
+//					"</tr>\n")
+				;
+		case UNCHANGED:
 			return 
 					 modifiers(constructor) + 
 					 constructor.getName() + "(" + parameters(constructor) + ")" + annotations(constructor.getAnnotations()) + 
@@ -310,6 +331,12 @@ public class OutputExcelGenerator extends OutputGenerator<HtmlOutput> {
 //					field.getName() + annotations(field.getAnnotations())
 					" " + field.getName() 
 					;
+		case UNCHANGED:
+			return  modifiers(field) +
+					type(field) +
+					" " + field.getName() + annotations(field.getAnnotations())
+//					" " + field.getName() 
+					;
 		}
 		return "";
 	}
@@ -336,9 +363,10 @@ public class OutputExcelGenerator extends OutputGenerator<HtmlOutput> {
 
 	private static String annotations(List<JApiAnnotation> annotations) {
 		if (!annotations.isEmpty()) {
-			return templateEngine.loadAndFillTemplate("/html/annotations.html", mapOf(
-				"tbody", annotationsTBody(annotations)
-			));
+//			return templateEngine.loadAndFillTemplate("/html/annotations.html", mapOf(
+//				"tbody", annotationsTBody(annotations)
+//			));
+			return "\nAnnotations:\n" + annotationsTBody(annotations);
 		}
 		return "";
 	}
@@ -346,11 +374,15 @@ public class OutputExcelGenerator extends OutputGenerator<HtmlOutput> {
 	private static String annotationsTBody(List<JApiAnnotation> annotations) {
 		return annotations.stream()
 			.sorted(Comparator.comparing(JApiAnnotation::getFullyQualifiedName))
-			.map(annotation -> "<tr>\n" +
-				"<td>" + outputChangeStatus(annotation) + "</td>\n" +
-				"<td>" + annotation.getFullyQualifiedName() + "</td>\n" +
-				"<td>" + elements(annotation) + "</td>\n" +
-				"</tr>\n")
+			.map(annotation -> 
+//				"<tr>\n" +
+//				"<td>" + outputChangeStatus(annotation) + "</td>\n" +
+//				"<td>" + annotation.getFullyQualifiedName() + "</td>\n" +
+				outputChangeStatus(annotation) +
+				annotation.getFullyQualifiedName()+ "\n"
+//				"<td>" + elements(annotation) + "</td>\n" +
+//				"</tr>\n"
+					)
 			.collect(Collectors.joining());
 	}
 
@@ -683,10 +715,10 @@ public class OutputExcelGenerator extends OutputGenerator<HtmlOutput> {
 	}
 
 	private static String outputChangeStatus(JApiHasChangeStatus jApiHasChangeStatus) {
-		return "<span class=\"" + jApiHasChangeStatus.getChangeStatus().name().toLowerCase() + "\">" +
+		return 
 			jApiHasChangeStatus.getChangeStatus().name() +
 			(jApiHasChangeStatus instanceof JApiCompatibility ? binaryAndSourceCompatibility((JApiCompatibility) jApiHasChangeStatus) : "") +
-			"</span>";
+			"：";
 	}
 
 	private static String binaryAndSourceCompatibility(JApiCompatibility jApiCompatibility) {
