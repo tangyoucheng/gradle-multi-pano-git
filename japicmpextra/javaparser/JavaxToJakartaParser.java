@@ -13,11 +13,7 @@ import java.nio.file.StandardCopyOption;
 public class JavaxToJakartaParser {
 
     public static void main(String[] args) throws Exception {
-//        File rootDir = new File("C:\\workspace_kyousera\\CM003\\src");
-//        File rootDir = new File("C:\\workspace_kyousera\\CM093\\src");
-//        File rootDir = new File("C:\\workspace_kyousera\\unicorn3.framework\\src");
-
-        File rootDir = new File("C:\\Kyocera_src\\UnicornSI\\WorkspaceVerup\\Unicorn3\\src");
+        File rootDir = new File("C:\\workspace_verup\\CM003\\src");
 
         if (!rootDir.exists() || !rootDir.isDirectory()) {
             System.out.println("目录不存在: " + rootDir.getAbsolutePath());
