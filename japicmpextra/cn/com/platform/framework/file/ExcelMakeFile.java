@@ -9,6 +9,9 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -23,6 +26,7 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.AreaReference;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
@@ -36,6 +40,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.NumberUtils;
+
 import cn.com.platform.framework.common.exception.SystemException;
 import cn.com.platform.framework.util.FwDateUtils;
 import cn.com.platform.framework.util.FwNumberUtils;
@@ -58,6 +63,14 @@ public class ExcelMakeFile extends ExcelFile {
 
   /** 数字文字列変換用。 */
   static final int CONVERT_CD_TO_NUMBER_STRING = 64;
+  
+  XSSFCellStyle borderStyle;
+  
+  // style缓存
+  private Map<String, CellStyle> styleCache = new HashMap<>();
+
+  // font缓存
+  private Map<String, XSSFFont> fontCache = new HashMap<>();
 
   /**
    * ExcelMakeFile を構築する。
@@ -1437,11 +1450,63 @@ public class ExcelMakeFile extends ExcelFile {
    * @return XSSFCellStyle スタイル情報
    */
   public XSSFCellStyle getCreateStyle() {
-
+	  if (borderStyle == null) {
+		  borderStyle = workbook.createCellStyle();
+	}
     // スタイルを返却する
-    return workbook.createCellStyle();
+    return borderStyle;
+  }
+  
+  // =============================
+  // 核心方法：复制style 20260310 add
+  // =============================
+  private CellStyle copyCellStyle(String sheetName, String range) {
+
+      CellStyle oldStyle = getCellStyle(sheetName, range);
+
+      XSSFCellStyle newStyle = workbook.createCellStyle();
+
+      if (oldStyle != null) {
+          newStyle.cloneStyleFrom(oldStyle);
+      }
+
+      String key = buildStyleKey(newStyle);
+
+      if (styleCache.containsKey(key)) {
+          return styleCache.get(key);
+      }
+
+      styleCache.put(key, newStyle);
+
+      return newStyle;
   }
 
+
+  // =============================
+  // style唯一key  20260310 add
+  // =============================
+  private String buildStyleKey(CellStyle style) {
+
+      StringBuilder sb = new StringBuilder();
+
+      sb.append(style.getAlignment()).append("|");
+      sb.append(style.getVerticalAlignment()).append("|");
+
+      sb.append(style.getBorderTop()).append("|");
+      sb.append(style.getBorderBottom()).append("|");
+      sb.append(style.getBorderLeft()).append("|");
+      sb.append(style.getBorderRight()).append("|");
+
+      sb.append(style.getFillForegroundColor()).append("|");
+      sb.append(style.getFillPattern()).append("|");
+
+      sb.append(style.getDataFormat()).append("|");
+
+      sb.append(style.getFontIndex());
+
+      return sb.toString();
+  }
+  
   /**
    * セルのスタイルを取得する。
    *
@@ -1889,7 +1954,7 @@ public class ExcelMakeFile extends ExcelFile {
    * @param borderStyle ボーダースタイル
    */
   public void setBorder(String strSheetName, String range, BorderStyle borderStyle) {
-    CellStyle cellStyle = getCreateStyle();
+    CellStyle cellStyle = copyCellStyle(strSheetName, range);
     cellStyle.cloneStyleFrom(getCellStyle(strSheetName,range));//复制单元格原来的样式之后在修改。因为CellStyle是共享的
     cellStyle.setBorderTop(borderStyle);
     cellStyle.setBorderBottom(borderStyle);
@@ -1906,7 +1971,7 @@ public class ExcelMakeFile extends ExcelFile {
    * @param borderStyle ボーダースタイル
    */
   public void setBorderTop(String strSheetName, String range, BorderStyle borderStyle) {
-    CellStyle cellStyle = getCreateStyle();
+    CellStyle cellStyle = copyCellStyle(strSheetName, range);
     cellStyle.setBorderTop(borderStyle);
     setCellStyleProperty(strSheetName, getRowIndex(range), getColIndex(range), cellStyle);
   }
@@ -1919,7 +1984,7 @@ public class ExcelMakeFile extends ExcelFile {
    * @param borderStyle ボーダースタイル
    */
   public void setBorderBottom(String strSheetName, String range, BorderStyle borderStyle) {
-    CellStyle cellStyle = getCreateStyle();
+    CellStyle cellStyle = copyCellStyle(strSheetName, range);
     cellStyle.setBorderBottom(borderStyle);
     setCellStyleProperty(strSheetName, getRowIndex(range), getColIndex(range), cellStyle);
   }
@@ -1932,7 +1997,7 @@ public class ExcelMakeFile extends ExcelFile {
    * @param borderStyle ボーダースタイル
    */
   public void setBorderLeft(String strSheetName, String range, BorderStyle borderStyle) {
-    CellStyle cellStyle = getCreateStyle();
+    CellStyle cellStyle = copyCellStyle(strSheetName, range);
     cellStyle.setBorderLeft(borderStyle);
     setCellStyleProperty(strSheetName, getRowIndex(range), getColIndex(range), cellStyle);
   }
@@ -1945,7 +2010,7 @@ public class ExcelMakeFile extends ExcelFile {
    * @param borderStyle ボーダースタイル
    */
   public void setBorderRight(String strSheetName, String range, BorderStyle borderStyle) {
-    CellStyle cellStyle = getCreateStyle();
+    CellStyle cellStyle = copyCellStyle(strSheetName, range);
     cellStyle.setBorderRight(borderStyle);
     setCellStyleProperty(strSheetName, getRowIndex(range), getColIndex(range), cellStyle);
   }
@@ -1965,7 +2030,7 @@ public class ExcelMakeFile extends ExcelFile {
    * @param color カラーインデックス
    */
   public void setFillForegroundColor(String strSheetName, String range, short color) {
-    CellStyle cellStyle = getCreateStyle();
+    CellStyle cellStyle = copyCellStyle(strSheetName, range);
     cellStyle.setFillForegroundColor(color);
     setCellStyleProperty(strSheetName, getRowIndex(range), getColIndex(range), cellStyle);
   }
@@ -1985,7 +2050,7 @@ public class ExcelMakeFile extends ExcelFile {
    * @param style 網掛けスタイル
    */
   public void setFillPattern(String strSheetName, String range, FillPatternType style) {
-    CellStyle cellStyle = getCreateStyle();
+    CellStyle cellStyle = copyCellStyle(strSheetName, range);
     cellStyle.setFillPattern(style);
     setCellStyleProperty(strSheetName, getRowIndex(range), getColIndex(range), cellStyle);
   }
@@ -1998,8 +2063,23 @@ public class ExcelMakeFile extends ExcelFile {
    * @param alignmentStyle 水平方向の位置スタイル
    */
   public void setAlignment(String strSheetName, String range, HorizontalAlignment alignmentStyle) {
-    CellStyle cellStyle = getCreateStyle();
+    CellStyle cellStyle = copyCellStyle(strSheetName, range);
+    cellStyle.cloneStyleFrom(getCellStyle(strSheetName,range));//复制单元格原来的样式之后在修改。因为CellStyle是共享的
     cellStyle.setAlignment(alignmentStyle);
+    setCellStyleProperty(strSheetName, getRowIndex(range), getColIndex(range), cellStyle);
+  }
+
+  /**
+   * セル内の縦方向の位置を設定する。
+   *
+   * @param strSheetName シート名
+   * @param range A1形式のセル位置
+   * @param alignmentStyle 水平方向の位置スタイル
+   */
+  public void setVerticalAlignment(String strSheetName, String range, VerticalAlignment alignmentStyle) {
+    CellStyle cellStyle = copyCellStyle(strSheetName, range);
+    cellStyle.cloneStyleFrom(getCellStyle(strSheetName,range));//复制单元格原来的样式之后在修改。因为CellStyle是共享的
+    cellStyle.setVerticalAlignment(alignmentStyle);
     setCellStyleProperty(strSheetName, getRowIndex(range), getColIndex(range), cellStyle);
   }
 
@@ -2059,15 +2139,57 @@ public class ExcelMakeFile extends ExcelFile {
     XSSFRow currentRow = currentSheet.getRow(row);
     XSSFCell currentCell = currentRow.getCell(col);
 
-    XSSFFont origFont = getFont(currentCell.getCellStyle().getFontIndexAsInt());
-    XSSFFont font = workbook.createFont();
+    CellStyle oldStyle = currentCell.getCellStyle();
 
-    BeanUtils.copyProperties(origFont, font);
-    font.setColor(fontColor);
+    XSSFCellStyle newStyle = workbook.createCellStyle();
+    newStyle.cloneStyleFrom(oldStyle);
+    
+    XSSFFont origFont = getFont(oldStyle.getFontIndex());
+    
+    String fontKey = origFont.getFontName() +
+            "|" + origFont.getFontHeight() +
+            "|" + origFont.getBold() +
+            "|" + fontColor;
 
-    CellStyle cellStyle = getCreateStyle();
-    cellStyle.setFont(font);
-    currentCell.setCellStyle(cellStyle);
+    XSSFFont font;
+
+    if (fontCache.containsKey(fontKey)) {
+        font = fontCache.get(fontKey);
+    } else {
+
+        font = workbook.createFont();
+
+        try {
+            BeanUtils.copyProperties(font, origFont);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        font.setColor(fontColor);
+
+        fontCache.put(fontKey, font);
+    }
+
+    newStyle.setFont(font);
+
+    String key = buildStyleKey(newStyle);
+
+    if (styleCache.containsKey(key)) {
+        newStyle = (XSSFCellStyle) styleCache.get(key);
+    } else {
+        styleCache.put(key, newStyle);
+    }
+
+    currentCell.setCellStyle(newStyle);
+    
+//    XSSFFont font = workbook.createFont();
+//
+//    BeanUtils.copyProperties(origFont, font);
+//    font.setColor(fontColor);
+//
+//    CellStyle cellStyle = getCreateStyle();
+//    cellStyle.setFont(font);
+//    currentCell.setCellStyle(cellStyle);
 
   }
 
